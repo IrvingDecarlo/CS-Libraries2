@@ -81,16 +81,13 @@ v2.1, 21-05-07
 v2.0.1, 21-05-05
 * ObjectExtensions
 *+ Added IsPendingUpdate, which returns true if there is one IUpdateable object with Updated=false in a collection.</PackageReleaseNotes>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Objects Library</Title>
     <Product>$(Title)</Product>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Projects\Cephei\Libraries2\Objects\Cephei Object Library.xml</DocumentationFile>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile></DocumentationFile>
@@ -98,8 +95,8 @@ v2.0.1, 21-05-05
 
   <ItemGroup>
     <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 

@@ -5,14 +5,13 @@
     <Nullable>enable</Nullable>
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Stat Objects Library</Title>
     <Version>2.2.0.1</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v2.2.0.1, 24-11-23
+    <PackageReleaseNotes>v2.2.0.1, 23-11-24
 * Stat
 ** Fixed a bug where the stat would not signal to be updated when its base value was changed.
 
@@ -36,16 +35,16 @@ v2.0, 23-02-23
 
   <ItemGroup>
     <ProjectReference Include="..\Objects.Effects\Cephei.Objects.Effects.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
     <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
     <ProjectReference Include="..\Valuables\Cephei.Valuables.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 

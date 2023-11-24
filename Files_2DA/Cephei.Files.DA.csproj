@@ -37,7 +37,6 @@ v1, 22-06-27
 Initial Release
 		</PackageReleaseNotes>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<BaseOutputPath>..\_bin\</BaseOutputPath>
 		<Nullable>enable</Nullable>
 		<Title>Cephei 2DA Files Library</Title>
 	</PropertyGroup>
@@ -48,12 +47,12 @@ Initial Release
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Files\Cephei.Files.csproj">
-	    <Private>False</Private>
-	    <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+	    <Private>True</Private>
+	    <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
 	  </ProjectReference>
 	  <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
-	    <Private>False</Private>
-	    <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+	    <Private>True</Private>
+	    <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
 	  </ProjectReference>
 	</ItemGroup>
 

@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Managed Objects Library</Title>
     <Version>3.0</Version>
@@ -18,12 +17,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Objects\Cephei.Objects.csproj">
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 

@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <RootNamespace>$(AssemblyName)</RootNamespace>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Assembly Library</Title>
     <Version>1.0</Version>

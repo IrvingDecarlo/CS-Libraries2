@@ -15,7 +15,6 @@ v1, 21-11-09
 ++ Added TextWriter.WriteLine(IEnumerable&lt;...&gt;).</PackageReleaseNotes>
     <PackageId>$(AssemblyName)</PackageId>
     <Version>1.1</Version>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Streams Library</Title>
@@ -27,8 +26,8 @@ v1, 21-11-09
 
   <ItemGroup>
     <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 

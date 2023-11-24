@@ -4,7 +4,6 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "."))</RootNamespace>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Libraries for SQLite</Title>
     <Authors>Irving Decarlo</Authors>

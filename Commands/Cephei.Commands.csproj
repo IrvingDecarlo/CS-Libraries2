@@ -27,21 +27,16 @@ v3.0.0.1, 23-02-09
 
 v3, 23-02-07
 Initial build.</PackageReleaseNotes>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Objects\Cephei.Objects.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
     <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 

@@ -16,16 +16,13 @@ v1.1, 23-02-04
 
 v1.0.1, 22-01-04
 + Added IReadOnlyValuable.</PackageReleaseNotes>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Valuables Library</Title>
     <Product>$(Title)</Product>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Documents\Projects\Cephei\Libraries2\Valuables\Cephei Valuables Library.xml</DocumentationFile>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile></DocumentationFile>

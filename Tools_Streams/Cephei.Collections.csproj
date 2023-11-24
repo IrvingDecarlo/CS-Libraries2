@@ -104,16 +104,12 @@ v1, 21-06-03
 *+ Added IDictionary&lt;&gt;.ToProtected and List&lt;&gt;.ToProtected.</PackageReleaseNotes>
     <Product>$(Title)</Product>
     <Version>1.7.1</Version>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Collections Library</Title>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Documents\Projects\Cephei\Libraries2\Tools_Streams\Cephei Stream Tools Library.xml</DocumentationFile>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile></DocumentationFile>

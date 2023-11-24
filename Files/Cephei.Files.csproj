@@ -57,7 +57,6 @@ v1, 21-11-09
 ++ Added FileVersionInfo, Assembly, AssemblyName and Version.ToDynamicString();
 ++ Added Assembly.GetFileVersionInfo.</PackageReleaseNotes>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <Title>Cephei Files Library</Title>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -68,8 +67,8 @@ v1, 21-11-09
 
   <ItemGroup>
     <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 

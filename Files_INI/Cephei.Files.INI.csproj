@@ -40,7 +40,6 @@ v1.1, 22-06-16
 v1, 21-11-09
 + Added the Ini class.</PackageReleaseNotes>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
     <Nullable>enable</Nullable>
     <Title>Cephei Ini Files Library</Title>
   </PropertyGroup>
@@ -51,12 +50,12 @@ v1, 21-11-09
 
   <ItemGroup>
     <ProjectReference Include="..\Files\Cephei.Files.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
     <ProjectReference Include="..\Tools_Stream\Cephei.Streams.csproj">
-      <Private>False</Private>
-      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 

@@ -19,8 +19,6 @@ v1, 21-11-09
 * Imported SIPrefixes from Cephei.Tools.</PackageReleaseNotes>
     <PackageId>cnu</PackageId>
     <Version>1.2</Version>
-    <BaseOutputPath>..\_bin\</BaseOutputPath>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Numericals Library</Title>
