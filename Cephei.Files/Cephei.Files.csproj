@@ -66,10 +66,7 @@ v1, 21-11-09
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
   </ItemGroup>
 
 </Project>

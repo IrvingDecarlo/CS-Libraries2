@@ -12,9 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cephei.Commands.Consoles\Cephei.Commands.Consoles.csproj" />
     <ProjectReference Include="..\Cephei.Networking\Cephei.Networking.csproj" />
-    <ProjectReference Include="..\Commands.Consoles\Cephei.Commands.Consoles.csproj" />
-    <ProjectReference Include="..\Objects.Effects.Stats\Cephei.Objects.Effects.Stats.csproj" />
+    <ProjectReference Include="..\Cephei.Objects.Effects.Stats\Cephei.Objects.Effects.Stats.csproj" />
   </ItemGroup>
 
 </Project>

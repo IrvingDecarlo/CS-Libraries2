@@ -94,10 +94,7 @@ v2.0.1, 21-05-05
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
   </ItemGroup>
 
 </Project>

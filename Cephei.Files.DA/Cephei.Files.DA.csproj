@@ -46,14 +46,8 @@ Initial Release
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Files\Cephei.Files.csproj">
-	    <Private>True</Private>
-	    <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-	  </ProjectReference>
-	  <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
-	    <Private>True</Private>
-	    <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-	  </ProjectReference>
+	  <ProjectReference Include="..\Cephei.Files\Cephei.Files.csproj" />
+	  <ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
 	</ItemGroup>
 
 </Project>

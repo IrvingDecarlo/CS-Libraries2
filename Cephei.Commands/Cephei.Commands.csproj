@@ -30,14 +30,8 @@ Initial build.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Objects\Cephei.Objects.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
+    <ProjectReference Include="..\Cephei.Objects\Cephei.Objects.csproj" />
   </ItemGroup>
 
 </Project>

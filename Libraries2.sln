@@ -3,37 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects", "Objects\Cephei.Objects.csproj", "{C9517C4A-258A-40CE-BA1C-27EDC04ED78D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects", "Cephei.Objects\Cephei.Objects.csproj", "{C9517C4A-258A-40CE-BA1C-27EDC04ED78D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{6C8A82FC-1266-42EF-AA8B-4AEF0021A336}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Testing", "Testing\Cephei.Testing.csproj", "{72A4AF37-2500-4D56-8B51-B8CECBB91784}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Testing", "Cephei.Testing\Cephei.Testing.csproj", "{72A4AF37-2500-4D56-8B51-B8CECBB91784}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8D3EDE9B-A269-4839-A427-15FCE90A782A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Tools", "Tools\Cephei.Tools.csproj", "{2D0E3EB4-E838-4479-BD06-2F1DE5F3CDCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Tools", "Cephei.Tools\Cephei.Tools.csproj", "{2D0E3EB4-E838-4479-BD06-2F1DE5F3CDCC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Collections", "Tools_Streams\Cephei.Collections.csproj", "{983738CD-DDC5-463C-AE15-15D6292C3EFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Collections", "Cephei.Collections\Cephei.Collections.csproj", "{983738CD-DDC5-463C-AE15-15D6292C3EFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Valuables", "Valuables\Cephei.Valuables.csproj", "{40647E28-1F88-4CB0-ACEC-15490F462023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Valuables", "Cephei.Valuables\Cephei.Valuables.csproj", "{40647E28-1F88-4CB0-ACEC-15490F462023}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Valuables", "Valuables", "{873944DF-FB69-4356-B7F3-73C84C79EADB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB8A4456-F467-498F-A0B3-D7453C012042}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Benchmarking", "Benchmarking\Cephei.Benchmarking.csproj", "{77C8364B-E0F4-4EBF-8160-14036B5751F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Benchmarking", "Cephei.Benchmarking\Cephei.Benchmarking.csproj", "{77C8364B-E0F4-4EBF-8160-14036B5751F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Benchmarking", "Benchmarking", "{4A0CC1C4-AE77-4C7B-85A4-4E32880C916C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{43DD8C98-73B6-46B7-ACB5-63F649516580}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Files", "Files\Cephei.Files.csproj", "{DF8F6770-80E1-42D0-B7FB-62EEA9BAC9CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Files", "Cephei.Files\Cephei.Files.csproj", "{DF8F6770-80E1-42D0-B7FB-62EEA9BAC9CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Files.INI", "Files_INI\Cephei.Files.INI.csproj", "{DCB36343-6251-475A-A737-1F14836C1B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Files.INI", "Cephei.Files.INI\Cephei.Files.INI.csproj", "{DCB36343-6251-475A-A737-1F14836C1B9E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Streams", "Tools_Stream\Cephei.Streams.csproj", "{17F82A59-8221-4F18-A9E8-315EA8D915FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Streams", "Cephei.Streams\Cephei.Streams.csproj", "{17F82A59-8221-4F18-A9E8-315EA8D915FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Numericals", "Tools_Numericals\Cephei.Numericals.csproj", "{E7089B71-F753-49EC-849F-EE255232D2AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Numericals", "Cephei.Numericals\Cephei.Numericals.csproj", "{E7089B71-F753-49EC-849F-EE255232D2AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collections", "Collections", "{3807C354-E779-49D5-811A-F17F821E5A2A}"
 EndProject
@@ -41,23 +41,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Numericals", "Numericals", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Streams", "Streams", "{BDDA8A6C-530F-43FE-9BC6-EF28C3B3351E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Files.DA", "Files_2DA\Cephei.Files.DA.csproj", "{EF6FAC34-592D-45F1-A5B2-F343F01E230A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Files.DA", "Cephei.Files.DA\Cephei.Files.DA.csproj", "{EF6FAC34-592D-45F1-A5B2-F343F01E230A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commands", "Commands", "{FB23448D-5F0A-488F-8344-EFFAC27987EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Commands", "Commands\Cephei.Commands.csproj", "{A70C8536-B803-43F1-8B73-2BFA193A3C58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Commands", "Cephei.Commands\Cephei.Commands.csproj", "{A70C8536-B803-43F1-8B73-2BFA193A3C58}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Commands.Consoles", "Commands.Consoles\Cephei.Commands.Consoles.csproj", "{66656997-5F50-490E-9C8B-838E0B5A9B3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Commands.Consoles", "Cephei.Commands.Consoles\Cephei.Commands.Consoles.csproj", "{66656997-5F50-490E-9C8B-838E0B5A9B3F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assembly", "Assembly", "{12D64DBE-7311-441F-A68F-D2D8D00A0875}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Assemblies", "Assembly\Cephei.Assemblies.csproj", "{ADB30A7A-B21E-4BDB-A1C3-B1E1101CD8E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Assemblies", "Cephei.Assemblies\Cephei.Assemblies.csproj", "{ADB30A7A-B21E-4BDB-A1C3-B1E1101CD8E3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Managed", "Objects.Managed\Cephei.Objects.Managed.csproj", "{87A88234-2A16-4CAA-8EBD-39C63B3197E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Managed", "Cephei.Objects.Managed\Cephei.Objects.Managed.csproj", "{87A88234-2A16-4CAA-8EBD-39C63B3197E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Effects", "Objects.Effects\Cephei.Objects.Effects.csproj", "{1AF58395-DF62-40D9-ABAC-4AA8FF7C794D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Effects", "Cephei.Objects.Effects\Cephei.Objects.Effects.csproj", "{1AF58395-DF62-40D9-ABAC-4AA8FF7C794D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Effects.Stats", "Objects.Effects.Stats\Cephei.Objects.Effects.Stats.csproj", "{CDF27E30-3157-4B74-8CCB-9733385E0F95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Effects.Stats", "Cephei.Objects.Effects.Stats\Cephei.Objects.Effects.Stats.csproj", "{CDF27E30-3157-4B74-8CCB-9733385E0F95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Collections.SQLite", "Cephei.Collections.SQLite\Cephei.Collections.SQLite.csproj", "{FFD9D744-FD68-4FD9-9212-4E61782CCDE6}"
 EndProject

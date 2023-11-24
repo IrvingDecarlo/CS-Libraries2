@@ -28,15 +28,10 @@ v1.0.0.1, 21-11-09
     <DocumentationFile>E:\Documents\Projects\Cephei\Libraries2\Benchmarking\Cephei Benchmarking Library.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'" />
 
   <ItemGroup>
-    <ProjectReference Include="..\Tools_Numericals\Cephei.Numericals.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\Cephei.Numericals\Cephei.Numericals.csproj" />
   </ItemGroup>
 
 </Project>

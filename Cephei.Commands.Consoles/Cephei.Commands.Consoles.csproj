@@ -32,14 +32,8 @@ v3, 23-02-07
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Assembly\Cephei.Assemblies.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
-    <ProjectReference Include="..\Commands\Cephei.Commands.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\Cephei.Assemblies\Cephei.Assemblies.csproj" />
+    <ProjectReference Include="..\Cephei.Commands\Cephei.Commands.csproj" />
   </ItemGroup>
 
 </Project>

@@ -25,7 +25,7 @@ Initial release.</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj" />
+    <ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
   </ItemGroup>
 
 </Project>

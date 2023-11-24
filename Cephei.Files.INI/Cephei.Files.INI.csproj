@@ -49,14 +49,8 @@ v1, 21-11-09
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Files\Cephei.Files.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
-    <ProjectReference Include="..\Tools_Stream\Cephei.Streams.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\Cephei.Files\Cephei.Files.csproj" />
+    <ProjectReference Include="..\Cephei.Streams\Cephei.Streams.csproj" />
   </ItemGroup>
 
 </Project>

@@ -29,10 +29,7 @@ v1.0, 23-02-23
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Objects\Cephei.Objects.csproj">
-      <Private>True</Private>
-      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\Cephei.Objects\Cephei.Objects.csproj" />
   </ItemGroup>
 
 </Project>
