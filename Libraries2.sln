@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Valuables", "Cephei.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Valuables", "Valuables", "{873944DF-FB69-4356-B7F3-73C84C79EADB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB8A4456-F467-498F-A0B3-D7453C012042}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Benchmarking", "Cephei.Benchmarking\Cephei.Benchmarking.csproj", "{77C8364B-E0F4-4EBF-8160-14036B5751F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Benchmarking", "Benchmarking", "{4A0CC1C4-AE77-4C7B-85A4-4E32880C916C}"
@@ -67,7 +65,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Networking", "Cephei
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{1EC95C36-F3BD-46F5-AE6C-A5B85B949038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephei.Logging", "Cephei.Logging\Cephei.Logging.csproj", "{2AD31E2E-6BE3-470B-852F-B84E9BEBBC3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Logging", "Cephei.Logging\Cephei.Logging.csproj", "{2AD31E2E-6BE3-470B-852F-B84E9BEBBC3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Collections.DBDictionaries", "Cephei.Collections.DBDictionaries\Cephei.Collections.DBDictionaries.csproj", "{4B397E50-8840-43DA-B911-8575B1C5482D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Collections.DBDictionaries.SQLite", "Cephei.Collections.DBDictionaries.SQLite\Cephei.Collections.DBDictionaries.SQLite.csproj", "{D0EB7970-DCBB-4A6F-ACF5-87D55875B154}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,6 +157,14 @@ Global
 		{2AD31E2E-6BE3-470B-852F-B84E9BEBBC3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AD31E2E-6BE3-470B-852F-B84E9BEBBC3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AD31E2E-6BE3-470B-852F-B84E9BEBBC3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B397E50-8840-43DA-B911-8575B1C5482D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B397E50-8840-43DA-B911-8575B1C5482D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B397E50-8840-43DA-B911-8575B1C5482D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B397E50-8840-43DA-B911-8575B1C5482D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0EB7970-DCBB-4A6F-ACF5-87D55875B154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0EB7970-DCBB-4A6F-ACF5-87D55875B154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0EB7970-DCBB-4A6F-ACF5-87D55875B154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0EB7970-DCBB-4A6F-ACF5-87D55875B154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,6 +189,8 @@ Global
 		{FFD9D744-FD68-4FD9-9212-4E61782CCDE6} = {3807C354-E779-49D5-811A-F17F821E5A2A}
 		{D80BAF40-F240-4BE1-8D72-50B633BE6CF6} = {C2E2C345-92B8-4370-BF1B-F22E0E0B864C}
 		{2AD31E2E-6BE3-470B-852F-B84E9BEBBC3E} = {1EC95C36-F3BD-46F5-AE6C-A5B85B949038}
+		{4B397E50-8840-43DA-B911-8575B1C5482D} = {3807C354-E779-49D5-811A-F17F821E5A2A}
+		{D0EB7970-DCBB-4A6F-ACF5-87D55875B154} = {3807C354-E779-49D5-811A-F17F821E5A2A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F170FEA4-E2EA-4F50-988F-7DCE1305A618}
