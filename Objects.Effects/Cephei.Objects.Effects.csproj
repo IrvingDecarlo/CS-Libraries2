@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>Cephei Effect Objects Library</Title>
+    <Version>1.2</Version>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>$(Title)</Product>
+    <PackageReleaseNotes>v1.2, 23-11-23
+* Effect
+** Replaced the method OnDeleted with an OnDeleted event.
+* EffectObject
+** No longer overrides BypassDeletable;
+** Replaced OnDeleted override with an action call from OnDeleted event.
+
+v1.1, 23-07-22
+* EffectObject
+*- No longer inherits from PersistentObject but abstracly implements IReadOnlyIdentifiable, IModifiable and IDeletable.
+* Effect
+** Are now abstract due to EffectObject changes.
+
+v1.0, 23-02-23
+* Initial build.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Objects\Cephei.Objects.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

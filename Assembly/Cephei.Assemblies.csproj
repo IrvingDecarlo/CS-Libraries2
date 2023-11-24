@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>Cephei Assembly Library</Title>
+    <Version>1.0</Version>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>$(Title)</Product>
+    <PackageReleaseNotes>v1, 23-02-16
+* Initial build.</PackageReleaseNotes>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,964 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ccl</name>
+    </assembly>
+    <members>
+        <member name="T:Cephei.Collections.AbstractMultiEnumerator`1">
+            <summary>
+            AbstractMultiEnumerators offer a base for the MultiEnumerator classes.
+            </summary>
+            <typeparam name="T">The IEnumerable object.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.AbstractMultiEnumerator`1.#ctor(System.Collections.Generic.IEnumerator{`0})">
+            <summary>
+            Creates a new MultiEnumerator from a collection of enumerables.
+            </summary>
+            <param name="enums">Collection of enumerables to draw the enumerators from.</param>
+        </member>
+        <member name="P:Cephei.Collections.AbstractMultiEnumerator`1.Current">
+            <summary>
+            The MultiEnumerator's current object.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.AbstractMultiEnumerator`1.MoveNext">
+            <summary>
+            Iterates to the next object.
+            </summary>
+            <returns>True if the iteration was successful, false if all enumerators have reached their end.</returns>
+        </member>
+        <member name="M:Cephei.Collections.AbstractMultiEnumerator`1.Reset">
+            <summary>
+            Resets itself and all enumerators under this MultiEnumerator.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.AbstractMultiEnumerator`1.CurrentEnumerator">
+            <summary>
+            Reference to the enumerator currently being iterated through.
+            </summary>
+        </member>
+        <member name="F:Cephei.Collections.AbstractMultiEnumerator`1.Enumerators">
+            <summary>
+            The enumerator handling all enumerators under it.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.CastEnumerable`1">
+            <summary>
+            CastEnumerables are enumerables that cast an underlying enumerable to the target type, using a CastEnumerator.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerable`1.#ctor(System.Collections.IEnumerable)">
+            <summary>
+            Creates a CastEnumerable wrapped around an existing Enumerable.
+            </summary>
+            <param name="enumerable">The enumerable to be wrapped around.</param>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerable`1.GetEnumerator">
+            <summary>
+            Gets the CastEnumerable's enumerator.
+            </summary>
+            <returns>The enumerator.</returns>
+        </member>
+        <member name="T:Cephei.Collections.CastEnumerator`1">
+            <summary>
+            CastEnumerators envelop a non-generic Enumerator under it, returning its Current objects as the desired type.
+            Note that the enumerator's original object must be convertible to the target type, or InvalidCastExceptions will be thrown.
+            </summary>
+            <typeparam name="T">The enumerator's target type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`1.#ctor(System.Collections.IEnumerator)">
+            <summary>
+            Creates a CastEnumerator, enveloping it over another enumerator.
+            </summary>
+            <param name="enum">The enumerator to be enveloped.</param>
+        </member>
+        <member name="P:Cephei.Collections.CastEnumerator`1.Current">
+            <summary>
+            Returns the enumerator's object cast as the target type. Note that InvalidCastExceptions will be thrown if the enumerator's original type is not
+            convertible to the target type.
+            </summary>
+            <exception cref="T:System.InvalidCastException"></exception>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`1.MoveNext">
+            <summary>
+            Moves the enumerator to the next object.
+            </summary>
+            <returns>True if the enumerator moved, false if it reached its end.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`1.Reset">
+            <summary>
+            Resets the enumerator.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`1.Dispose">
+            <summary>
+            Attempts to dispose the enumerator by converting it to the target type. If the conversion is not successful, nothing is done.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.CastEnumerator`2">
+            <summary>
+            CastEnumerators with two type params are built specifically for dictionaries.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`2.#ctor(System.Collections.IDictionaryEnumerator)">
+            <summary>
+            Creates a new CastEnumerator around a DictionaryEnumerator.
+            </summary>
+            <param name="enum">The enumerator to wrap around.</param>
+        </member>
+        <member name="P:Cephei.Collections.CastEnumerator`2.Current">
+            <summary>
+            Gets a new KeyValuePair representing the current entry, cast to their appropriate types. May throw InvalidCastException if either the Key or Value
+            fail to cast.
+            Note that a new struct is created every time this is called.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`2.MoveNext">
+            <summary>
+            Moves the enumerator to the next entry.
+            </summary>
+            <returns>True if the enumerator was moved, false if it has reached its end.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`2.Reset">
+            <summary>
+            Resets the enumerator back to its original position.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.CastEnumerator`2.Dispose">
+            <summary>
+            Attempts to dispose the object by converting the base enumerator to target type.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.CollectionExtensions">
+            <summary>
+            A class containing extensions for collections.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.ToProtected``3(``2)">
+            <summary>
+            Returns a Protected version of the dictionary.
+            </summary>
+            <typeparam name="T">The dictionary's key type.</typeparam>
+            <typeparam name="U">The dictionary's value type.</typeparam>
+            <typeparam name="V">The dictionary type.</typeparam>
+            <param name="dict">The collection to base off of.</param>
+            <returns>A protected version of the collection.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.ToProtected``2(``1)">
+            <summary>
+            Returns a Protected version of the list.
+            </summary>
+            <typeparam name="T">The list's object type.</typeparam>
+            <typeparam name="U">The list type.</typeparam>
+            <param name="list">The collection to base off of.</param>
+            <returns>A protected version of the collection.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.ToReadOnly``2(System.Collections.Generic.IDictionary{``0,``1})">
+            <summary>
+            Returns a Read-only version of a dictionary.
+            </summary>
+            <typeparam name="T">The dictionary's key type.</typeparam>
+            <typeparam name="U">The dictionary's value type.</typeparam>
+            <param name="dict">The dictionary to be returned as read-only.</param>
+            <returns>The input dictionary with a read-only wrapper.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.ToDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+            <summary>
+            Converts an enumerable composed of KeyValuePairs into a Dictionary.
+            </summary>
+            <typeparam name="T">The dictionary's key type.</typeparam>
+            <typeparam name="U">The dictionary's value type.</typeparam>
+            <param name="collection">Collection of KeyValuePairs.</param>
+            <returns>A dictionary with the incoming KeyValuePairs.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetDictionaryValues``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.IDictionary{``0,``1}})">
+            <summary>
+            Gets all the value collections from a collection of dictionaries.
+            </summary>
+            <typeparam name="T">The dictionaries' key type.</typeparam>
+            <typeparam name="U">The dictionaries' value type.</typeparam>
+            <param name="dicts">Collection of dictionaries.</param>
+            <returns>A list containing the dictionaries' values.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetDictionaryValues(System.Collections.Generic.IEnumerable{System.Collections.IDictionary})">
+            <summary>
+            Gets all the value collections from a collection of dictionaries.
+            </summary>
+            <param name="dicts">Collection of dictionaries.</param>
+            <returns>A list containing the dictionaries' values.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetDictionaryKeys``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.IDictionary{``0,``1}})">
+            <summary>
+            Gets all the key collections from a collection of dictionaries.
+            </summary>
+            <typeparam name="T">The dictionaries' key type.</typeparam>
+            <typeparam name="U">The dictionaries' value type.</typeparam>
+            <param name="dicts">Collection of dictionaries.</param>
+            <returns>A list containing the dictionaries' keys.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetDictionaryKeys(System.Collections.Generic.IEnumerable{System.Collections.IDictionary})">
+            <summary>
+            Gets all the key collections from a collection of dictionaries.
+            </summary>
+            <param name="dicts">Collection of dictionaries.</param>
+            <returns>A list containing the dictionaries' keys.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetEnumerators``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
+            <summary>
+            Gets all enumerators from a collection of enumerables.
+            </summary>
+            <typeparam name="T">The collection object type.</typeparam>
+            <param name="cols">Collection of enumerables.</param>
+            <returns>The enumerators drawn from the collection of enumerables.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetEnumerators(System.Collections.Generic.IEnumerable{System.Collections.IEnumerable})">
+            <summary>
+            Gets all non-generic enumerators from a collection of enumerables.
+            </summary>
+            <param name="cols">Collection of enumerables.</param>
+            <returns>The non-generic enumeratos drawn from the collection of enumerables.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddOrGet``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``1})">
+            <summary>
+            Gets or adds a value from a dictionary. If the key doesn't exist, then it is added using a delegate function that returns the new object.
+            </summary>
+            <typeparam name="T">The key type.</typeparam>
+            <typeparam name="U">The value type.</typeparam>
+            <param name="dict">The dictionary.</param>
+            <param name="key">The key to use.</param>
+            <param name="newobj">Function to perform to create the new object.</param>
+            <returns>The object (if it already exists in the dictionary) or the new object.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddOrGet(System.Collections.IDictionary,System.Object,System.Func{System.Object})">
+            <summary>
+            Gets or adds a value from a dictionary. If the key doesn't exist, then it is added using a delegate function that returns the new object.
+            </summary>
+            <param name="dict">The dictionary.</param>
+            <param name="key">The key to use.</param>
+            <param name="newobj">Function to perform to create the new object.</param>
+            <returns>The object (if it already exists in the dictionary) or the new object.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.Join(System.Collections.IEnumerable)">
+            <summary>
+            Combines many objects' strings into a single string, each between quotes ("") and with commas separating them.
+            </summary>
+            <param name="en">Collection of objects to combine.</param>
+            <returns>A string combining all objects.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.Join(System.Collections.IEnumerable,System.String,System.String,System.String)">
+            <summary>
+            Combines many objects' strings to a single string using additional strings during, prior and post.
+            </summary>
+            <param name="en">Collection of objects to combine.</param>
+            <param name="pre">String to be added prior to the collection.</param>
+            <param name="mid">String to be added between two objects.</param>
+            <param name="post">String to be added after the collection.</param>
+            <returns>A string combining all objects</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetFirstKey``1(System.Collections.Generic.IReadOnlyDictionary{System.Int32,``0},System.Int32,System.Int32)">
+            <summary>
+            Gets the lowest available key int in a dictionary, starting from index.
+            </summary>
+            <typeparam name="T">The dictionary's value type.</typeparam>
+            <param name="dict">The dictionary.</param>
+            <param name="index">Starting index.</param>
+            <param name="inc">By how much the index will be incremented each time it fails to find an empty key.</param>
+            <returns>The first available int key.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.GetFirstKey``1(System.Collections.Generic.IReadOnlyDictionary{System.String,``0},System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the lowest available string key in a dictionary. The formula is str + index.ToString, as index will incease by inc whenever a key is found.
+            </summary>
+            <typeparam name="T">The dictionary's value type.</typeparam>
+            <param name="dict">The dictionary.</param>
+            <param name="str">Base string value.</param>
+            <param name="index">Starting index.</param>
+            <param name="inc">By how much the index will be incremented each time it fails to find an empty key.</param>
+            <returns>The first available string key.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.TotalCount(System.Collections.Generic.IEnumerable{System.Collections.ICollection})">
+            <summary>
+            Gets the sum of all Counts in an enumerable of collections.
+            </summary>
+            <param name="en">Enumerable of collections.</param>
+            <returns>Total count.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.IndexOf``1(``0[],``0)">
+            <summary>
+            Returns an index of a specific object within an array.
+            </summary>
+            <typeparam name="T">The array type.</typeparam>
+            <param name="array">The array.</param>
+            <param name="obj">The object that is being looked for.</param>
+            <returns>The object's index. Returns -1 if it is not found.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.TryGetValue``2(System.Collections.Generic.IReadOnlyDictionary{``0,``1},``1@,``1,``0[])">
+            <summary>
+            Tries to get a value from a dictionary using multiple keys.
+            </summary>
+            <typeparam name="T">The key type.</typeparam>
+            <typeparam name="U">The value type.</typeparam>
+            <param name="dict">The dictionary.</param>
+            <param name="value">Value that was collected (default if it does not exist in the dictionary).</param>
+            <param name="def">Default value to return if the key does not exist.</param>
+            <param name="keys">Keys to use.</param>
+            <returns>True if the object was found, false otherwise.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.TryGetValue``2(System.Collections.Generic.IReadOnlyDictionary{``0,``1},``0,``1)">
+            <summary>
+            Tries to get a value from a dictionary. If it doesn't exist, returns a default value instead.
+            </summary>
+            <typeparam name="T">The dictionary's key type.</typeparam>
+            <typeparam name="U">The dictionary's value type.</typeparam>
+            <param name="dict">The dictionary.</param>
+            <param name="key">The key.</param>
+            <param name="def">Default value to return if the key is not found.</param>
+            <returns>The object by key or the default object.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.TryAdd``1(System.Collections.Generic.ICollection{``0},``0)">
+            <summary>
+            Adds an object to the collection if it doesn't already exist in it.
+            </summary>
+            <typeparam name="T">The collection's object type..</typeparam>
+            <param name="col">The collection.</param>
+            <param name="obj">The object to add.</param>
+            <returns>True if the object was added, false otherwise.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.TryAdd``1(System.Collections.Generic.IList{``0},``0,System.Boolean)">
+            <summary>
+            Adds an object to a list if it doesn't already exist in it.
+            </summary>
+            <typeparam name="T">The collection's object type..</typeparam>
+            <param name="list">The list.</param>
+            <param name="obj">The object to add.</param>
+            <param name="movetotop">If the object already exists in the list, should it be moved to the top?</param>
+            <returns>True if the object was added, false otherwise.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.TryAdd``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Adds an object to a dictionary if the key does not already exist.
+            </summary>
+            <typeparam name="T">The key type.</typeparam>
+            <typeparam name="U">The value type.</typeparam>
+            <param name="dict">Dictionary to add the values to.</param>
+            <param name="key">The key to add.</param>
+            <param name="value">The value to add.</param>
+            <returns>True if the value was added, false otherwise.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.Contains``1(``0[],``0)">
+            <summary>
+            Checks if an array contains an specific object.
+            </summary>
+            <typeparam name="T">The array type.</typeparam>
+            <param name="array">The array.</param>
+            <param name="obj">The object that is being looked for in the array.</param>
+            <returns>True if the object is present within the array.</returns>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.ResetAll``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Resets all enumerators in a collection.
+            </summary>
+            <typeparam name="T">The IEnumerator object type.</typeparam>
+            <param name="enum">Collection of enumerators.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.DisposeAll``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Disposes all disposable objects in a collection.
+            </summary>
+            <typeparam name="T">The IDisposable object type.</typeparam>
+            <param name="disps">Collection of disposables.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.CopyTo``1(System.Collections.Generic.IEnumerator{``0},``0[],System.Int32)">
+            <summary>
+            Copies the content enumerated by an enumerator to an array.
+            </summary>
+            <typeparam name="T">The collection's object type.</typeparam>
+            <param name="en">The enumerator.</param>
+            <param name="array">Target array.</param>
+            <param name="index">Starting index.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddAll``2(System.Collections.Generic.IDictionary{``0,``1},System.Func{``1,``0},System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            Adds a collection of objects to a dictionary, using a delegate Func to determine the key that will be used.
+            </summary>
+            <typeparam name="T">Key type.</typeparam>
+            <typeparam name="U">Object type.</typeparam>
+            <param name="dict">The dictionary to receive the objects.</param>
+            <param name="keyfunc">Function to determine the key.</param>
+            <param name="en">Collection of objects to add to the dictionary.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddAll``2(System.Collections.Generic.IDictionary{``0,``1},System.Func{``1,``0},System.Collections.Generic.IEnumerable{``1},System.Collections.Generic.List{System.ArgumentException}@)">
+            <summary>
+            Adds a collection of objects to a dictionary, using a delegate Func to determine the key that will be used. Outs a list of ArgumentExceptions in case
+            of duplicate items.
+            </summary>
+            <typeparam name="T">Key type.</typeparam>
+            <typeparam name="U">Object type.</typeparam>
+            <param name="dict">The dictionary to receive the objects.</param>
+            <param name="keyfunc">Function to determine the key.</param>
+            <param name="en">Collection of objects to add to the dictionary.</param>
+            <param name="excs">List of ArgumentExceptions.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddAll``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Adds a collection of objects to another collection.
+            </summary>
+            <typeparam name="T">The collection type.</typeparam>
+            <param name="col">The collection to receive the objects.</param>
+            <param name="en">The collection of objects to add.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.Add``1(System.Collections.Generic.IDictionary{System.Type,``0},``0)">
+            <summary>
+            Adds an object to any dictionary with Type as key, assigning the object's type as its key.
+            </summary>
+            <typeparam name="T">The object type.</typeparam>
+            <param name="dict">The dictionary.</param>
+            <param name="obj">Object to add.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddOrSet``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Adds or sets a key's value in a dictionary.
+            </summary>
+            <typeparam name="T">The dictionary's key type.</typeparam>
+            <typeparam name="U">The dictionary's value type.</typeparam>
+            <param name="dict">The dictionary.</param>
+            <param name="key">The key to use.</param>
+            <param name="value">The value to set the key to.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddOrSet(System.Collections.IDictionary,System.Object,System.Object)">
+            <summary>
+            Adds or sets a key's value in a dictionary.
+            </summary>
+            <param name="dict">The dictionary.</param>
+            <param name="key">The key to use.</param>
+            <param name="value">The value to set the key to.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddOrSet``1(System.Collections.Generic.IList{``0},System.Int32,``0,``0)">
+            <summary>
+            Adds or sets a value to a list, adding filler objects if the list's count is insufficient for the index.
+            </summary>
+            <typeparam name="T">The list's object type.</typeparam>
+            <param name="list">List to receive the new object.</param>
+            <param name="index">Index to set or add the object to.</param>
+            <param name="value">Value to add to the list.</param>
+            <param name="filler">Filler objects to insert prior to the index.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.AddOrSet(System.Collections.IList,System.Int32,System.Object,System.Object)">
+            <summary>
+            Adds or sets a value to a list, adding filler objects if the list's count is insufficient for the index.
+            </summary>
+            <param name="list">List to receive the new object.</param>
+            <param name="index">Index to set or add the object to.</param>
+            <param name="value">Value to add to the list.</param>
+            <param name="filler">Filler objects to insert prior to the index.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.Fill``1(System.Collections.Generic.IList{``0},``0,System.Int32)">
+            <summary>
+            Fills the list with a value to all its indexes.
+            </summary>
+            <typeparam name="T">The list object type.</typeparam>
+            <param name="list">The list to be filled.</param>
+            <param name="value">Value to fill it with.</param>
+            <param name="i">Starting index.</param>
+        </member>
+        <member name="M:Cephei.Collections.CollectionExtensions.Fill(System.Collections.IList,System.Object,System.Int32)">
+            <summary>
+            Fills the list with a value to all its indexes.
+            </summary>
+            <param name="list">The list to be filled.</param>
+            <param name="value">Value to fill it with.</param>
+            <param name="i">Starting index.</param>
+        </member>
+        <member name="T:Cephei.Collections.EmptyDictionaryEnumerator">
+            <summary>
+            EmptyDictionaryEnumerators are useful to behave as an IDictionaryEnumerator but without any content, returning null, empty and false in every method.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.EmptyDictionaryEnumerator.Entry">
+            <summary>
+            Returns an empty default DictionaryEntry.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.EmptyDictionaryEnumerator.Key">
+            <summary>
+            Returns a null key.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.EmptyDictionaryEnumerator.Value">
+            <summary>
+            Returns a null value.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.EmptyDictionaryEnumerator.MoveNext">
+            <summary>
+            This Enumerator cannot move forward, so it always returns false.
+            </summary>
+            <returns>False by default.</returns>
+        </member>
+        <member name="M:Cephei.Collections.EmptyDictionaryEnumerator.Reset">
+            <summary>
+            Reset does nothing, since there is nothing to reset.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.EmptyDictionaryEnumerator.Current">
+            <summary>
+            Returns a null object by default.
+            </summary>
+        </member>
+        <member name="F:Cephei.Collections.EmptyDictionaryEnumerator.Default">
+            <summary>
+            Reference to an EnmptyDictionaryEnumerator to prevent the instantiation of additional objects.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.EmptyEnumerator`1">
+            <summary>
+            The generic EmptyEnumerator class behaves similarly to its non-generic counterpart, albeit implementing IEnumerator{T}.
+            </summary>
+            <typeparam name="T">The enumerator's object type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.EmptyEnumerator`1.#ctor(`0)">
+            <summary>
+            Creates a new EmptyEnumerator, assigning a default object for it to return.
+            </summary>
+            <param name="def">The default object to return.</param>
+        </member>
+        <member name="P:Cephei.Collections.EmptyEnumerator`1.Current">
+            <summary>
+            The current object in this enumerator. It always returns the default object.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.EmptyEnumerator`1.MoveNext">
+            <summary>
+            MoveNext does nothing, returning false by default.
+            </summary>
+            <returns>False.</returns>
+        </member>
+        <member name="M:Cephei.Collections.EmptyEnumerator`1.Reset">
+            <summary>
+            Reset does nothing.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.EmptyEnumerator`1.Dispose">
+            <summary>
+            "Disposes" this enumerator.
+            </summary>
+        </member>
+        <member name="F:Cephei.Collections.EmptyEnumerator`1.Default">
+            <summary>
+            The default object that was assigned to this enumerator.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.EmptyEnumerator">
+            <summary>
+            The EmptyEnumerator class implements IEnumerator albeit without any function, meaning that the Current object will always be null and MoveNext will never be possible.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.EmptyEnumerator.MoveNext">
+            <summary>
+            MoveNext does nothing, returning false by default.
+            </summary>
+            <returns>False.</returns>
+        </member>
+        <member name="M:Cephei.Collections.EmptyEnumerator.Reset">
+            <summary>
+            Reset does nothing.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.EmptyEnumerator.Current">
+            <summary>
+            Returns a null object by default.
+            </summary>
+        </member>
+        <member name="F:Cephei.Collections.EmptyEnumerator.Default">
+            <summary>
+            Reference to an EmptyEnumerator. It can be used to avoid the creation of additional EmptyEnumerators.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.ISimpleDictionary`2">
+            <summary>
+            A ISimpleDictionary is a dictionary where the item changes are dictated by the value object type only.
+            </summary>
+            <typeparam name="T">Key object type.</typeparam>
+            <typeparam name="U">Value object type.</typeparam>
+        </member>
+        <member name="T:Cephei.Collections.ISimpleReadonlyDictionary`2">
+            <summary>
+            The ISimpleReadonlyDictionary combines the functionalities of a readonly dictionary and a read only collection, where the value object
+            type dictates most of the dictionary's functionalities.
+            </summary>
+            <typeparam name="T">Key type used for the dictionary.</typeparam>
+            <typeparam name="U">Value type used for the dictionary.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ISimpleReadonlyDictionary`2.Contains(`1)">
+            <summary>
+            Does this dictionary contain the defined object?
+            </summary>
+            <param name="obj">Object to check if exists within the dictionary.</param>
+            <returns>True if it is present in the dictionary.</returns>
+        </member>
+        <member name="M:Cephei.Collections.ISimpleReadonlyDictionary`2.CopyTo(`1[],System.Int32)">
+            <summary>
+            Copies the dictionary's objects to an array.
+            </summary>
+            <param name="array">Array to copy the objects to.</param>
+            <param name="arrayIndex">Starting index.</param>
+        </member>
+        <member name="P:Cephei.Collections.ISimpleReadonlyDictionary`2.IsReadOnly">
+            <summary>
+            Is this dictionary read only?
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.MonoEnumerator`1">
+            <summary>
+            MonoEnumerators are enumerators but with a single object as reference. Their Current object will always be the one reference when it was instantiated
+            and they can never MoveNext, unless manually changed.
+            </summary>
+            <typeparam name="T">The object type that is being enumerated.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.MonoEnumerator`1.#ctor(`0)">
+            <summary>
+            Creates a new MonoEnumerator for an object.
+            </summary>
+            <param name="obj">Object to be enumerated.</param>
+        </member>
+        <member name="P:Cephei.Collections.MonoEnumerator`1.Current">
+            <summary>
+            Reference to the enumerator's sole object.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.MonoEnumerator`1.MoveNext">
+            <summary>
+            MonoEnumerators can only move next once. After that, false by default, since there is just a single object referenced.
+            </summary>
+            <returns>True for the first time, false afterwards.</returns>
+        </member>
+        <member name="M:Cephei.Collections.MonoEnumerator`1.Reset">
+            <summary>
+            Reset simply resets MoveNext's rule.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.MonoEnumerator`1.Dispose">
+            <summary>
+            Dispose does nothing.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.MultiEnumerator`1">
+            <summary>
+            MultiEnumerators are enumerators capable of enumerating over multiple other enumerators seamlessly.
+            </summary>
+            <typeparam name="T">The collection object type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.MultiEnumerator`1.#ctor(System.Collections.Generic.IEnumerable{`0}[])">
+            <summary>
+            Creates a new MultiEnumerator from a collection of enumerables.
+            </summary>
+            <param name="enums">Collection of enumerables to draw the enumerators from.</param>
+        </member>
+        <member name="P:Cephei.Collections.MultiEnumerator`1.Current">
+            <summary>
+            Gets the enumerator's current object.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.MultiEnumerator`1.Dispose">
+            <summary>
+            Disposes this MultiEnumerator and the enumerators under it.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.MultiEnumerator">
+            <summary>
+            A non-generic MultiEnumerator behaves similarly to its non-generic counterpart, albeit built for non-generic IEnumerators.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.MultiEnumerator.#ctor(System.Collections.IEnumerable[])">
+            <summary>
+            Creates a MultiEnumerator based off of multible enumerable collections.
+            </summary>
+            <param name="enums">Collections to be enumerated by this enumerator.</param>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedCollection`1">
+            <summary>
+            ProtectedCollections without the second type parameter are identical to their twin, but default their collection type to ICollection{T}.
+            </summary>
+            <typeparam name="T">The collection's object type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedCollection`1.#ctor(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Creates a ProtectedCollection around an already existing collection.
+            </summary>
+            <param name="col">Collection to envelop around.</param>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedCollection`2">
+            <summary>
+            ProtectedCollections are collections that only their Getters are publicly accessible. The raw access to the collection is protected.
+            </summary>
+            <typeparam name="T">The collection's object type.</typeparam>
+            <typeparam name="U">The collection's type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedCollection`2.#ctor(`1)">
+            <summary>
+            Creates a ProtectedCollection around an already existing collection.
+            </summary>
+            <param name="col">Collection to envelop around.</param>
+        </member>
+        <member name="P:Cephei.Collections.ProtectedCollection`2.Count">
+            <summary>
+            Number of objects under this collection.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedCollection`2.GetEnumerator">
+            <summary>
+            Gets this collection's enumerator.
+            </summary>
+            <returns>The collection's enumerator.</returns>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedCollection`2.Contains(`0)">
+            <summary>
+            Checks if the collection contains an item.
+            </summary>
+            <param name="item">The item to look for.</param>
+            <returns>True if the item is present in the collection.</returns>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedCollection`2.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies the collection's data to an array.
+            </summary>
+            <param name="array">Array to receive the collection's data.</param>
+            <param name="index">Starting index.</param>
+        </member>
+        <member name="F:Cephei.Collections.ProtectedCollection`2.Collection">
+            <summary>
+            Direct reference to this object's collection.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedDictionary`2">
+            <summary>
+            ProtectedDictionaries without the third type parameter are identical to their twin, but default their collection type to IDictionary{T, U}.
+            </summary>
+            <typeparam name="T">The dictionary's key type.</typeparam>
+            <typeparam name="U">The dictionary's value type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedDictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            Creates a ProtectedDictionary around an already existing collection.
+            </summary>
+            <param name="col">Collection to envelop around.</param>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedDictionary`2.#ctor">
+            <summary>
+            Creates a ProtectedDictionary with a basic Dictionary of the defined type.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedDictionary`3">
+            <summary>
+            ProtectedDictionaries behave similarly to regular dictionaries, but their setters are protected.
+            </summary>
+            <typeparam name="T">The dictionary's key type.</typeparam>
+            <typeparam name="U">The dictionary's value type.</typeparam>
+            <typeparam name="V">The dictionary's type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedDictionary`3.#ctor(`2)">
+            <summary>
+            Creates a ProtectedDictionary around an already existing dictionary.
+            </summary>
+            <param name="dict">The dictionary to be enveloped.</param>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedDictionary`3.ContainsKey(`0)">
+            <summary>
+            Does this dictionary contain a specific key?
+            </summary>
+            <param name="key">The key to look for.</param>
+            <returns>True if it contains such key.</returns>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedDictionary`3.TryGetValue(`0,`1@)">
+            <summary>
+            Tries to get a value out of this dictionary.
+            </summary>
+            <param name="key">The key to look for.</param>
+            <param name="value">The value (if found).</param>
+            <returns>True if the key was found.</returns>
+        </member>
+        <member name="P:Cephei.Collections.ProtectedDictionary`3.Item(`0)">
+            <summary>
+            Tries to get a value through a key.
+            </summary>
+            <param name="key">The key to look for.</param>
+            <returns>The key's value.</returns>
+        </member>
+        <member name="P:Cephei.Collections.ProtectedDictionary`3.Keys">
+            <summary>
+            The collection of this dictionary's keys.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.ProtectedDictionary`3.Values">
+            <summary>
+            The collection of this dictionary's values.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedList`1">
+            <summary>
+            ProtectedLists without the second type parameter are identical to their twin, but default their collection type to IList{T}.
+            </summary>
+            <typeparam name="T">The collection's object type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedList`1.#ctor(System.Collections.Generic.IList{`0})">
+            <summary>
+            Creates a ProtectedList around an already existing collection.
+            </summary>
+            <param name="col">Collection to envelop around.</param>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedList`1.#ctor">
+            <summary>
+            Creates a ProtectedList with a basic List.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedList`2">
+            <summary>
+            ProtectedLists behave similarly to regular lists but their setters are protected.
+            </summary>
+            <typeparam name="T">The list's object type.</typeparam>
+            <typeparam name="U">The list type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedList`2.#ctor(`1)">
+            <summary>
+            Creates a ProtectedList around an already existing list.
+            </summary>
+            <param name="list">The list to envelop.</param>
+        </member>
+        <member name="P:Cephei.Collections.ProtectedList`2.Item(System.Int32)">
+            <summary>
+            Gets an object at a specific index.
+            </summary>
+            <param name="index">The index to look for.</param>
+            <returns>The object in that specific index.</returns>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedList`2.IndexOf(`0)">
+            <summary>
+            Gets the index of a value in the list.
+            </summary>
+            <param name="value">The value to look for.</param>
+            <returns>The value's index (-1 if not found).</returns>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedSimpleDictionary`2">
+            <summary>
+            Protected Simple Dictionaries with two generic types default their collection type to IDictionary{T, U}.
+            </summary>
+            <typeparam name="T">Key type.</typeparam>
+            <typeparam name="U">Value type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedSimpleDictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            Creates a protected simple dictionary over an already existing dictionary.
+            </summary>
+            <param name="dict">Dictionary to add it under.</param>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedSimpleDictionary`2.#ctor">
+            <summary>
+            Creates a protected simple dictionary with the basic dictionary object.
+            </summary>
+        </member>
+        <member name="P:Cephei.Collections.ProtectedSimpleDictionary`2.IsReadOnly">
+            <summary>
+            Is this dictionary read-only? Returns true by default.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.ProtectedSimpleDictionary`3">
+            <summary>
+            Protected simple dictionaries implement the Simple readonly version of dictionaries.
+            </summary>
+            <typeparam name="T">Key type.</typeparam>
+            <typeparam name="U">Value type.</typeparam>
+            <typeparam name="V">Collection type for the dictionary.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedSimpleDictionary`3.#ctor(`2)">
+            <summary>
+            Creates a protected simple dictionary over an already existing dictionary.
+            </summary>
+            <param name="dict">Dictionary to add it under.</param>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedSimpleDictionary`3.Contains(`1)">
+            <summary>
+            Checks if the dictionary contains an object.
+            </summary>
+            <param name="value">Object to check if it contains.</param>
+            <returns>True if the object is present in the dictionary.</returns>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedSimpleDictionary`3.CopyTo(`1[],System.Int32)">
+            <summary>
+            Copies the dictionary's objects to an array.
+            </summary>
+            <param name="array">Array to copy the objects to.</param>
+            <param name="arrayIndex">Starting index.</param>
+        </member>
+        <member name="P:Cephei.Collections.ProtectedSimpleDictionary`3.IsReadOnly">
+            <summary>
+            Is this dictionary read-only?
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.ProtectedSimpleDictionary`3.GetKey(`1)">
+            <summary>
+            Method that will generate the value's key.
+            </summary>
+            <param name="value">Value to get the key from.</param>
+            <returns>The value's key.</returns>
+        </member>
+        <member name="T:Cephei.Collections.SimpleDictionary`2">
+            <summary>
+            The SimpleDictionary as a Dictionary where objects can be added directly only as their key is generated by the dictionary itself.
+            </summary>
+            <typeparam name="T">Key type.</typeparam>
+            <typeparam name="U">Value type.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.SimpleDictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            Wraps this simple dictionary over an already existing dictionary.
+            </summary>
+            <param name="dict">Dictionary to wrap it over.</param>
+        </member>
+        <member name="M:Cephei.Collections.SimpleDictionary`2.#ctor">
+            <summary>
+            Creates a SimpleDictionary over the simple dictionary.
+            </summary>
+        </member>
+        <member name="T:Cephei.Collections.SimpleDictionary`3">
+            <summary>
+            The SimpleDictionary as a Dictionary where objects can be added directly only as their key is generated by the dictionary itself.
+            </summary>
+            <typeparam name="T">Key type.</typeparam>
+            <typeparam name="U">Value type.</typeparam>
+            <typeparam name="V">Collection type for the dictionary.</typeparam>
+        </member>
+        <member name="M:Cephei.Collections.SimpleDictionary`3.#ctor(`2)">
+            <summary>
+            Wraps the SimpleDictionary over an already existing dictionary.
+            </summary>
+            <param name="dict">Dictionary to wrap it over.</param>
+        </member>
+        <member name="M:Cephei.Collections.SimpleDictionary`3.Add(`1)">
+            <summary>
+            Adds the object to the simple dictionary.
+            </summary>
+            <param name="value">Object to add to the dictionary.</param>
+        </member>
+        <member name="M:Cephei.Collections.SimpleDictionary`3.Clear">
+            <summary>
+            Clears the dictionary.
+            </summary>
+        </member>
+        <member name="M:Cephei.Collections.SimpleDictionary`3.Remove(`1)">
+            <summary>
+            Removes an object from the dictionary.
+            </summary>
+            <param name="value">Object to remove.</param>
+            <returns>True if the object was located and removed.</returns>
+        </member>
+        <member name="P:Cephei.Collections.SimpleDictionary`3.IsReadOnly">
+            <summary>
+            Is this dictionary read-only? Returns false by default.
+            </summary>
+        </member>
+    </members>
+</doc>

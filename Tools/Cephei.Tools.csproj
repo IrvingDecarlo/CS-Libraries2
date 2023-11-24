@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Version>2.3.1.0</Version>
+    <PackageReleaseNotes>v2.3.1, 23-07-22
+* Extensions
+*+ Added CreateDirectoryForPath() and GetAndCreateDirectoryPath().
+
+v2.3, 23-02-05
+* Target runtime changed to .Net Standard 2.1;
+* Extensions
+*+ Added T.SafeEquals(U);
+*+ Added string.SafeCopyTo(int, char[], int, int);
+*+ Added StringBuilder.TryAppend(char).
+* Tools
+*+ Added Max(params T) and Min(params T);
+** Corrected Backspace(int, bool)'s summary.
+
+v2.2.1, 22-06-27
+* Extensions
+** string.ToBool(ICollection{string}, ICollection{string}, bool?) changed to T.ToBool(ICollection{T}, ICollection{T}, bool?).
+*+ Added double.GetNumberOfDigits() and int.GetNumberOfDigits().
+
+v2.2, 21-11-09
+* Extensions
+*+ Added KeyValuePair&lt;&gt; and DictionaryEntry.ToPairString;
+*+ Added short.Clamp and byte.Clamp.
+- SIPrefixes
+-- Branched off to Numericals.
+
+v2.1, 21-06-03
+* All classes and extension methods related to collections branched off to Collections.
+
+v2.0.3, 21-05-25
+* Extensions
+*+ Added ToReadOnly(IDictionary), GetDictionaryValues and GetDictionaryKeys.
+
+v2.0.2, 21-05-24
++ Added the MultiEnumerator, CastEnumerator and AbstractMultiEnumerator classes.
+* Extensions
+*+ Added GetEnumerators, DisposeAll(IDisposables) and ResetAll(IEnumerators).
+* EmptyEnumerator
+*+ Added a generic EmptyEnumerator, implementing IEnumerator&lt;T&gt;.
+
+v2.0.1 21-05-15
+* Extensions
+*+Added IEnumerator&lt;T&gt;.CopyTo(T[], index);
++ MonoEnumerator.</PackageReleaseNotes>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+    <Title>Cephei Tools Library</Title>
+    <Product>$(Title)</Product>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\Documents\Projects\Cephei\Libraries2\Tools\Cephei Tools Library.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+</Project>

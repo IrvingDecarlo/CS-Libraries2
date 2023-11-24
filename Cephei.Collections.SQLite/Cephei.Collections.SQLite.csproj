@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "."))</RootNamespace>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>Cephei Libraries for SQLite</Title>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>$(Title)</Product>
+    <PackageReleaseNotes>v1.0.2, 23-08-16
++ Added SQLiteTableCollection, SQLiteReadOnlyTableCollection, SQLiteConnectedReadOnlyTableCollection and SQLiteTableCollectionDelegate.
+
+v1.0.1, 23-08-08
++ Added SQLiteEnumeratorDelegate.
+
+v1, 23-08-01
+Initial release.</PackageReleaseNotes>
+    <Version>1.0.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard" Version="1.0.118" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj" />
+  </ItemGroup>
+
+</Project>

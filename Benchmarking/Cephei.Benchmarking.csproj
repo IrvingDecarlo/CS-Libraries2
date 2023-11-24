@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>Cephei Benchmarking Library</Product>
+    <PackageReleaseNotes>v1.2, 23-02-09
+* Adapted to C# 8.0 nullability rules.
+* Benchmarker
+** ToString() methods that use IFormatProvider no longer have optional parameters;
+** ToString(string, string, IFormatProvider, string) now has a new IFormatParameter for dates.
+
+v1.1, 23-02-04
+* Framework changed to .Net Standard 2.1.
+
+v1.0.0.1, 21-11-09
+* Updated to Cephei.Tools changes.</PackageReleaseNotes>
+    <Version>1.2</Version>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title></Title>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\Documents\Projects\Cephei\Libraries2\Benchmarking\Cephei Benchmarking Library.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tools_Numericals\Cephei.Numericals.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<Authors>Irving Decarlo</Authors>
+		<Company>Cephei</Company>
+		<Version>1.1.0.1</Version>
+		<Product>Cephei 2DA Files Library</Product>
+		<PackageReleaseNotes>v1.1.0.1, 23-02-09
+* Adapted to C# 8.0 nullable rules.
+
+v1.1, 23-02-04
+* Framework changed to .Net Standard 2.1.
+
+v1.0.2, 22-06-30
++ DaFastWriter
+++ A writer that saves the 2da's data quickly, without formatting.
+
+v1.0.1, 22-06-29
+* DaColumns
+*+ Added GetDictionary() and GetDictionary(IDictionary{string, int}).
+* DaRow
+*+ Added CopyFrom(string, DaRow, IReadOnlyDictionary{string, int}, IReadOnlyDictionary{string, int}) and CopyFrom(DaRow, IReadOnlyDictionary{string, int}, IReadOnlyDictionary{string, int});
+** Now implements IList{string} (size modification methods such as Add, Remove, etc will throw NotSupportedExceptions).
+* DaFile
+*+ Added CopyFrom(DaFile, IReadOnlyDictionary{string, int}, IReadOnlyDictionary{string, int}) and CopyFrom(DaFile).
+
+v1.0.0.1, 22-06-28
+* DaWriter
+** Made minor improvements/adjustments to the writing procedure.
+* DaReader
+** Minor improvements to performance.
+
+v1, 22-06-27
+Initial Release
+		</PackageReleaseNotes>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<BaseOutputPath>..\_bin\</BaseOutputPath>
+		<Nullable>enable</Nullable>
+		<Title>Cephei 2DA Files Library</Title>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Files\Cephei.Files.csproj">
+	    <Private>False</Private>
+	    <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+	  </ProjectReference>
+	  <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
+	    <Private>False</Private>
+	    <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+	  </ProjectReference>
+	</ItemGroup>
+
+</Project>

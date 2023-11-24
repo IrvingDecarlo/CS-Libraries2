@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>Cephei Testing Environment</Product>
+    <Version>1.0.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cephei.Networking\Cephei.Networking.csproj" />
+    <ProjectReference Include="..\Commands.Consoles\Cephei.Commands.Consoles.csproj" />
+    <ProjectReference Include="..\Objects.Effects.Stats\Cephei.Objects.Effects.Stats.csproj" />
+  </ItemGroup>
+
+</Project>

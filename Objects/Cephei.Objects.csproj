@@ -1,0 +1,106 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Version>2.7.3.1</Version>
+    <PackageReleaseNotes>v2.7.3.1, 23-10-31
+* HeartbeatObject
+** Fixed a bug where the object could heartbeat more than once simultaneously.
+
+v2.7.3, 23-10-11
++ Added IHeartbeatable, HeartbeatDelegate and HeartbeatObject.
+
+v2.7.2, 23-05-11
+* ObjectExtensions
+*+ Added IEnumerable{IReadOnlyIdentifiable{T}}.IndexOf(T) and .Contains(T).
+
+v2.7.1, 23-02-21
+* ObjectExtensions
+** All extension methods that don't set the IIdentifiable{T}'s value were changed to use IReadOnlyIdentifiable{T} instead.
+
+v2.7, 23-02-18
+* PersistentObject
+** DeleteCheck renamed to BypassDeletable which will return true if the Deletable flag is to be ignored.
+
+v2.6, 23-02-16
+* ICloneable
+** Renamed from ICopiable to ICloneable;
+** Parameterless ICloneable now inherits from non-generic ICloneable;
+*+ Added ICloneable variants with up to 3 parameters.
+* ObjectExtensions
+** Renamed ICloneable.CopyAll() to ICloneable.CloneAll();
+*+ Added ICloneable.CopyAll variants with up to 3 parameters.
+
+v2.5, 23-02-09
+* Adapted to C# 8.0 nullability rules;
+* Now has Cephei.Tools as dependency;
++ Added SystemNotModifiableException.
+* ObjectExtensions
+*- Removed all IDictionary.AddObject variants.
+* PersistentObject
+** No longer accepts the optional ID parameter for its constructor.
+
+v2.4, 23-02-07
++ Added IReadOnlyPositionable{T}, IMovablePositionable{T} and IPositionable{T};
++ Added IReadOnlyIdentifiable{T}.
+* IIdentifiable{T}
+** Now inherits from IReadOnlyIdentifiable{T};
+** IEquatable inheritance moved to IReadOnlyIdentifiable{T}.
+
+v2.3, 23-02-04
++ Added the IDescribable and IExecutable interfaces;
+* Framework changed to .Net Standard 2.1.
+
+v2.2.2, 21-06-08
++ Added the ICopiable interface;
+* ObjectExtensions
+*+ Added IEnumerable{ICopiable}.CopyAll and IReadOnlyDictionary{IIdentifiable}.Contains.
+
+v2.2.1, 21-06-05
+* ObjectExtensions
+*+ Added IDeletable.TryDelete.
+
+v2.2, 21-05-22
+* IIdentifiable
+** No longer requires an IComparable implementation. All objects that implement IIdentifiable were updated accordingly.
+
+v2.1.1, 21-05-15
+* PersistentObject
+** Equality checks between PersistentObjects and IIdentifiables are made by equating their IDs, no longer their HashCodes.
+
+v2.1, 21-05-07
+* PersistentObject
+** No longer hardcoded to IIdentifiable&lt;int&gt;. Is now of generic type;
+* ObjectExtensions
+** IReadOnlyDictionary.GetObject no longer requires to have a value of type IIdentifiable.
+
+v2.0.1, 21-05-05
+* ObjectExtensions
+*+ Added IsPendingUpdate, which returns true if there is one IUpdateable object with Updated=false in a collection.</PackageReleaseNotes>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+    <Title>Cephei Objects Library</Title>
+    <Product>$(Title)</Product>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\Projects\Cephei\Libraries2\Objects\Cephei Object Library.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

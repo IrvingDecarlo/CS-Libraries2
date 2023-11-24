@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>Cephei Commands Library</Title>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>$(Title)</Product>
+    <Version>3.1</Version>
+    <PackageReleaseNotes>v3.1, 23-02-16
+* Command
+*+ Now inherits from ICopiable{Command?, IList{}, string[], Command} as an abstract public method;
+*+ Now inherits from ICopiable{Command?, IList{}, Command};
+*+ Added FullClone(Command?, IList{}, string[]);
+** Constructor now uses IList instead of the object List.
+* CommandDelegate
+** Constructor now uses IList instead of the object List.
++ Added CommandPseudo.
+
+v3.0.0.1, 23-02-09
+* Command
+** Fixed the master command not setting properly.
+
+v3, 23-02-07
+Initial build.</PackageReleaseNotes>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Objects\Cephei.Objects.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Cephei.Tools.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

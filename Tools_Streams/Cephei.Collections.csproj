@@ -1,0 +1,122 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <PackageId>$(AssemblyName)</PackageId>
+    <PackageReleaseNotes>v1.7.1, 23-08-16
++ Added ITabledObject and IReadOnlyTabledObject.
+* CollectionExtensions
+*+ Added extensions for ITabledCollection with IDictionary;
+*+ Added IEnumerable{T}.DoCopyTo(T[], int).
+
+v1.7, 23-08-08
++ Added EnumerableDelegate.
+* CollectionExtensions
+*- Removed IDictionary.TryAdd since it already exists in System.Collections.Generic.CollectionExtensions.
+
+v1.6, 23-02-17
++ Added ISimpleDictionary, ISimpleReadonlyDictionary, SimpleDictionary and ProtectedSimpleDictionary.
+- Removed UniqueIDManager.
+
+v1.5, 23-02-09
+* Adapted to C# 8.0 nullable rules.
+* CollectionsExtensions
+** IReadOnlyDictionary{T, U}.TryGetValue(out U, params[] T) gained a new parameter to work as default value;
+** IDictionary{Type, T}.Add(T) may throw ArgumentNullException;
+** IList{T}.AddOrSet(int, T, T) and IList.AddOrSet(int, object, object)'s optional parameters are now mandatory;
+*- Removed IDictionary{T}.AddOrGet(T) and IDictionary.AddOrGet(object).
+* EmptyEnumerator
+** The generic variant now has a constructor.
+* MonoEnumerator
+** Dispose() no longer sets the current's reference to default.
+* Protected*
+** No longer support empty constructors that will not assign a collection to it.
+
+v1.4.1, 23-02-08
+* CollectionsExtensions
+*+ Added IEnumerable.Join(string, string, string) and IEnumerable.Join().
+
+v1.4, 23-02-04
+* Framework changed to .Net Standard 2.1.
+
+v1.3.3, 22-08-02
+* CollectionsExtensions
+** Fill and Fill{T} both have a new optional param (int i = 0).
+
+v1.3.2, 22-06-29
+* CollectionExtensions
+*+ Added IList{T}.Fill(T) and IList.Fill(object).
+* ProtectedList
+*+ Added IndexOf(T).
+* ProtectedCollection
+*+ Added Contains(T) and CopyTo(Array{T}, int).
+
+v1.3.1, 22-06-17
+* CollectionExtensions
+*+ Added IList{T}.AddOrSet and IList.AddOrSet.
+
+v1.3, 21-11-10
+* Changed main namespace from Cephei.Tools.Collections to Cephei.Collections;
+* Assembly name changed from ctoco to ccl.
+
+v1.2, 21-11-08
+* CollectionExtensions
+*+ Added IDictionary.AddOrSet and IDictionary.AddOrGet;
+** IDictionary.TryGetValue(out U, T[]) changed to IReadOnlyDictionary.
+
+v1.1.4, 21-09-11
+* CollectionExtensions
+*+ Added T[].IndexOf and T[].Contains.
+
+v1.1.3, 21-09-10
++ Added UniqueIDManager.
+
+v1.1.2, 21-09-09
++ Added CastEnumerable.
+* ProtectedCollection and ProtectedList
+** Both two-generic variants of the classes's parameterless constructors now create a default collection.
+
+v1.1.1, 21-09-08
+* CastEnumerator
+** Changed from class to struct;
+*+ Added CastEnumerators with two types for Dictionary casting.
+* MonoEnumerator, EmptyEnumerator and EmptyDictionaryEnumerator
+** Changed from class to struct.
+* CollectionExtensions
+*+ Added IEnumerable&lt;KeyValuePair&lt;T, U&gt;&gt;.ToDictionary.
+
+v1.1, 21-08-31
+* CollectionExtensions
+** AddUnique renamed to TryAdd, and added a Dictionary variant.
+
+v1.0.1, 21-06-05
+* CollectionExtensions
+*+ Added the string variant for GetFirstKey.
+
+v1, 21-06-03
+* Absorbed all of Tools(v2.0.3)'s methods and classes related to Collections;
++ Added ProtectedCollection, ProtectedDictionary and ProtectedList;
+* CollectionExtensions
+*+ Added IDictionary&lt;&gt;.ToProtected and List&lt;&gt;.ToProtected.</PackageReleaseNotes>
+    <Product>$(Title)</Product>
+    <Version>1.7.1</Version>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>Cephei Collections Library</Title>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\Documents\Projects\Cephei\Libraries2\Tools_Streams\Cephei Stream Tools Library.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+</Project>

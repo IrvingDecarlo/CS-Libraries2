@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>Cephei Numerical Tools</Product>
+    <PackageReleaseNotes>v1.2, 23-02-09
+* Adapted to C# 8.0 nullability rules.
+* SIPrefixes
+** ToString(double, string, string, IFormatProvider)'s optional parameter is no longer optional.
+
+v1.1, 23-02-04
+* Framework changed to .Net Standard 2.1.
+
+v1, 21-11-09
+* Imported SIPrefixes from Cephei.Tools.</PackageReleaseNotes>
+    <PackageId>cnu</PackageId>
+    <Version>1.2</Version>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+    <Title>Cephei Numericals Library</Title>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+</Project>

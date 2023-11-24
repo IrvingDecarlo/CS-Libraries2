@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>Cephei Console Commands Library</Title>
+    <Version>3.0.2</Version>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <PackageReleaseNotes>v3.0.2, 23-02-16
+* CommandHelp
+** Constructor now uses IList instead of the object List.
++ Added PredefinedCommands.
+* ConsoleSystem
+*+ Added a new overload for CreateCommand{T}(Func{T}, bool) that can create any command while protected by the exception handling system;
+*+ Added GetInfo function that returns the system's info;
+** Improved exception coverage for CreateCommand methods;
+** The creation of the Help Command within CreateCommand is now protected by the exception handling system.
+
+v3.0.1, 23-02-09
+* Updated due to dependency's changes;
++ Added CommandHelp.
+* ConsoleSystem
+*+ Added a new overload for CreateCommand that creates a help command under the new command.
+
+v3, 23-02-07
+* Initial build.</PackageReleaseNotes>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <Product>$(Title)</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Assembly\Cephei.Assemblies.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+    <ProjectReference Include="..\Commands\Cephei.Commands.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+	<Version>1.4</Version>
+    <Product>Cephei Files Library</Product>
+    <PackageReleaseNotes>v1.4, 23-02-16
+* FilesExtensions
+** All extension methods related to Assemblies were migrated to the new Cephei.Assemblies library.
+
+v1.3.0.1, 23-02-09
+* Adapted to C# 8.0 nullable rules.
+
+v1.3, 23-02-04
+* Framework changed to .Net Standard 2.1.
+
+v1.2.1, 22-07-29
+* FileExtensions
+*+ Added IPersistentFile.FileExists().
+
+v1.2, 22-06-17
+* IPersistentFile
+*- .Read and .Write were branched off to IReadableFile and IWriteableFile, respectively;
+*+ Inherits from the two new interfaces.
++ IFileWriter{T} and IFileReader{T}
+++ Used for writer/reader objects that read/write content from a file object.
+* FileExtensions
+** WriteAll and ReadAll now use the new interfaces instead of IPersistentFile;
+*+ Added IEnumerable{T}.WriteAll(IFileWriter{T}), IEnumerable{IFileWriter{T}).WriteAll(T), IEnumerable{T}.ReadAll(IFileReader{T}) and IEnumerable{IFileReader{T}).ReadAll(T).
+*+ Added IFileExceptionReader{T}.Read(out List{FileReadException}) and IReadableExceptionFile.Read(out List{FileReadException}).
++ FileManager
+++ Manages multiple IPersistentFiles at once.
+* FileReadException
+** .GetLine() is now uint.
+* FileReadException{T}
+** T must be IConvertible.
++ IFileExceptionReader
+++ An interface that offers a base for readers that output exceptions to a list.
++ IReadableExceptionFile
+++ An interface that offers a base for files that output exceptions to a list when read.
+
+v1.1, 22-06-15
++ Added IPersistentFile.
+* PersistentFile
+** PersistentFile inherits from IPersistentFile, all required changes.
+* FileExtensions
+*+ Added IEnumerable{IPersistentFile}.WriteAll and ReadAll.
+		
+v1, 21-11-09
++ Added FileReadException and PersistentFile;
++ Added FileExtensions
+++ Added FileVersionInfo to Version;
+++ Added FileVersionInfo, Assembly, AssemblyName and Version.ToDynamicString();
+++ Added Assembly.GetFileVersionInfo.</PackageReleaseNotes>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <BaseOutputPath>..\_bin\</BaseOutputPath>
+    <Title>Cephei Files Library</Title>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tools_Streams\Cephei.Collections.csproj">
+      <Private>False</Private>
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>
