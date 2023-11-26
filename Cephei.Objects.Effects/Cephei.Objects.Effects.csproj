@@ -7,11 +7,15 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Effect Objects Library</Title>
-    <Version>1.2</Version>
+    <Version>1.3</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.2, 23-11-23
+    <PackageReleaseNotes>v1.3, 23-11-26
+* EffectObject
+** Replaced IModifiable and IDeletable implementations with IReadOnlyModifiable and IReadOnlyDeletable.
+
+v1.2, 23-11-23
 * Effect
 ** Replaced the method OnDeleted with an OnDeleted event.
 * EffectObject

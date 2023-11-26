@@ -6,8 +6,16 @@
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Version>2.7.3.1</Version>
-    <PackageReleaseNotes>v2.7.3.1, 23-10-31
+    <Version>2.7.4</Version>
+    <PackageReleaseNotes>v2.7.4, 23-11-26
++ Added IReadOnlyModifiable and IReadOnlyDeletable.
+* IModifiable
+*+ Inherits from IReadOnlyModifiable.
+* IDeletable
+*+ Inherits from IReadOnlyDeletable.
+* All methods and classes that involved IModifiables or IDeletables that did not change their Modifiability or Deletability now reference their ReadOnly counterparts.
+
+v2.7.3.1, 23-10-31
 * HeartbeatObject
 ** Fixed a bug where the object could heartbeat more than once simultaneously.
 

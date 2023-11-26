@@ -136,14 +136,14 @@ namespace Cephei.Objects
     /// </summary>
     /// <param name="delet">The deletable object.</param>
     /// <returns>True if the object is not null and has the Deleted flag, false otherwise.</returns>
-    public static bool IsDeletedAndNotNull(this IDeletable? delet) => !(delet is null) && delet.Deleted;
+    public static bool IsDeletedAndNotNull(this IReadOnlyDeletable? delet) => !(delet is null) && delet.Deleted;
 
     /// <summary>
     /// Tries to delete an IDeletable object. Note that exceptions may still be thrown if they occur during the object's Delete execution.
     /// </summary>
     /// <param name="obj">The object to delete.</param>
     /// <returns>True if the object was deletable.</returns>
-    public static bool TryDelete(this IDeletable obj)
+    public static bool TryDelete(this IReadOnlyDeletable obj)
     {
       if (obj.Deletable)
       {
@@ -226,7 +226,7 @@ namespace Cephei.Objects
     /// <typeparam name="T">The IDeletable object type.</typeparam>
     /// <param name="en">Collection of IDeletable objects;</param>
     /// <exception cref="ObjectNotDeletableException"></exception>
-    public static void DeleteAll<T>(this IEnumerable<T> en) where T : IDeletable
+    public static void DeleteAll<T>(this IEnumerable<T> en) where T : IReadOnlyDeletable
     {
       foreach (T obj in en) obj.Delete();
     }
@@ -236,7 +236,7 @@ namespace Cephei.Objects
     /// <typeparam name="T">The IDeletable object type.</typeparam>
     /// <param name="en">Collection of objects.</param>
     /// <param name="excs">List of exceptions.</param>
-    public static void DeleteAll<T>(this IEnumerable<T> en, out List<ObjectNotDeletableException> excs) where T : IDeletable
+    public static void DeleteAll<T>(this IEnumerable<T> en, out List<ObjectNotDeletableException> excs) where T : IReadOnlyDeletable
     {
       excs = new List<ObjectNotDeletableException>();
       foreach (T obj in en)

@@ -135,12 +135,7 @@ namespace Cephei.Testing
     private static void SetObjectValues(EffectObject<string> obj, IReadOnlyDictionary<string, IReadOnlyList<string>> x)
     {
       TextWriter writer = Out;
-      if (x.TryGetValue("delet", out IReadOnlyList<string> args))
-      {
-        obj.Deletable = bool.Parse(args[0]);
-        writer.WriteLine("Object deletable set to " + obj.Deletable);
-      }
-      if (x.TryGetValue("eff", out args))
+      if (x.TryGetValue("eff", out IReadOnlyList<string> args))
       {
         obj.Effect = effects[args[0]];
         writer.WriteLine("Object effect set to " + obj.Effect);
@@ -149,11 +144,6 @@ namespace Cephei.Testing
       {
         stat.BaseValue = float.Parse(args[0]);
         writer.WriteLine("Stat value set to " + stat.BaseValue);
-      }
-      if (x.TryGetValue("modif", out args))
-      {
-        obj.Modifiable = bool.Parse(args[0]);
-        writer.WriteLine("Object modifiable set to " + obj.Modifiable);
       }
     }
 
@@ -185,9 +175,9 @@ namespace Cephei.Testing
 
       public override int CompareTo(Stat<string, float> stat) => ID.CompareTo(stat.ID);
 
-      public override bool Modifiable { get; set; } = true;
+      public override bool Modifiable => true;
 
-      public override bool Deletable { get; set; } = true;
+      public override bool Deletable => true;
     }
 
     private class Modifier : Modifier<string, float>
@@ -200,9 +190,9 @@ namespace Cephei.Testing
 
       protected override float Calculate() => Source is null ? 0 : Source.Value;
 
-      public override bool Modifiable { get; set; } = true;
+      public override bool Modifiable => true;
 
-      public override bool Deletable { get; set; } = true;
+      public override bool Deletable => true;
     }
 
     private class Effect : Effect<string>
@@ -212,9 +202,9 @@ namespace Cephei.Testing
 
       protected override bool BypassDeletable() => false;
 
-      public override bool Modifiable { get; set; } = true;
+      public override bool Modifiable => true;
 
-      public override bool Deletable { get; set; } = true;
+      public override bool Deletable => true;
     }
   }
 }

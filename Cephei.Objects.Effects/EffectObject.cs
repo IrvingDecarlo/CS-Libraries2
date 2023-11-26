@@ -6,7 +6,7 @@ namespace Cephei.Objects.Effects
   /// Effect Objects are effects that can be placed under effects.
   /// </summary>
   /// <typeparam name="T">Object type to be used as the object's ID.</typeparam>
-  public abstract class EffectObject<T> : IReadOnlyIdentifiable<T>, IModifiable, IDeletable
+  public abstract class EffectObject<T> : IReadOnlyIdentifiable<T>, IReadOnlyModifiable, IReadOnlyDeletable
   {
     /// <summary>
     /// Creates a new EffectObject.
@@ -46,14 +46,14 @@ namespace Cephei.Objects.Effects
     public override int GetHashCode() => ID is null ? 0 : ID.GetHashCode();
 
     /// <summary>
-    /// Gets or sets this effect object's modifiability.
+    /// Gets this effect object's modifiability.
     /// </summary>
-    public abstract bool Modifiable { get; set; }
+    public abstract bool Modifiable { get; }
 
     /// <summary>
-    /// Gets or sets this effect object's deletability.
+    /// Gets this effect object's deletability.
     /// </summary>
-    public abstract bool Deletable { get; set; }
+    public abstract bool Deletable { get; }
 
     /// <summary>
     /// Was this object deleted already?
