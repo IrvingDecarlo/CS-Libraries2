@@ -72,15 +72,15 @@ namespace Cephei
         /// Creates a new Benchmark report, using a Stopwatch and a list of reports as reference. It then adds itself to the list.
         /// It will call the GarbageCollector automatically, but the stopwatch will be halted beforehand to prevent time loss.
         /// </summary>
-        /// <param name="stopwatch">Stopwatch to use. It is automatically stopped.</param>
+        /// <param name="stopwatch">Stopwatch to use. It has to be stopped manually prior to the creation of this report.</param>
         /// <param name="reports">List of reports to use as reference.</param>
         /// <param name="iterations">Number of iterations that were executed.</param>
         public Report(Stopwatch stopwatch, IList<Report> reports, int iterations)
         {
-          stopwatch.Stop();
           PreGCMemory = GC.GetTotalMemory(false);
           Memory = GC.GetTotalMemory(true);
           TimeElapsed = stopwatch.Elapsed;
+          Ticks = stopwatch.ElapsedTicks;
           int rc = reports.Count;
           MemoryChange = rc > 0 ? Memory - reports[rc - 1].Memory : Memory;
           Iterations = iterations;
@@ -113,14 +113,17 @@ namespace Cephei
         /// <param name="timeformat">Format to use for the time.</param>
         /// <param name="numprovider">FormatProvider for the numbers.</param>
         /// <param name="dateprovider">FormatProvider for the dates.</param>
+        /// <param name="tickformat">Format to use for ticks per iteration.</param>
         /// <returns>A formatted string.</returns>
-        public string ToString(string numformat, string prefix, IFormatProvider numprovider, IFormatProvider dateprovider, string timeformat = @"ss\s\.ffffff\u\s")
+        public string ToString(string numformat, string prefix, IFormatProvider numprovider, IFormatProvider dateprovider
+          , string timeformat = @"ss\s\.ffffff\u\s", string tickformat = "N3")
           => "Pre GC Memory: " + SIPrefixes.ToString(PreGCMemory, prefix, numformat, numprovider) + "B" +
             " (Garbage=" + SIPrefixes.ToString(GarbageSize, prefix, numformat, numprovider) + "B, " + GarbagePercent.ToString("P2") + ")\n" +
             "Memory: " + SIPrefixes.ToString(Memory, prefix, numformat, numprovider) + "B (" + (MemoryChange > 0 ? "+" : "")
             + SIPrefixes.ToString(MemoryChange, prefix, numformat, numprovider) + "B, "
             + SIPrefixes.ToString(MemoryPerIteration, prefix, numformat, numprovider) + "B/i)\n"
-            + "Time Elapsed: " + TimeElapsed.ToString(timeformat, dateprovider) + " (" + TimePerIteration.ToString(timeformat, dateprovider) + "/i)";
+            + "Time Elapsed: " + TimeElapsed.ToString(timeformat, dateprovider) + " (" + TimePerIteration.ToString(timeformat, dateprovider) + "/i)\n"
+            + "Ticks: " + TimeElapsed.Ticks.ToString(numformat, numprovider) + " (" + TicksPerIteration.ToString(tickformat, numprovider) + "/i)";
 
         //
         // PUBLIC
@@ -132,6 +135,11 @@ namespace Cephei
         /// Amount of time spent until the creation of this report.
         /// </summary>
         public readonly TimeSpan TimeElapsed;
+
+        /// <summary>
+        /// Number of ticks spent until the creation of this report.
+        /// </summary>
+        public readonly long Ticks;
 
         /// <summary>
         /// Amount of memory used at the time.
@@ -173,7 +181,12 @@ namespace Cephei
         /// <summary>
         /// How many % of PreGCMemory is garbage.
         /// </summary>
-        public double GarbagePercent => GarbageSize / (double)PreGCMemory;
+        public float GarbagePercent => GarbageSize / (float)PreGCMemory;
+
+        /// <summary>
+        /// Gets the number of ticks per iteration.
+        /// </summary>
+        public float TicksPerIteration => Ticks / (float)Iterations;
       }
 
       // VARIABLES
@@ -209,6 +222,7 @@ namespace Cephei
         new Report(Stopwatch, Reports, 1);
         Stopwatch.Restart();
         for (Iteration = 0; Iteration < loops; Iteration++) MainMethod();
+        Stopwatch.Stop();
         new Report(Stopwatch, Reports, loops);
       }
       /// <summary>

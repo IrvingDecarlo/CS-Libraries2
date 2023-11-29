@@ -13,6 +13,7 @@ namespace Cephei.Testing
       //SocketTest.AddCommands();
       StatTest.CreateCommands();
       HttpTest.AddCommands();
+      MathTest.AddCommands();
       MainLoop();
     }
   }
