@@ -52,12 +52,13 @@ namespace Cephei.Objects.Effects.Stats
     {
       if (Updated) return;
       Updated = true;
-      value = ValueBase;
+      value = PreCalculate();
       foreach (IModifier<T, U> mod in Sources.Values)
       {
         mod.Update();
         value = Calculate(mod.Value);
       }
+      value = PostCalculate();
       Targets.Values.UpdateAll();
     }
 
@@ -157,6 +158,18 @@ namespace Cephei.Objects.Effects.Stats
     /// <param name="modvalue">The modifier's value to add to the current value.</param>
     /// <returns>The calculated stat's value.</returns>
     protected abstract U Calculate(U modvalue);
+
+    /// <summary>
+    /// Returns the Pre-Calculate (base) value prior to all modifier calculations.
+    /// </summary>
+    /// <returns>Returns the stat's ValueBase by default.</returns>
+    protected virtual U PreCalculate() => ValueBase;
+
+    /// <summary>
+    /// Returns the Post-Calculate (final) value after all modifier calculations.
+    /// </summary>
+    /// <returns>Returns the stat's final value without any modifications.</returns>
+    protected virtual U PostCalculate() => Value;
 
     /// <summary>
     /// Removes a source modifier, deleting it if it is a Modifier object.
