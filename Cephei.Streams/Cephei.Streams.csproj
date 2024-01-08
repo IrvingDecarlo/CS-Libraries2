@@ -7,17 +7,21 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.1, 23-02-04
+    <PackageReleaseNotes>v1.1.1, 24-01-08
++ Added IBinarizable and IDebinarizable.
+
+v1.1, 23-02-04
 * Framework changed to .Net Standard 2.1.
 
 v1, 21-11-09
 + StreamsExtensions
 ++ Added TextWriter.WriteLine(IEnumerable&lt;...&gt;).</PackageReleaseNotes>
     <PackageId>$(AssemblyName)</PackageId>
-    <Version>1.1</Version>
+    <Version>1.1.1</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Streams Library</Title>
+    <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
