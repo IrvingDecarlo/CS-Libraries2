@@ -14,6 +14,7 @@ namespace Cephei.Testing
       StatTest.CreateCommands();
       HttpTest.AddCommands();
       MathTest.AddCommands();
+      StreamTest.AddCommands();
       MainLoop();
     }
   }
