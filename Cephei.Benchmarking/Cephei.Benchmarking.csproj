@@ -7,7 +7,11 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>Cephei Benchmarking Library</Product>
-    <PackageReleaseNotes>v1.2.1, 23-11-29
+    <PackageReleaseNotes>v1.2.1.1, 24-02-04
+* Benchmarker
+** Reports will show MemoryPerInteration in a double format instead of long.
+
+v1.2.1, 23-11-29
 * Benchmarker
 ** The report will also show the amount of ticks used;
 ** The stopwatch will no longer be stopped upon the creation of the report but rather within the Benchmark method itself to avoid pollution by the Report instantiation.
@@ -23,7 +27,7 @@ v1.1, 23-02-04
 
 v1.0.0.1, 21-11-09
 * Updated to Cephei.Tools changes.</PackageReleaseNotes>
-    <Version>1.2.1</Version>
+    <Version>1.2.1.1</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title></Title>
     <Nullable>enable</Nullable>

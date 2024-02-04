@@ -121,7 +121,7 @@ namespace Cephei
             " (Garbage=" + SIPrefixes.ToString(GarbageSize, prefix, numformat, numprovider) + "B, " + GarbagePercent.ToString("P2") + ")\n" +
             "Memory: " + SIPrefixes.ToString(Memory, prefix, numformat, numprovider) + "B (" + (MemoryChange > 0 ? "+" : "")
             + SIPrefixes.ToString(MemoryChange, prefix, numformat, numprovider) + "B, "
-            + SIPrefixes.ToString(MemoryPerIteration, prefix, numformat, numprovider) + "B/i)\n"
+            + SIPrefixes.ToString(MemoryPerIteration, prefix, tickformat, numprovider) + "B/i)\n"
             + "Time Elapsed: " + TimeElapsed.ToString(timeformat, dateprovider) + " (" + TimePerIteration.ToString(timeformat, dateprovider) + "/i)\n"
             + "Ticks: " + TimeElapsed.Ticks.ToString(numformat, numprovider) + " (" + TicksPerIteration.ToString(tickformat, numprovider) + "/i)";
 
@@ -171,7 +171,7 @@ namespace Cephei
         /// <summary>
         /// Gets the amount of memory used per iteration.
         /// </summary>
-        public long MemoryPerIteration => MemoryChange / Iterations;
+        public double MemoryPerIteration => (double)MemoryChange / Iterations;
 
         /// <summary>
         /// Gets the size of Garbage memory (in bytes).

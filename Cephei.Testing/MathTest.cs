@@ -4,7 +4,6 @@ using Cephei.Commands.Consoles;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace Cephei.Testing
 {
