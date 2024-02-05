@@ -10,6 +10,21 @@ namespace Cephei.Streams
   public static class StreamsExtensions
   {
     /// <summary>
+    /// Reads data using a reader and returns a string.
+    /// </summary>
+    /// <param name="reader">Reader to use.</param>
+    /// <param name="buffer">Buffer for transferring data.</param>
+    /// <param name="offset">Initial index for writing in the buffer.</param>
+    /// <param name="count">Number of cases that ought to be read.</param>
+    /// <param name="readbytes">Number of cases that were actually read.</param>
+    /// <returns>The string that was read by the reader.</returns>
+    public static string Read(this TextReader reader, char[] buffer, int offset, int count, out int readbytes)
+    {
+      readbytes = reader.Read(buffer, offset, count);
+      return new string(buffer, offset, readbytes);
+    }
+
+    /// <summary>
     /// Writes a KeyValuePair enumerable containing another KeyValuePair enumerable in its value in a stream.
     /// </summary>
     /// <typeparam name="T">The main enumerable's key type.</typeparam>
