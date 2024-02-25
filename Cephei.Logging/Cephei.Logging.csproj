@@ -8,8 +8,15 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1, 23-10-31
+    <PackageReleaseNotes>v1.0.1, 24-02-25
+* LogLevel
+*+ Added LogLevel.Critical.
+* LogExtensions
+*+ Added ILogger.LogException(Exception, LogLevel, bool), ILogger.LogCrash(Exception, bool) and ILogger.LogCritical(string).
+
+v1, 23-10-31
 Initial release.</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>

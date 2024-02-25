@@ -8,7 +8,11 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.2, 23-10-31
+    <PackageReleaseNotes>v1.2.1, 24-02-25
+* PersistentConnectionString
+*+ Added the OnPostCommunication event.
+
+v1.2, 23-10-31
 + Added a reference to Cephei.Logging.
 + Added NetworkExtensions
 ++ Added HttpClient.DownloadAsync(string, string).
@@ -27,7 +31,7 @@ v1.1, 23-10-13
 
 v1, 23-08-29
 Initial release.</PackageReleaseNotes>
-    <Version>1.2.0.0</Version>
+    <Version>1.2.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

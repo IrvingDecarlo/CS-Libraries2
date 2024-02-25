@@ -1,6 +1,7 @@
 ﻿using Cephei.Logging;
 using System;
 using System.IO;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Cephei.Networking
@@ -87,6 +88,7 @@ namespace Cephei.Networking
         break;
       }
       Connected = cases > 0;
+      OnPostCommunication?.Invoke(msg);
       return msg;
     }
 
@@ -103,6 +105,15 @@ namespace Cephei.Networking
     /// <remarks>Do not handle exceptions within this method since they are useful for determining fail states when communicating with its target.</remarks>
     /// <param name="msg">Message to be sent.</param>
     public abstract Task SendMessageAsync(string msg);
+
+    #endregion
+
+    #region protected
+
+    /// <summary>
+    /// OnPostCommunication is called after the communication is complete, regardless of being successful or not. The produced message are outputted to the event.
+    /// </summary>
+    protected event Action<string>? OnPostCommunication;
 
     #endregion
   }

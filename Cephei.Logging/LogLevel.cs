@@ -18,6 +18,10 @@
     /// </summary>
     Information,
     /// <summary>
+    /// Denotes a level where critical messages will be outputted.
+    /// </summary>
+    Critical,
+    /// <summary>
     /// Denotes a level where exceptions will be outputted.
     /// </summary>
     Exception,
