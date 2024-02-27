@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Cephei.Networking
@@ -9,6 +11,14 @@ namespace Cephei.Networking
   /// </summary>
   public static class NetworkExtensions
   {
+    /// <summary>
+    /// Sends data using a socked, asynchronously, with no SocketFlags.
+    /// </summary>
+    /// <param name="socket">Socket to use.</param>
+    /// <param name="bytes">Bytes to send.</param>
+    /// <returns>Number of bytes sent.</returns>
+    public static async Task<int> SendAsync(this Socket socket, ArraySegment<byte> bytes) => await socket.SendAsync(bytes, SocketFlags.None);
+
     /// <summary>
     /// Downloads data from an uri and saves it in the specified path.
     /// </summary>

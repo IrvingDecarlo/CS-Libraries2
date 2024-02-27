@@ -40,10 +40,9 @@ namespace Cephei.Networking
     public override void Close()
     {
       if (Socket is null) return;
-      Socket.Close();
       Socket.Dispose();
       Socket = null;
-      GetLogger()?.LogInfo("Connection closed.");
+      GetLogger()?.LogDebug("Connection closed.");
     }
 
     #endregion
