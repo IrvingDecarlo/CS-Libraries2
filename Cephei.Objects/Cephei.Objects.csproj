@@ -6,8 +6,12 @@
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Version>2.7.4</Version>
-    <PackageReleaseNotes>v2.7.4, 23-11-26
+    <Version>2.8</Version>
+    <PackageReleaseNotes>v2.8, 24-03-27
+* ITickable{T}
+*- No longer inherits from ITickable.
+
+v2.7.4, 23-11-26
 + Added IReadOnlyModifiable and IReadOnlyDeletable.
 * IModifiable
 *+ Inherits from IReadOnlyModifiable.

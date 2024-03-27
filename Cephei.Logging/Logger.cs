@@ -24,7 +24,7 @@ namespace Cephei.Logging
     {
       TextWriter? writer = GetLogWriter();
       if (writer is null || level < GetLogLevel()) return;
-      writer.WriteLine($"{DateTime.Now.ToString(GetDateFormat())} [{level.GetIdentifier()}]: {message}.");
+      writer.WriteLine($"{DateTime.Now.ToString(GetDateFormat())} [{level.GetIdentifier()}]: {message}");
     }
 
     #endregion

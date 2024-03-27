@@ -20,7 +20,7 @@ namespace Cephei.Networking
     /// </summary>
     /// <param name="endpoint">Endpoint to use.</param>
     /// <param name="listening">Should the server automatically start listening and interpreting incoming connections?</param>
-    public PersistentServerSocket(EndPoint endpoint, bool listening = true) : base(endpoint, listening) 
+    public PersistentServerSocket(EndPoint endpoint, bool listening = true) : base(endpoint, listening)
     { }
 
     #region overrides
@@ -194,6 +194,33 @@ namespace Cephei.Networking
       socket.Dispose();
     }
 
+    /// <summary>
+    /// Actions to take when an unhandled exception is thrown while the server is listening.
+    /// </summary>
+    /// <param name="socket">Socket that was being used.</param>
+    /// <param name="ex">The unhandled exception.</param>
+    protected virtual async void OnUnhandledException(Socket? socket, Exception ex)
+    {
+      ILogger? logger = GetLogger();
+      if (!(logger is null))
+      {
+        logger.LogCritical($"Exception unhandled while server {this} was listening:");
+        logger.LogException(ex);
+      }
+      if (socket is null) return;
+      try { await socket.SendAsync(Encoding.UTF8.GetBytes($"UNHANDLED EXCEPTION {ex.GetType()}: {ex.Message}")); }
+      catch (Exception e)
+      {
+        if (!(logger is null))
+        {
+          logger.LogCritical("Failed to send exception message to sender:");
+          logger.LogException(e);
+        }
+        if (e is ObjectDisposedException) return;
+      }
+      socket.Dispose();
+    }
+
     #endregion
 
     #region private
@@ -210,14 +237,14 @@ namespace Cephei.Networking
     private async void StartListening()
     {
       ILogger? logger = GetLogger();
-      Socket socket;
+      Socket? socket = null;
       EndPoint? remote;
       string remotestr;
       logger?.LogDebug($"Listener is now listening on {endpoint}...");
       cancel_source = new CancellationTokenSource();
-      try
+      while (listening)
       {
-        while (listening)
+        try
         {
           socket = await this.socket.AcceptAsync();
           logger = GetLogger();
@@ -231,12 +258,13 @@ namespace Cephei.Networking
           }
           HandleConnection(socket, cancel_source);
         }
-      }
-      catch (TaskCanceledException) { }
-      finally
-      {
-        cancel_source.Dispose();
-        cancel_source = null;
+        catch (TaskCanceledException)
+        {
+          cancel_source.Dispose();
+          cancel_source = null;
+          break;
+        }
+        catch (Exception ex) { OnUnhandledException(socket, ex); }
       }
     }
 

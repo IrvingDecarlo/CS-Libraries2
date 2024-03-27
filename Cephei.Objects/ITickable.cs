@@ -4,7 +4,7 @@
     /// The ITickable interface denotes that the object can be ticked and it also has a visible Tick value.
     /// </summary>
     /// <typeparam name="T">The tick type.</typeparam>
-    public interface ITickable<T> : ITickable
+    public interface ITickable<T>
     {
         /// <summary>
         /// The value representation of the object's ticks.

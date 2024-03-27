@@ -8,7 +8,11 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.0.1, 24-02-25
+    <PackageReleaseNotes>v1.0.1.1, 24-02-28
+* Logger
+** Removed a trailing dot (.) for log messages.
+
+v1.0.1, 24-02-25
 * LogLevel
 *+ Added LogLevel.Critical.
 * LogExtensions
@@ -16,7 +20,7 @@
 
 v1, 23-10-31
 Initial release.</PackageReleaseNotes>
-    <Version>1.0.1</Version>
+    <Version>1.0.1.1</Version>
   </PropertyGroup>
 
 </Project>
