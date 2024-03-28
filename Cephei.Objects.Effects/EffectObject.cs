@@ -31,13 +31,13 @@ namespace Cephei.Objects.Effects
     /// </summary>
     /// <param name="ident">Identifiable object to equate to.</param>
     /// <returns>True if both are EffectObjects with the same hash code..</returns>
-    public bool Equals(IReadOnlyIdentifiable<T> ident) => ident is EffectObject<T> && GetHashCode().Equals(ident?.GetHashCode());
+    public virtual bool Equals(IReadOnlyIdentifiable<T> ident) => ident is EffectObject<T> && GetHashCode().Equals(ident?.GetHashCode());
     /// <summary>
     /// Checks if this EffectObject is equal to another object.
     /// </summary>
     /// <param name="obj">Object to equate to.</param>
     /// <returns>True if both are EffectObjects with the same HashCode.</returns>
-    public sealed override bool Equals(object obj) => obj is EffectObject<T> efobj && GetHashCode().Equals(efobj?.GetHashCode());
+    public override bool Equals(object obj) => obj is EffectObject<T> efobj && GetHashCode().Equals(efobj?.GetHashCode());
 
     /// <summary>
     /// Gets the ID's hash code.

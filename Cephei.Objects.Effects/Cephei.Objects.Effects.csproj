@@ -7,11 +7,15 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Effect Objects Library</Title>
-    <Version>1.3</Version>
+    <Version>1.3.0.1</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.3, 23-11-26
+    <PackageReleaseNotes>v1.3.0.1, 24-03-28
+* EffectObject
+** All .Equals() variants are no longer sealed.
+
+v1.3, 23-11-26
 * EffectObject
 ** Replaced IModifiable and IDeletable implementations with IReadOnlyModifiable and IReadOnlyDeletable.
 
