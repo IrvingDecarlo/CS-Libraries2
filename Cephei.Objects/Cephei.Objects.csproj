@@ -6,8 +6,13 @@
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Version>2.8</Version>
-    <PackageReleaseNotes>v2.8, 24-03-27
+    <Version>2.8.1</Version>
+    <PackageReleaseNotes>v2.8.1, 24-04-01
++ Added PersistentAbstractObject and PersistentReadonlyObject.
+* PersistentObject
+*+ Now inherits from PersistentReadonlyObject.
+
+v2.8, 24-03-27
 * ITickable{T}
 *- No longer inherits from ITickable.
 

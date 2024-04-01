@@ -1,22 +1,21 @@
 ﻿using Cephei.Valuables;
 using System;
 
-namespace Cephei.Objects.Effects.Stats
+namespace Cephei.Objects.Stats
 {
   /// <summary>
   /// Stats are objects that have their values manipulated by Modifiers.
   /// </summary>
   /// <typeparam name="T">The stat's Identifiable type.</typeparam>
   /// <typeparam name="U">The stat's IValuable type.</typeparam>
-  public abstract class Stat<T, U> : EffectObject<T>, IReadOnlyValuable<U>, IUpdateable, IComparable<Stat<T, U>>
+  public abstract class Stat<T, U> : IReadOnlyIdentifiable<T>, IModifiable, IDeletable, IReadOnlyValuable<U>, IUpdateable, IComparable<Stat<T, U>>
   {
     /// <summary>
     /// Creates a new stat.
     /// </summary>
     /// <param name="id">The stat's ID.</param>
     /// <param name="value">The stat's base value.</param>
-    /// <param name="eff">Effect to assign the stat under.</param>
-    public Stat(T id, U value, Effect<T>? eff) : base(id, eff)
+    public Stat(T id, U value) : base(id)
     {
       this.value = value;
       ValueBase = value;
@@ -150,6 +149,12 @@ namespace Cephei.Objects.Effects.Stats
     #endregion
 
     #region protected
+
+    // EVENTS
+
+    
+
+    // METHODS
 
     /// <summary>
     /// The Calculate method determines how the stats combines its value with its source modifiers'. It should be as simple as an addition.

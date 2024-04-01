@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Managed", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Effects", "Cephei.Objects.Effects\Cephei.Objects.Effects.csproj", "{1AF58395-DF62-40D9-ABAC-4AA8FF7C794D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Effects.Stats", "Cephei.Objects.Effects.Stats\Cephei.Objects.Effects.Stats.csproj", "{CDF27E30-3157-4B74-8CCB-9733385E0F95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Objects.Stats", "Cephei.Objects.Effects.Stats\Cephei.Objects.Stats.csproj", "{CDF27E30-3157-4B74-8CCB-9733385E0F95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Collections.SQLite", "Cephei.Collections.SQLite\Cephei.Collections.SQLite.csproj", "{FFD9D744-FD68-4FD9-9212-4E61782CCDE6}"
 EndProject

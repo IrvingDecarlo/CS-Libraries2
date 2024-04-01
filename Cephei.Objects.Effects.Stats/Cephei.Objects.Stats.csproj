@@ -7,11 +7,17 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Stat Objects Library</Title>
-    <Version>2.2.1</Version>
+    <Version>3.0</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v2.2.1, 24-01-07
+    <PackageReleaseNotes>v3, 24-04-01
+- Removed Dependency to Cephei.Objects.Effects;
+* Renamed to Cephei.Objects.Stats.
+* Stats and Modifiers
+*- Removed inheritance of EffectObject{T}.
+
+v2.2.1, 24-01-07
 * Stat
 *+ Added PreCalculate() and PostCalculate() overrideable methods.
 
