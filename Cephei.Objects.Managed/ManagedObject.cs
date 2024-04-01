@@ -21,6 +21,7 @@ namespace Cephei.Objects.Managed
       ManagedObjectCollection col = GetManagedCollection();
       hash_code = col.Position;
       col.Add(this);
+      OnDeleted += OnDelete;
     }
 
     #region overrides
@@ -59,41 +60,23 @@ namespace Cephei.Objects.Managed
     public sealed override int GetHashCode() => hash_code;
 
     /// <summary>
-    /// BypassDeletable returns true if the managed collection does not contain this object or if BypassDeletion returns true.
+    /// BypassDeletable returns true if the managed collection does not contain this object or if BypassDeletable returns true.
     /// </summary>
     /// <returns>True if the managed collection does not contain this object or if BypassDeletion returns true.</returns>
-    protected sealed override bool BypassDeletable()
-      => !GetManagedCollection().Contains(this) || BypassDeletion();
-
-    /// <summary>
-    /// OnDeleted removes the object from the managed collection and calls OnDeletion.
-    /// </summary>
-    protected sealed override void OnDeleted()
-    {
-      OnDeletion();
-      GetManagedCollection().Remove(this);
-    }
-
-    #endregion
-
-    #region protected
-
-    /// <summary>
-    /// BypassDeletion is used to bypass the deletable flag if it returns true.
-    /// </summary>
-    /// <returns>True if the deletable flag is to be bypassed.</returns>
-    protected abstract bool BypassDeletion();
-
-    /// <summary>
-    /// OnDeletion is called when the managed object is deleted.
-    /// </summary>
-    protected abstract void OnDeletion();
+    protected override bool BypassDeletable()
+      => !GetManagedCollection().Contains(this) || base.BypassDeletable();
 
     #endregion
 
     #region private
 
+    // FIELDS
+
     private readonly int hash_code;
+
+    // METHODS
+
+    private void OnDelete() => GetManagedCollection().Remove(this);
 
     #endregion
 

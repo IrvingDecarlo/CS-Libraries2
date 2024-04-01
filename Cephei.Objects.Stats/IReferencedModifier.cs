@@ -1,4 +1,4 @@
-﻿namespace Cephei.Objects.Effects.Stats
+﻿namespace Cephei.Objects.Stats
 {
   internal interface IReferencedModifier<T, U> : IModifier<T, U>, IReadOnlyDeletable
   {

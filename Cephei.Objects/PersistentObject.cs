@@ -4,7 +4,7 @@
   /// Persistent Objects combine both IIdentifiable and IModifiable interfaces, being a base for any object with an ID. The object's type must be comparable.
   /// </summary>
   /// <typeparam name="T">The type to use for the object's ID.</typeparam>
-  public abstract class PersistentObject<T> : PersistentReadonlyObject<T>, IIdentifiable<T>, IModifiable, IDeletable
+  public abstract class PersistentObject<T> : PersistentSimpleObject<T>, IIdentifiable<T>, IModifiable, IDeletable
   {
     /// <summary>
     /// Instantiates a persistent object.

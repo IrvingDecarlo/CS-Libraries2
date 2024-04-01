@@ -48,7 +48,7 @@ v2.0, 23-02-23
 
   <ItemGroup>
     <ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
-    <ProjectReference Include="..\Cephei.Objects.Effects\Cephei.Objects.Effects.csproj" />
+    <ProjectReference Include="..\Cephei.Objects\Cephei.Objects.csproj" />
     <ProjectReference Include="..\Cephei.Valuables\Cephei.Valuables.csproj" />
   </ItemGroup>
 

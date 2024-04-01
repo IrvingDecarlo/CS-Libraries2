@@ -1,21 +1,20 @@
 ﻿using Cephei.Valuables;
 
-namespace Cephei.Objects.Effects.Stats
+namespace Cephei.Objects.Stats
 {
   /// <summary>
   /// Modifiers are objects that link to a target Stat, having its value manipulated by either any valuable object or by another stat.
   /// </summary>
   /// <typeparam name="T">The modifier's identifiable type.</typeparam>
   /// <typeparam name="U">The modifier's valuable type.</typeparam>
-  public abstract class Modifier<T, U> : EffectObject<T>, IReferencedModifier<T, U>
+  public abstract class Modifier<T, U> : PersistentReadonlyObject<T>, IReferencedModifier<T, U>
   {
     /// <summary>
     /// Creates a new Modifier object.
     /// </summary>
     /// <param name="id">The modifier's ID.</param>
     /// <param name="value">The modifier's initial value.</param>
-    /// <param name="eff">Effect to assign the modifier under.</param>
-    public Modifier(T id, U value, Effect<T>? eff) : base(id, eff)
+    public Modifier(T id, U value) : base(id)
     {
       Value = value;
       OnDeleted += OnDelete;

@@ -8,7 +8,7 @@ namespace Cephei.Objects.Stats
   /// </summary>
   /// <typeparam name="T">The stat's Identifiable type.</typeparam>
   /// <typeparam name="U">The stat's IValuable type.</typeparam>
-  public abstract class Stat<T, U> : IReadOnlyIdentifiable<T>, IModifiable, IDeletable, IReadOnlyValuable<U>, IUpdateable, IComparable<Stat<T, U>>
+  public abstract class Stat<T, U> : PersistentReadonlyObject<T>, IReadOnlyValuable<U>, IUpdateable, IComparable<Stat<T, U>>
   {
     /// <summary>
     /// Creates a new stat.
@@ -149,10 +149,6 @@ namespace Cephei.Objects.Stats
     #endregion
 
     #region protected
-
-    // EVENTS
-
-    
 
     // METHODS
 

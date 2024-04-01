@@ -1,7 +1,7 @@
 ﻿using Cephei.Collections;
 using System.Collections.Generic;
 
-namespace Cephei.Objects.Effects.Stats
+namespace Cephei.Objects.Stats
 {
   /// <summary>
   /// The ModifierCollection is the collection of modifiers that can be placed under a stat. These collections are always sorted.

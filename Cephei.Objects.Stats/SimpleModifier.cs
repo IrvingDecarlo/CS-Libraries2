@@ -1,19 +1,18 @@
-﻿namespace Cephei.Objects.Effects.Stats
+﻿namespace Cephei.Objects.Stats
 {
   /// <summary>
   /// SimpleModifiers are modifiers that only target a Stat, they have no source valuable that manipulates its value, therefore it can only be altered manually.
   /// </summary>
   /// <typeparam name="T">The identifiable type.</typeparam>
   /// <typeparam name="U">The valuable type.</typeparam>
-  public abstract class SimpleModifier<T, U> : EffectObject<T>, IReferencedModifier<T, U>
+  public abstract class SimpleModifier<T, U> : PersistentReadonlyObject<T>, IReferencedModifier<T, U>
   {
     /// <summary>
     /// Creates a new simple modifier.
     /// </summary>
     /// <param name="id">The modifier's ID.</param>
     /// <param name="value">The modifier's value.</param>
-    /// <param name="eff">Effect to assign it under.</param>
-    public SimpleModifier(T id, U value, Effect<T>? eff = null) : base(id, eff)
+    public SimpleModifier(T id, U value) : base(id)
     {
       this.value = value;
       OnDeleted += OnDelete;

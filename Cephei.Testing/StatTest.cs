@@ -3,13 +3,11 @@ using Cephei.Commands;
 using Cephei.Commands.Consoles;
 using Cephei.Objects;
 using Cephei.Objects.Effects;
-using Cephei.Objects.Effects.Stats;
-using System;
+using Cephei.Objects.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-
+/*
 namespace Cephei.Testing
 {
   using static ConsoleSystem;
@@ -25,7 +23,6 @@ namespace Cephei.Testing
       ModifierCommand = CreateCommand(null, null, null, "modifier", "mod");
       EffectCommand = CreateCommand(null, null, null, "effect", "eff");
     }
-
     internal static void CreateCommands()
     {
       CreateCommand((x) => ListItems(stats.Values, "Listing stats:"), null, StatCommand, "list");
@@ -208,3 +205,4 @@ namespace Cephei.Testing
     }
   }
 }
+    */

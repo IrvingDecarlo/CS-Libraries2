@@ -15,7 +15,8 @@
     <ProjectReference Include="..\Cephei.Benchmarking\Cephei.Benchmarking.csproj" />
     <ProjectReference Include="..\Cephei.Commands.Consoles\Cephei.Commands.Consoles.csproj" />
     <ProjectReference Include="..\Cephei.Networking\Cephei.Networking.csproj" />
-    <ProjectReference Include="..\Cephei.Objects.Effects.Stats\Cephei.Objects.Stats.csproj" />
+    <ProjectReference Include="..\Cephei.Objects.Effects\Cephei.Objects.Effects.csproj" />
+    <ProjectReference Include="..\Cephei.Objects.Stats\Cephei.Objects.Stats.csproj" />
   </ItemGroup>
 
 </Project>

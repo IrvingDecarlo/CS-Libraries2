@@ -7,11 +7,16 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Managed Objects Library</Title>
-    <Version>3.0</Version>
+    <Version>3.1</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v3.0, 23-02-17
+    <PackageReleaseNotes>v3.1, 24-04-01
+* ManagedObject
+*- Removed abstract methods BypassDeletion and OnDeletion;
+** Updated to adapt to Cephei.Objects.PersistentObject changes.
+
+v3.0, 23-02-17
 * Initial build.</PackageReleaseNotes>
   </PropertyGroup>
 

@@ -1,6 +1,6 @@
 ﻿using Cephei.Valuables;
 
-namespace Cephei.Objects.Effects.Stats
+namespace Cephei.Objects.Stats
 {
   /// <summary>
   /// The IModifier interface can be used as both a source and a target for stats.

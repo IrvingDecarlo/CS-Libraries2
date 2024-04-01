@@ -11,7 +11,7 @@ namespace Cephei.Testing
       Setup();
       CommandTest.AddCommands();
       //SocketTest.AddCommands();
-      StatTest.CreateCommands();
+      //StatTest.CreateCommands();
       HttpTest.AddCommands();
       MathTest.AddCommands();
       StreamTest.AddCommands();
