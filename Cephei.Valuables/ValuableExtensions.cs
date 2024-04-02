@@ -14,6 +14,7 @@ namespace Cephei.Valuables
     /// <typeparam name="T">IStackable type.</typeparam>
     /// <param name="stack">Stackable object.</param>
     /// <param name="amount">Amount to decrease by.</param>
+    /// <returns>The stackable's new stack size.</returns>
     public static T DoDecrease<T>(this IStackable<T> stack, T amount)
     {
       stack.CanDecrease(amount, out T val);
