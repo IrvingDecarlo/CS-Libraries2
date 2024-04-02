@@ -17,6 +17,7 @@
     <ProjectReference Include="..\Cephei.Networking\Cephei.Networking.csproj" />
     <ProjectReference Include="..\Cephei.Objects.Effects\Cephei.Objects.Effects.csproj" />
     <ProjectReference Include="..\Cephei.Objects.Stats\Cephei.Objects.Stats.csproj" />
+    <ProjectReference Include="..\Cephei.Streams\Cephei.Streams.csproj" />
   </ItemGroup>
 
 </Project>

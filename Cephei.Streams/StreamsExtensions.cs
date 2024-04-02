@@ -25,6 +25,64 @@ namespace Cephei.Streams
     }
 
     /// <summary>
+    /// Reads an Int64 from a reader using the 7Bit format.
+    /// </summary>
+    /// <param name="reader">Reader to use.</param>
+    /// <returns>The Int64 extracted from the reader.</returns>
+    /// <remarks>UNFINISHED! Do not use in production.</remarks>
+    public static long Read7BitInt64(this BinaryReader reader)
+    {
+      byte v = reader.ReadByte();
+      long i = (v & 1) > 0 ? 1 : -1;
+      long value = 0;
+      byte it = 2;
+      while (true)
+      {
+        if (it == 128)
+        {
+          if ((v & it) == 0) break;
+          v = reader.ReadByte();
+          it = 1;
+        }
+        if ((v & it) > 0) value += i;
+        i *= 2;
+        it *= 2;
+      }
+      return value;
+    }
+
+    /// <summary>
+    /// Writes an integer in the 7Bit format.
+    /// </summary>
+    /// <param name="writer">BinaryWriter to use.</param>
+    /// <param name="value">Value to be written.</param>
+    /// <remarks>UNFINISHED! Do not use in production.</remarks>
+    public static void Write7Bit(this BinaryWriter writer, long value)
+    {
+      int s = value.CompareTo(0);
+      long i = s;
+      byte v;
+      if (s < 0) v = 0;
+      else v = 1;
+      byte it = 2;
+      int c = value.CompareTo(i);
+      while (c == s || c == 0)
+      {
+        if (it == 128)
+        {
+          v += it;
+          writer.Write(v);
+          it = 1;
+          v = 0;
+        }
+        if ((value & i) != 0) v += it;
+        i *= 2;
+        it *= 2;
+        c = value.CompareTo(i);
+      }
+    }
+
+    /// <summary>
     /// Writes a KeyValuePair enumerable containing another KeyValuePair enumerable in its value in a stream.
     /// </summary>
     /// <typeparam name="T">The main enumerable's key type.</typeparam>

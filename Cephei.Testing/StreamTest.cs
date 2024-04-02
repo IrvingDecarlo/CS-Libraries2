@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Cephei.Benchmarking;
+using Cephei.Streams;
 
 namespace Cephei.Testing
 {
@@ -239,6 +240,37 @@ namespace Cephei.Testing
           WriteReaderContent(filepath, strings);
         }, bench, filepath, "StreamReader ASYNC Memory");
       }, null, cmd, "benchmark", "bm");
+
+      CreateCommand((x) =>
+      {
+        string path = x["path"][0];
+        string pathdef = Path.Combine(path, "7bit_base.txt");
+        string path32 = Path.Combine(path, "7bit_32.txt");
+        string path7 = Path.Combine(path, "7bit_7.txt");
+        Random random = new Random();
+        int n = x.TryGetValue("n", out IReadOnlyList<string> args) ? int.Parse(args[0]) : 1000000;
+        Out.WriteLine($"Testing 7Bit encoder performance with {n} numbers...");
+        int i;
+        int[] values;
+        using (StreamWriter swriter = new StreamWriter(pathdef))
+        {
+          i = 0;
+          values = new int[n];
+          for (i = 0; i < n; i++)
+          {
+            values[i] = random.Next(int.MinValue, int.MaxValue);
+            swriter.WriteLine(values[i]);
+          }
+        }
+        Out.WriteLine("Base successfully written to " + pathdef);
+        Out.WriteLine();
+        BenchmarkerDelegated bench = new BenchmarkerDelegated(null);
+        Benchmark7Bit((x, y) => x.Write(values[y]), bench, n, path32, "Default 32Bit Writer");
+        Benchmark7Bit((x, y) => x.Write7Bit(values[y]), bench, n, path7, "7Bit Writer");
+        Out.WriteLine("Reading and writing auxiliary files...");
+        Benchmark7BitReader((x) => x.ReadInt32(), bench, n, path32, "Default 32Bit Reader", Path.Combine(path, "7bit_32_out.txt"));
+        Benchmark7BitReader((x) => (int)x.Read7BitInt64(), bench, n, path32, "7Bit Reader", Path.Combine(path, "7bit_7_out.txt"));
+      }, null, Main, "7bit");
     }
 
     public static Command Main;
@@ -282,6 +314,33 @@ namespace Cephei.Testing
       Out.WriteLine($"File path: {path}");
       bench.MainAction = action;
       bench.Benchmark();
+    }
+
+    private static void Benchmark7Bit(Action<BinaryWriter, int> action, BenchmarkerDelegated bench, int n, string path, string name)
+    {
+      Out.WriteLine();
+      using BinaryWriter bwriter = new BinaryWriter(File.OpenWrite(path));
+      Benchmark((x) =>
+      {
+        for (int i = 0; i < n; i++) action(bwriter, i);
+      }, bench, path, name);
+      Out.WriteLine(new Benchmarker.Report(bench.Stopwatch, bench.Reports, n));
+    }
+
+    private static void Benchmark7BitReader(Func<BinaryReader, int> action, BenchmarkerDelegated bench, int n, string path, string name, string outpath)
+    {
+      Out.WriteLine();
+      using BinaryReader reader = new BinaryReader(File.OpenRead(path));
+      int[] values = new int[n];
+      int i;
+      Benchmark((x) =>
+      {
+        for (i = 0; i < n; i++) values[i] = action(reader);
+      }, bench, path, name);
+      Out.WriteLine(new Benchmarker.Report(bench.Stopwatch, bench.Reports, n));
+      using StreamWriter writer = new StreamWriter(outpath);
+      for (i = 0; i < n; i++) writer.WriteLine(values[i]);
+      Out.WriteLine("Control data outputted to " + outpath);
     }
 
     private static void WriteToMemory(MemoryStream memory, byte[] buffer, string str)
