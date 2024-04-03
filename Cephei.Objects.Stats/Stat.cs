@@ -47,7 +47,7 @@ namespace Cephei.Objects.Stats
     /// Updates itself using its sources' updated values and then updates its target modifiers.
     /// Will do nothing if the stat is already up to date.
     /// </summary>
-    public void Update()
+    public virtual void Update()
     {
       if (Updated) return;
       Updated = true;
@@ -64,7 +64,7 @@ namespace Cephei.Objects.Stats
     /// <summary>
     /// Signals itself and its target modifiers to update. Does nothing if it is already pending an update.
     /// </summary>
-    public void SignalUpdate()
+    public virtual void SignalUpdate()
     {
       if (!Updated) return;
       Updated = false;
