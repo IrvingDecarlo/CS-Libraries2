@@ -25,31 +25,38 @@ namespace Cephei.Valuables
     /// <summary>
     /// Returns a string with the gauge's values.
     /// </summary>
-    /// <typeparam name="T">Any type.</typeparam>
+    /// <typeparam name="T">The gauge's value type.</typeparam>
+    /// <typeparam name="U">The gauge's percentage type.</typeparam>
     /// <param name="gauge">The gauge.</param>
     /// <returns>A string with the gauge's values.</returns>
-    public static string ToGaugeString<T>(this IGauge<T> gauge)
+    public static string ToGaugeString<T, U>(this IGauge<T, U> gauge)
         => "Value='" + gauge.Value?.ToString() + "' MaxValue='" + gauge.MaxValue?.ToString() + "' Percent='" + gauge.Percentage?.ToString() + "'";
     /// <summary>
     /// Returns a string with the gauge's values, using specific formatters.
     /// </summary>
-    /// <typeparam name="T">Any IFormattable object.</typeparam>
+    /// <typeparam name="T">The gauge's value type.</typeparam>
+    /// <typeparam name="U">The gauge's percentage type.</typeparam>
     /// <param name="gauge">The gauge.</param>
     /// <param name="pformat">Format for the percentage.</param>
     /// <param name="nformat">Format for the other values.</param>
     /// <returns>A formatted string with the gauge's values.</returns>
-    public static string ToGaugeString<T>(this IGauge<T> gauge, string pformat, string nformat = "G") where T : IFormattable
+    public static string ToGaugeString<T, U>(this IGauge<T, U> gauge, string pformat, string nformat = "G") 
+      where T : IFormattable
+      where U : IFormattable
         => gauge.ToGaugeString(pformat, nformat, CultureInfo.CurrentCulture.NumberFormat);
     /// <summary>
     /// Returns a string with the gauge's values, using specific formatters.
     /// </summary>
-    /// <typeparam name="T">Any IFormattable object.</typeparam>
+    /// <typeparam name="T">The gauge's value type.</typeparam>
+    /// <typeparam name="U">The gauge's percentage type.</typeparam>
     /// <param name="gauge">The gauge.</param>
     /// <param name="pformat">Format for the percentage.</param>
     /// <param name="nformat">Format for the other values.</param>
     /// <param name="formatter">The format provider.</param>
     /// <returns>A formatted string with the gauge's values.</returns>
-    public static string ToGaugeString<T>(this IGauge<T> gauge, string pformat, string nformat, IFormatProvider formatter) where T : IFormattable
+    public static string ToGaugeString<T, U>(this IGauge<T, U> gauge, string pformat, string nformat, IFormatProvider formatter) 
+      where T : IFormattable
+      where U : IFormattable
         => "Value='" + gauge.Value.ToString(nformat, formatter) + "' MaxValue='" + gauge.MaxValue.ToString(nformat, formatter)
         + "' Percent='" + gauge.Percentage.ToString(pformat, formatter) + "'";
   }

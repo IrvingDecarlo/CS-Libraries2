@@ -7,8 +7,15 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <PackageId>$(AssemblyName)</PackageId>
-    <Version>1.1.1</Version>
-    <PackageReleaseNotes>v1.1.1, 24-04-02
+    <Version>1.2</Version>
+    <PackageReleaseNotes>v1.2, 24-04-07
++ Added IReadOnlyGauge{T, U}, GaugeInt and GaugeFloat;
+- Removed Gauge.
+* IGauge{T, U}
+*+ Added a second type parameter for percentages;
+*+ Now inherits from IReadOnlyGauge{T, U}.
+
+v1.1.1, 24-04-02
 + Added IStackable{T} and IReadOnlyStackable{T}.
 
 v1.1.0.1, 23-02-09

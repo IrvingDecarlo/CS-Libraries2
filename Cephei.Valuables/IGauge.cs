@@ -3,17 +3,18 @@
     /// <summary>
     /// The IGauge interface offers the base for gauges, implementing IValuable alongside MaxValue and percentage.
     /// </summary>
-    /// <typeparam name="T">Any type, but a numeric type is highly advised.</typeparam>
-    public interface IGauge<T> : IValuable<T>
+    /// <typeparam name="T">The gauge's value type.</typeparam>
+    /// <typeparam name="U">The gauge's percentage value type.</typeparam>
+    public interface IGauge<T, U> : IReadOnlyGauge<T, U>
     {
         /// <summary>
         /// This is the gauge's max value.
         /// </summary>
-        T MaxValue { set; get; }
+        new T MaxValue { set; get; }
 
         /// <summary>
         /// This is the gauge's percentage fill.
         /// </summary>
-        T Percentage { set; get; }
+        new U Percentage { set; get; }
     }
 }
