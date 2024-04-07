@@ -7,11 +7,15 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Stat Objects Library</Title>
-    <Version>3.0.0.1</Version>
+    <Version>3.1</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v3.0.0.1, 24-04-03
+    <PackageReleaseNotes>v3.1, 24-04-06
+* Stats
+** Backtracked on Stat.Update changes.
+
+v3.0.0.1, 24-04-03
 * Stats
 ** Stat.Update and Stat.SignalUpdate are now virtual methods.
 

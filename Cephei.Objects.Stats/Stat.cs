@@ -47,7 +47,7 @@ namespace Cephei.Objects.Stats
     /// Updates itself using its sources' updated values and then updates its target modifiers.
     /// Will do nothing if the stat is already up to date.
     /// </summary>
-    public virtual void Update()
+    public void Update()
     {
       if (Updated) return;
       Updated = true;
