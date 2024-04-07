@@ -10,22 +10,23 @@
     /// </summary>
     /// <param name="value">The gauge's initial value.</param>
     /// <param name="maxvalue">The gauge's max value.</param>
-    public GaugeFloat(float value = 0f, float maxvalue = 0f)
+    public GaugeFloat(float value, float maxvalue)
     {
-      this.value = value;
-      this.maxvalue = maxvalue;
+      MaxValue = maxvalue;
+      Value = value;
     }
+    /// <summary>
+    /// Creates a new float Gauge without values.
+    /// </summary>
+    public GaugeFloat()
+    { }
 
     #region overrides
 
     /// <summary>
     /// Gets or sets the gauge's max value.
     /// </summary>
-    public virtual float MaxValue
-    {
-      set => maxvalue = value;
-      get => maxvalue;
-    }
+    public virtual float MaxValue { get; set; }
 
     /// <summary>
     /// Gets or sets the gauge's percentage.
@@ -33,24 +34,14 @@
     /// <remarks>Caching the value is recommended since it is not stored locally within the gauge.</remarks>
     public virtual float Percentage
     {
-      set => this.value = maxvalue * value;
-      get => value / maxvalue;
+      set => Value = MaxValue * value;
+      get => Value / MaxValue;
     }
 
     /// <summary>
     /// Gets or sets the gauge's value.
     /// </summary>
-    public virtual float Value
-    {
-      set => this.value = value;
-      get => value;
-    }
-
-    #endregion
-
-    #region private
-
-    private float value, maxvalue;
+    public virtual float Value { get; set; }
 
     #endregion
   }
