@@ -1,5 +1,4 @@
-﻿using Cephei.Tools;
-using System;
+﻿using System;
 
 namespace Cephei.Objects
 {
@@ -7,7 +6,7 @@ namespace Cephei.Objects
   /// The PersistentAbstractObject offers an abstract implementation for objects that are meant to be identifiable, modifiable and deletable.
   /// </summary>
   /// <typeparam name="T">IIdentifiable type.</typeparam>
-  public abstract class PersistentAbstractObject<T> : IReadOnlyIdentifiable<T>, IReadOnlyModifiable, IReadOnlyDeletable
+  public abstract class PersistentAbstractObject<T> : ReadOnlyIdentifiableAbstract<T>, IReadOnlyModifiable, IReadOnlyDeletable
   {
     #region overrides
 
@@ -17,30 +16,6 @@ namespace Cephei.Objects
     /// <returns>The string identifying the object.</returns>
     public override string ToString()
       => "Type='" + GetType().ToString() + "' ID='" + ID?.ToString() + "' Hash='" + GetHashCode().ToString() + "'";
-
-    /// <summary>
-    /// Gets the object's ID.
-    /// </summary>
-    public abstract T ID { get; }
-
-    /// <summary>
-    /// Checks if the object is equal to another IReadOnlyIdentifier of the same type.
-    /// </summary>
-    /// <param name="other">Object to equate to.</param>
-    /// <returns>True if both have the same ID.</returns>
-    public virtual bool Equals(IReadOnlyIdentifiable<T> other) => other.ID.SafeEquals(ID);
-    /// <summary>
-    /// Checks if the object is equal to another object.
-    /// </summary>
-    /// <param name="obj">Object to equate to.</param>
-    /// <returns>True if both are identifiable objects with the same ID.</returns>
-    public override bool Equals(object obj) => obj is IReadOnlyIdentifiable<T> other && Equals(other);
-
-    /// <summary>
-    /// Gets the object's hash code.
-    /// </summary>
-    /// <returns>The ID's hash code.</returns>
-    public override int GetHashCode() => ID is null ? 0 : ID.GetHashCode();
 
     /// <summary>
     /// Is this object modifiable?
