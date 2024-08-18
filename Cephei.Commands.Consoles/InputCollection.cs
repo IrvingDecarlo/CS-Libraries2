@@ -80,7 +80,7 @@ namespace Cephei.Commands.Consoles
     /// </summary>
     public int Position
     {
-      set => pos = value.Clamp(Count - 1, 0);
+      set => pos = Math.Clamp(value, 0, Count - 1);
       get => pos;
     }
 

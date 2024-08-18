@@ -1,10 +1,12 @@
 ﻿using Cephei.Collections;
 using Cephei.Objects;
+using Cephei.Strings;
 using Cephei.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Cephei.Commands
 {
@@ -12,7 +14,7 @@ namespace Cephei.Commands
   /// The command class is the basic class for the Command system. Through it, commands are executed and logged.
   /// </summary>
   public abstract class Command : ProtectedDictionary<string, Command>, IModifiable, IReadOnlyIdentifiable<string>, IEquatable<Command>, IDescribable<string>
-    , IExecutable<IReadOnlyDictionary<string, IReadOnlyList<string>>>, ICloneable<Command?, IList<CommandAlreadyExistsException>, Command>
+    , IExecutableAsync<IReadOnlyDictionary<string, IReadOnlyList<string>>>, ICloneable<Command?, IList<CommandAlreadyExistsException>, Command>
     , ICloneable<Command?, IList<CommandAlreadyExistsException>, string[], Command>
   {
     /// <summary>
@@ -101,9 +103,9 @@ namespace Cephei.Commands
     /// </summary>
     /// <param name="args">Arguments to supply the command's execution.</param>
     /// <exception cref="CommandExecutionException"></exception>
-    public void Execute(IReadOnlyDictionary<string, IReadOnlyList<string>> args)
+    public async Task ExecuteAsync(IReadOnlyDictionary<string, IReadOnlyList<string>> args)
     {
-      try { DoExecute(args); }
+      try { await DoExecute(args); }
       catch (Exception ex) { throw new CommandExecutionException(this, ex); }
     }
 
@@ -180,7 +182,7 @@ namespace Cephei.Commands
     /// The execution of the command itself.
     /// </summary>
     /// <param name="args">Arguments that were supplied for the execution.</param>
-    protected abstract void DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> args);
+    protected abstract Task DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> args);
 
     #endregion
 
@@ -286,12 +288,12 @@ namespace Cephei.Commands
     /// <param name="input">String used to locate and parametrize the command.</param>
     /// <exception cref="CommandNotFoundException"></exception>
     /// <exception cref="CommandExecutionException"></exception>
-    public static void Run(string input)
+    public static async Task Run(string input)
     {
       input = input.Trim();
       if (input.Length < 1) return;
       IReadOnlyDictionary<string, IReadOnlyList<string>> args = Read(input, out Queue<string> cmds);
-      Run(cmds, args);
+      await Run(cmds, args);
     }
     /// <summary>
     /// Finds a command via a command queue and executes it using input arguments.
@@ -300,8 +302,8 @@ namespace Cephei.Commands
     /// <param name="args">Arguments to parametrize the command's execution.</param>
     /// <exception cref="CommandNotFoundException"></exception>
     /// <exception cref="CommandExecutionException"></exception>
-    public static void Run(Queue<string> cmds, IReadOnlyDictionary<string, IReadOnlyList<string>> args)
-      => Find(cmds).Execute(args);
+    public static async Task Run(Queue<string> cmds, IReadOnlyDictionary<string, IReadOnlyList<string>> args)
+      => await Find(cmds).ExecuteAsync(args);
 
     /// <summary>
     /// Is the static command dictionary, referring to the commands that are not assigned under any other commands.

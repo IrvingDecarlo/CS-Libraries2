@@ -7,7 +7,13 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Version>2.3.1.0</Version>
-    <PackageReleaseNotes>v2.3.1, 23-07-22
+    <PackageReleaseNotes>v2.4, 24-08-06
+* Extensions
+*- All string-related extension methods were migrated to Cephei.Strings;
+*- All directory-related extension methods were migrated to Cephei.Files.
+- The Tool class was removed.
+
+v2.3.1, 23-07-22
 * Extensions
 *+ Added CreateDirectoryForPath() and GetAndCreateDirectoryPath().
 

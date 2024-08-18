@@ -7,10 +7,16 @@
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Console Commands Library</Title>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <PackageReleaseNotes>v3.0.2, 23-02-16
+    <PackageReleaseNotes>v3.0.3, 24-08-17
+* Updated to adapt to Cephei.Commands 3.2 changes.
+* ConsoleSystem
+*+ Added MainLoopAsync(string);
+*+ Added ShowException(Exception).
+
+v3.0.2, 23-02-16
 * CommandHelp
 ** Constructor now uses IList instead of the object List.
 + Added PredefinedCommands.

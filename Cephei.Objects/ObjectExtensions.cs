@@ -247,6 +247,16 @@ namespace Cephei.Objects
     }
 
     /// <summary>
+    /// Disposes all objects in a collection.
+    /// </summary>
+    /// <typeparam name="T">The IDisposable object type.</typeparam>
+    /// <param name="en">Collection of objects to be disposed.</param>
+    public static void DisposeAll<T>(this IEnumerable<T> en) where T : IDisposable
+    {
+      foreach (T obj in en) obj.Dispose();
+    }
+
+    /// <summary>
     /// Sets the deletable flag of all objects in a collection.
     /// </summary>
     /// <typeparam name="T">The IDeletable object type.</typeparam>

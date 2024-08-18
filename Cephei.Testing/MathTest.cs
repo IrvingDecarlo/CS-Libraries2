@@ -4,6 +4,7 @@ using Cephei.Commands.Consoles;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Cephei.Testing
 {
@@ -43,6 +44,7 @@ namespace Cephei.Testing
             Benchmark(() => (value * mult) / 100, bench, "Multiply by Int Percent", loops);
             break;
         }
+        return Task.CompletedTask;
       }, null, MathCommand, "multiply", "mult");
     }
 

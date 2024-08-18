@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Cephei.Commands.Consoles
 {
@@ -32,10 +33,18 @@ namespace Cephei.Commands.Consoles
     {
       Command con = CreateCommand(null, () => "Console command: Console. Has no action.", master, "console", "con")
         ?? throw new ApplicationException("Console command failed to create.");
-      Command exit = CreateCommand((x) => Looping = false, () => "Console command: Exit. Exits the console's main loop. Has no arguments.", con, "exit", "end")
+      Command exit = CreateCommand((x) =>
+      {
+        Looping = false;
+        return Task.CompletedTask;
+      }, () => "Console command: Exit. Exits the console's main loop. Has no arguments.", con, "exit", "end")
         ?? throw new ApplicationException("Exit command failed to create.");
       CreateCommand((x) => new CommandPseudo(exit, null, x), true);
-      CreateCommand((x) => Console.Clear(), () => "Console command: Clear. Clears the console window. Has no arguments.", con, "clear", "clr");
+      CreateCommand((x) =>
+      {
+        Console.Clear();
+        return Task.CompletedTask;
+      }, () => "Console command: Clear. Clears the console window. Has no arguments.", con, "clear", "clr");
       CreateCommand((x) =>
       {
         ConsoleColor c;
@@ -52,12 +61,17 @@ namespace Cephei.Commands.Consoles
           Console.BackgroundColor = c;
           Out.WriteLine("Background color changed to: " + cs + ".");
         }
+        return Task.CompletedTask;
       }, () => "Console Command: Color. Changes the console's color.\n\n"
         + "Arguments:\n[-fore]: The foreground (letter) color. Has the following available colors:"
         + "\n* Black, Dark Blue, Dark Green, Dark Cyan, Dark Red, Dark Magenta, Dark Yellow, Gray, Dark Gray,"
         + "\n* Blue, Green, Cyan, Red, Magenta, Yellow and White."
         + "\n[-back]: The background color. Has the same colors as the foreground.", con, "color", "col");
-      CreateCommand((x) => Out.WriteLine(GetInfo()), () => "Console command: Version. Outputs the program's and the console's version. Has no arguments.", con, "info");
+      CreateCommand((x) =>
+      {
+        Out.WriteLine(GetInfo());
+        return Task.CompletedTask;
+      }, () => "Console command: Version. Outputs the program's and the console's version. Has no arguments.", con, "info");
       return con;
     }
 

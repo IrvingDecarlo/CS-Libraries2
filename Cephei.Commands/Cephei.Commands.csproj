@@ -10,8 +10,14 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <Version>3.1</Version>
-    <PackageReleaseNotes>v3.1, 23-02-16
+    <Version>3.2</Version>
+    <PackageReleaseNotes>v3.2, 24-08-14
++ Added Cephei.Strings as a dependency;
+* Command
+** The Execute method is now an async task;
+** Replaced IExecutable implementation with IExecutableAsync.
+
+v3.1, 23-02-16
 * Command
 *+ Now inherits from ICopiable{Command?, IList{}, string[], Command} as an abstract public method;
 *+ Now inherits from ICopiable{Command?, IList{}, Command};
@@ -32,6 +38,8 @@ Initial build.</PackageReleaseNotes>
   <ItemGroup>
     <ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
     <ProjectReference Include="..\Cephei.Objects\Cephei.Objects.csproj" />
+    <ProjectReference Include="..\Cephei.Strings\Cephei.Strings.csproj" />
+    <ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
   </ItemGroup>
 
 </Project>

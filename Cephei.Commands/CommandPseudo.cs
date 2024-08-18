@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cephei.Commands
 {
@@ -30,8 +31,8 @@ namespace Cephei.Commands
     /// Calls the reference command's action.
     /// </summary>
     /// <param name="args">Arguments to use in the execution.</param>
-    protected override void DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> args)
-      => Reference.Execute(args);
+    protected override async Task DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> args)
+      => await Reference.ExecuteAsync(args);
 
     /// <summary>
     /// Clones this command, creating a new Pseudo Command with the same reference command.

@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using Cephei.Benchmarking;
 using Cephei.Streams;
+using System.Threading.Tasks;
 
 namespace Cephei.Testing
 {
@@ -55,6 +56,7 @@ namespace Cephei.Testing
           for (i = 0; i < cstring; i++) Out.WriteLine($"String {i}: " + reader.ReadString());
         }
         Out.WriteLine("All content was read.");
+        return Task.CompletedTask;
       }, null, Main, "binary");
 
       Command cmd = CreateCommand(null, null, Main, "writer");
@@ -152,6 +154,7 @@ namespace Cephei.Testing
           filestream.Write(membuffer, 0, (int)memory.Position);
           Out.WriteLine("Content outputted to test file.");
         }, bench, filepath, "Direct MemoryStream");
+        return Task.CompletedTask;
       }, null, cmd, "benchmark", "bm");
 
       cmd = CreateCommand(null, null, Main, "reader");
@@ -239,6 +242,7 @@ namespace Cephei.Testing
           Out.WriteLine("String generated:\n" + new Benchmarker.Report(bench.Stopwatch, bench.Reports, bargs.number));
           WriteReaderContent(filepath, strings);
         }, bench, filepath, "StreamReader ASYNC Memory");
+        return Task.CompletedTask;
       }, null, cmd, "benchmark", "bm");
 
       CreateCommand((x) =>
@@ -270,6 +274,7 @@ namespace Cephei.Testing
         Out.WriteLine("Reading and writing auxiliary files...");
         Benchmark7BitReader((x) => x.ReadInt32(), bench, n, path32, "Default 32Bit Reader", Path.Combine(path, "7bit_32_out.txt"));
         Benchmark7BitReader((x) => (int)x.Read7BitInt64(), bench, n, path32, "7Bit Reader", Path.Combine(path, "7bit_7_out.txt"));
+        return Task.CompletedTask;
       }, null, Main, "7bit");
     }
 

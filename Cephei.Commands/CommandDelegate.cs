@@ -1,6 +1,7 @@
 ﻿using Cephei.Objects;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cephei.Commands
 {
@@ -40,10 +41,10 @@ namespace Cephei.Commands
     /// </summary>
     /// <param name="parameters">Parameters for the command's action.</param>
     /// <exception cref="CommandNullActionException"></exception>
-    protected override void DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> parameters)
+    protected override async Task DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> parameters)
     {
       if (action is null) throw new CommandNullActionException(this);
-      action(parameters);
+      await action(parameters);
     }
 
     /// <summary>
@@ -64,7 +65,7 @@ namespace Cephei.Commands
     /// The Executor is the main delegate for operating the command's action.
     /// </summary>
     /// <param name="args">Arguments that will be used for the execution of the command.</param>
-    public delegate void Executor(IReadOnlyDictionary<string, IReadOnlyList<string>> args);
+    public delegate Task Executor(IReadOnlyDictionary<string, IReadOnlyList<string>> args);
 
     /// <summary>
     /// Gets or sets the command's action.

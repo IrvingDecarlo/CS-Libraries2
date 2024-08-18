@@ -6,10 +6,14 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-	<Version>1.4</Version>
+	<Version>1.4.1</Version>
     <Product>Cephei Files Library</Product>
-    <PackageReleaseNotes>v1.4, 23-02-16
-* FilesExtensions
+    <PackageReleaseNotes>v1.4.1, 24-08-08
+* FileExtensions
+*+ Absorbed all file-related extension methods from Cephei.Tools.
+
+v1.4, 23-02-16
+* FileExtensions
 ** All extension methods related to Assemblies were migrated to the new Cephei.Assemblies library.
 
 v1.3.0.1, 23-02-09

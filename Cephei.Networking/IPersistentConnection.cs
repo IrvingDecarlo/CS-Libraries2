@@ -4,67 +4,85 @@ using System.Threading.Tasks;
 namespace Cephei.Networking
 {
   /// <summary>
-  /// The generic IPersistentConnection interface denotes an object which contains a persistent connection to its target and is capable of sending/receiving
-  /// a specific type of data to its endpoint.
+  /// The two-generic IPersistentConnection interface contains message sending/receiving abstractions.
   /// </summary>
-  /// <typeparam name="T">Object type that is sent/received.</typeparam>
-  public interface IPersistentConnection<T> : IPersistentConnection
+  /// <typeparam name="T">Object type that is sent.</typeparam>
+  /// <typeparam name="U">Object type that is received.</typeparam>
+  public interface IPersistentConnection<T, U> : IPersistentConnection<T>, IListeningConnection<U>
   {
-    /// <summary>
-    /// Makes the connection communicate with its endpoint, sending a message and receiving another.
-    /// </summary>
-    /// <param name="message">Message to be sent to the endpoint.</param>
-    /// <param name="attempts">Number of communication attempts until communication is aborted.</param>
-    /// <param name="retrydelay">Delay between retry attempts.</param>
-    /// <param name="expheader">Expected header to receive. Can be default to disable header validation.</param>
-    /// <param name="minlen">Minimum response length.</param>
-    /// <param name="maxlen">Maximum response length.</param>
-    /// <returns>The message received from the endpoint. Returns default on error.</returns>
-    Task<T> CommunicateAsync(T message, int attempts, int retrydelay, T expheader, int minlen, int maxlen);
+    // METHODS
 
     /// <summary>
-    /// Receives the target's response.
+    /// Attempts to communicate, sending a message and then awaiting for a response.
     /// </summary>
-    /// <param name="msg">Message to be sent to target.</param>
-    /// <returns>The target's response.</returns>
-    Task<T> ReceiveResponseAsync(T msg);
-
-    /// <summary>
-    /// Sends a message to target.
-    /// </summary>
-    /// <param name="msg">Message to be sent to target.</param>
-    /// <returns>Task for sending the message.</returns>
-    Task SendMessageAsync(T msg);
+    /// <param name="message">Message to send.</param>
+    /// <param name="attempts">Number of attempts to perform.</param>
+    /// <param name="cooldown">Cooldown between attempts.</param>
+    /// <param name="timeout">Timeout for each attempt.</param>
+    /// <returns>The message received.</returns>
+    /// <remarks>Cannot be used in conjunction with AwaitingMessages in many cases.
+    /// Will throw the last exception if all attempts fail.</remarks>
+    Task<U> CommunicateAsync(T message, int attempts, TimeSpan cooldown, TimeSpan timeout);
   }
   /// <summary>
-  /// The IPersistentConnection interface denotes an object which contains a persistent connection to its target.
+  /// The one-generic IPersistentConnection interface contains message sending abstractions.
+  /// </summary>
+  /// <typeparam name="T">Object type that is sent.</typeparam>
+  public interface IPersistentConnection<T> : IPersistentConnection
+  {
+    // METHODS
+
+    /// <summary>
+    /// Tries to send a message.
+    /// </summary>
+    /// <param name="message">Message object to send.</param>
+    /// <param name="attempts">Number of attempts to perform.</param>
+    /// <param name="cooldown">Cooldown between attempts.</param>
+    /// <param name="timeout">Timeout for each attempt.</param>
+    /// <returns>The task for sending the message.</returns>
+    /// <remarks>Will throw the last exception if all attempts fail.</remarks>
+    Task SendMessageAsync(T message, int attempts, TimeSpan cooldown, TimeSpan timeout);
+  }
+  /// <summary>
+  /// The IPersistentConnection interface offers a base for all persistent connections, containing basic connectivity interfaces.
   /// </summary>
   public interface IPersistentConnection : IDisposable
   {
-    /// <summary>
-    /// OnConnectionError is called when the connection loses contact with its endpoint.
-    /// </summary>
-    event Action? OnConnectionError;
+    // EVENTS
 
     /// <summary>
-    /// OnConnectionSuccess is called when the connection gains/restores contact with its endpoint.
+    /// OnConnectionEstablished is raised when the connection is successfully established.
     /// </summary>
-    event Action? OnConnectionSuccess;
+    event Action OnConnectionEstablished;
 
     /// <summary>
-    /// Gets the connection's connection status.
+    /// OnConnectionLost is raised when the connection to the endpoint is lost.
+    /// </summary>
+    event Action OnConnectionLost;
+
+    // PROPERTIES
+
+    /// <summary>
+    /// Is the connection up?
     /// </summary>
     bool Connected { get; }
 
-    /// <summary>
-    /// Connects to the endpoint.
-    /// </summary>
-    /// <returns>True if connection was successful or if it's already active, false otherwise.</returns>
-    Task<bool> TryConnectAsync();
+    // METHODS
 
     /// <summary>
-    /// Closes the connection to the target.
+    /// Attempts to connect to the endpoint.
     /// </summary>
-    void Close();
+    /// <param name="attempts">Number of attempts to perform.</param>
+    /// <param name="cooldown">Cooldown between attempts.</param>
+    /// <param name="timeout">Timeout for each attempt.</param>
+    /// <returns>The task for connecting to the endpoint.</returns>
+    /// <remarks>Will throw the last exception if all attempts fail.</remarks>
+    Task ConnectAsync(int attempts, TimeSpan cooldown, TimeSpan timeout);
+
+    /// <summary>
+    /// Disconnects the connection.
+    /// </summary>
+    /// <returns>The task for disconnecting.</returns>
+    Task DisconnectAsync();
   }
 }

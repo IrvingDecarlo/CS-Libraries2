@@ -1,5 +1,4 @@
 ﻿using Cephei.Commands.Consoles;
-using System;
 
 namespace Cephei.Testing
 {
@@ -11,7 +10,7 @@ namespace Cephei.Testing
     {
       Setup();
       CommandTest.AddCommands();
-      //SocketTest.AddCommands();
+      SocketTest.AddCommands();
       //StatTest.CreateCommands();
       HttpTest.AddCommands();
       MathTest.AddCommands();

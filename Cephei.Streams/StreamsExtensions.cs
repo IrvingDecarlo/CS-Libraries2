@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Cephei.Tools;
+using Cephei.Strings;
 
 namespace Cephei.Streams
 {

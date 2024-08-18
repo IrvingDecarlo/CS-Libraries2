@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Cephei.Commands.Consoles
 {
@@ -34,7 +35,7 @@ namespace Cephei.Commands.Consoles
     /// Will identify all of the system's commands if it is not assigned to a master command.
     /// </summary>
     /// <param name="args">The command's arguments.</param>
-    protected override void DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> args)
+    protected override Task DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> args)
     {
       IReadOnlyDictionary<string, Command> cmds;
       TextWriter writer = Out;
@@ -53,6 +54,7 @@ namespace Cephei.Commands.Consoles
       }
       writer.WriteLine(string.Join('\n', cmds));
       writer.WriteLine();
+      return Task.CompletedTask;
     }
 
     /// <summary>

@@ -1,23 +1,18 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cephei.Networking
 {
   /// <summary>
-  /// The NetworkExtensions class contains extension methods for objects related to networking.
+  /// The NetworkExtensions class contains extension methods for many networking-related functionalities.
   /// </summary>
   public static class NetworkExtensions
   {
-    /// <summary>
-    /// Sends data using a socked, asynchronously, with no SocketFlags.
-    /// </summary>
-    /// <param name="socket">Socket to use.</param>
-    /// <param name="bytes">Bytes to send.</param>
-    /// <returns>Number of bytes sent.</returns>
-    public static async Task<int> SendAsync(this Socket socket, ArraySegment<byte> bytes) => await socket.SendAsync(bytes, SocketFlags.None);
 
     /// <summary>
     /// Downloads data from an uri and saves it in the specified path.
@@ -39,6 +34,89 @@ namespace Cephei.Networking
         byt = stream.ReadByte();
       }
       return true;
+    }
+
+    /// <summary>
+    /// Sends a packet to the socket's destination.
+    /// </summary>
+    /// <param name="socket">Socket to use for transferring data.</param>
+    /// <param name="msg">Message to send.</param>
+    /// <param name="attempts">Attempts before ultimately aborting the operation.</param>
+    /// <param name="cooldown">Cooldown between attempts.</param>
+    /// <param name="timeout">Timeout for sending the packet.</param>
+    /// <param name="flags">Socket flags to use.</param>
+    /// <returns>The task for sending the packet.</returns>
+    /// <remarks>Upon failing on the last attempt, the generated exception will be thrown.</remarks>
+    public static async Task SendAsync(this Socket socket, ReadOnlyMemory<byte> msg, int attempts, TimeSpan cooldown, TimeSpan timeout, SocketFlags flags = SocketFlags.None)
+    {
+      if (!socket.Connected) throw new SocketException((int)SocketError.NotConnected);
+      for (int i = 1; i <= attempts; i++)
+      {
+        try
+        {
+          await socket.SendAsync(msg, timeout, flags);
+          return;
+        }
+        catch
+        {
+          if (attempts == i) throw;
+          await Task.Delay(cooldown);
+        }
+      }
+    }
+    /// <summary>
+    /// Sends a packet to the socket's destination.
+    /// </summary>
+    /// <param name="socket">Socket to use for transferring data.</param>
+    /// <param name="msg">Message to send.</param>
+    /// <param name="timeout">Timeout for sending the packet.</param>
+    /// <param name="flags">Socket flags to use.</param>
+    /// <returns>The task for sending the packet.</returns>
+    public static async Task SendAsync(this Socket socket, ReadOnlyMemory<byte> msg, TimeSpan timeout, SocketFlags flags = SocketFlags.None)
+    {
+      using CancellationTokenSource cts = new CancellationTokenSource(timeout);
+      await socket.SendAsync(msg, flags, cts.Token);
+      cts.Dispose();
+    }
+
+    /// <summary>
+    /// Connects a socket to an endpoint.
+    /// </summary>
+    /// <param name="socket">Socket to use for connecting.</param>
+    /// <param name="endpoint">Endpoint to connect to.</param>
+    /// <param name="attempts">Attempts before ultimately aborting the operation.</param>
+    /// <param name="cooldown">Cooldown between attempts.</param>
+    /// <param name="timeout">Timeout for connecting.</param>
+    /// <returns>The task for connecting to the endpoint.</returns>
+    public static async Task ConnectAsync(this Socket socket, EndPoint endpoint, int attempts, TimeSpan cooldown, TimeSpan timeout)
+    {
+      if (socket.Connected) throw new SocketException((int)SocketError.IsConnected);
+      for (int i = 1; i <= attempts; i++)
+      {
+        try
+        {
+          await socket.ConnectAsync(endpoint, timeout);
+          return;
+        }
+        catch
+        {
+          if (attempts == i) throw;
+          await Task.Delay(cooldown);
+        }
+      }
+    }
+    /// <summary>
+    /// Connects a socket to an endpoint.
+    /// </summary>
+    /// <param name="socket">Socket to use for connecting.</param>
+    /// <param name="endpoint">Endpoint to connect to.</param>
+    /// <param name="timeout">Timeout for connecting.</param>
+    /// <returns>The task for connecting to the endpoint.</returns>
+    public static async Task ConnectAsync(this Socket socket, EndPoint endpoint, TimeSpan timeout)
+    {
+      using CancellationTokenSource cts = new CancellationTokenSource(timeout);
+      await socket.ConnectAsync(endpoint);
+      cts.Dispose();
     }
   }
 }

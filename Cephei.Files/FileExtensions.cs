@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Diagnostics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace Cephei.Files
@@ -11,6 +8,17 @@ namespace Cephei.Files
   /// </summary>
   public static class FileExtensions
   {
+    /// <summary>
+    /// Gets and creates the path to the directory, adding the properly sided slash when returning the full path.
+    /// </summary>
+    /// <param name="path">Path to the directory.</param>
+    /// <returns>Path to the directory with a slash.</returns>
+    public static string GetAndCreateDirectoryPath(this string path)
+    {
+      if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+      return path + Path.DirectorySeparatorChar;
+    }
+
     /// <summary>
     /// Checks if the file object's file exists.
     /// </summary>
@@ -103,6 +111,16 @@ namespace Cephei.Files
     {
       excs = new List<FileReadException>();
       file.Read(excs);
+    }
+
+    /// <summary>
+    /// Creates the necessary directories for the defined path.
+    /// </summary>
+    /// <param name="path">Path to the desired file.</param>
+    public static void CreateDirectoryForPath(this string path)
+    {
+      path = Path.GetDirectoryName(path);
+      if (!Directory.Exists(path)) Directory.CreateDirectory(path);
     }
   }
 }

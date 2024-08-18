@@ -9,11 +9,13 @@
     <Company>Cephei</Company>
     <Product>Cephei Testing Environment</Product>
     <Version>1.0.0.0</Version>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cephei.Benchmarking\Cephei.Benchmarking.csproj" />
     <ProjectReference Include="..\Cephei.Commands.Consoles\Cephei.Commands.Consoles.csproj" />
+    <ProjectReference Include="..\Cephei.Networking.Servers\Cephei.Networking.Servers.csproj" />
     <ProjectReference Include="..\Cephei.Networking\Cephei.Networking.csproj" />
     <ProjectReference Include="..\Cephei.Objects.Effects\Cephei.Objects.Effects.csproj" />
     <ProjectReference Include="..\Cephei.Objects.Stats\Cephei.Objects.Stats.csproj" />

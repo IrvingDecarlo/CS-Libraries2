@@ -6,8 +6,13 @@
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Version>2.8.2</Version>
-    <PackageReleaseNotes>v2.8.2, 24-04-22
+    <Version>2.8.3</Version>
+    <PackageReleaseNotes>v2.8.3, 24-08-14
++ Added IExecutableAsync and IExecutableAsync{T}.
+* ObjectExtensions
+*+ Added IEnumerable{T}.DisposeAll().
+
+v2.8.2, 24-04-22
 + Added ReadOnlyIdentifiable{T} and ReadOnlyIdentifiableAbstract{T}.
 * PersistentAbstractObject{T}
 *+ Now inherits from ReadOnlyIdentifiableAbstract{T}.
