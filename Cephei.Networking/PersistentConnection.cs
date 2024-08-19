@@ -222,11 +222,6 @@ namespace Cephei.Networking
   /// </summary>
   public abstract class PersistentConnection : IPersistentConnection
   {
-    /// <summary>
-    /// Disposes of the object.
-    /// </summary>
-    ~PersistentConnection() => Dispose();
-
     #region overrides
 
     /// <summary>
