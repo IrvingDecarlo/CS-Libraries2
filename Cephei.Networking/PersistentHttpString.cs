@@ -44,5 +44,15 @@ namespace Cephei.Networking
       => throw new NotSupportedException();
 
     #endregion
+
+    #region protected
+
+    /// <summary>
+    /// Invokes the OnMessageReceived(string) event.
+    /// </summary>
+    /// <param name="message">Message to pass as a parameter.</param>
+    protected void OnStringMessageReceived(string message) => OnMessageReceived?.Invoke(message);
+
+    #endregion
   }
 }
