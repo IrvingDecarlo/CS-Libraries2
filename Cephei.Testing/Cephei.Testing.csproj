@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cephei.Benchmarking\Cephei.Benchmarking.csproj" />
+    <ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
     <ProjectReference Include="..\Cephei.Commands.Consoles\Cephei.Commands.Consoles.csproj" />
     <ProjectReference Include="..\Cephei.Networking.Servers\Cephei.Networking.Servers.csproj" />
     <ProjectReference Include="..\Cephei.Networking\Cephei.Networking.csproj" />
