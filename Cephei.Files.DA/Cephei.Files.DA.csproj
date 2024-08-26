@@ -6,9 +6,13 @@
 		<RootNamespace>$(AssemblyName)</RootNamespace>
 		<Authors>Irving Decarlo</Authors>
 		<Company>Cephei</Company>
-		<Version>1.1.0.1</Version>
-		<Product>Cephei 2DA Files Library</Product>
-		<PackageReleaseNotes>v1.1.0.1, 23-02-09
+		<Version>1.1.0.2</Version>
+		<Title>Cephei 2DA Files Library</Title>
+		<Product>$(Title)</Product>
+		<PackageReleaseNotes>v1.1.0.2, 24-08-26
+* Updated to Cephei.Tools changes.
+
+v1.1.0.1, 23-02-09
 * Adapted to C# 8.0 nullable rules.
 
 v1.1, 23-02-04
@@ -38,7 +42,6 @@ Initial Release
 		</PackageReleaseNotes>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Nullable>enable</Nullable>
-		<Title>Cephei 2DA Files Library</Title>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

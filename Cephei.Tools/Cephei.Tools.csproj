@@ -6,8 +6,13 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Version>2.3.1.0</Version>
-    <PackageReleaseNotes>v2.4, 24-08-06
+    <Version>2.5</Version>
+    <PackageReleaseNotes>v2.5, 24-08-26
+* Extensions
+*- Removed int.GetNumberOfDigits();
+*+ Added TimeSpan.GetYears() and DateTime.GetYears(DateTime).
+
+v2.4, 24-08-06
 * Extensions
 *- All string-related extension methods were migrated to Cephei.Strings;
 *- All directory-related extension methods were migrated to Cephei.Files.

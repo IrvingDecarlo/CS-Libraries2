@@ -17,14 +17,26 @@ namespace Cephei.Tools
     /// <param name="val">Value to get the number of digits from.</param>
     /// <returns>The value's number of digits.</returns>
     public static double GetNumberOfDigits(this double val) => val == 0 ? 1 : Math.Abs(Math.Floor(Math.Log10(val) + 1));
+
     /// <summary>
-    /// Gets the number of digits a convertible an int has.
+    /// Gets the number of years in a time span.
     /// </summary>
-    /// <param name="val">Value to get the number of digits from.</param>
-    /// <returns>The value's number of digits.</returns>
-    /// <remarks>This is double.GetNumberOfDigits but with the appropriate casts. Use the double's version if the value was already casted or if
-    /// a double with the same value exists.</remarks>
-    public static int GetNumberOfDigits(this int val) => (int)((double)val).GetNumberOfDigits();
+    /// <param name="time">Time span to get the number of years from.</param>
+    /// <returns>The number of years in a time span.</returns>
+    /// <remarks>Is not accurate since leap years are not taken into account. Use <see cref="GetYears(DateTime, DateTime)"/> instead for more precision.</remarks>
+    public static int GetYears(this TimeSpan time) => time.Days / 365;
+    /// <summary>
+    /// Gets the number of years between two dates.
+    /// </summary>
+    /// <param name="date">Reference date. Should always be greater than the comparison date.</param>
+    /// <param name="other">Date to compare with.</param>
+    /// <returns>The number of years between the two dates.</returns>
+    public static int GetYears(this DateTime date, DateTime other)
+    {
+      int y = date.Year - other.Year;
+      if (date.Month < other.Month || date.Month == other.Month && date.Day < other.Day) y--;
+      return y;
+    }
 
     /// <summary>
     /// A safe version of Equals where both objects are checked if they are null.
