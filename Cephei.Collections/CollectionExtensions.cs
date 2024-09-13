@@ -421,6 +421,13 @@ namespace Cephei.Collections
     }
 
     /// <summary>
+    /// Checks if the collection is synchronized.
+    /// </summary>
+    /// <param name="col">Collection to check if is synchronized.</param>
+    /// <returns>True if the collection is synchronized.</returns>
+    public static bool GetIsSynchronized(this ICollection col) => col.IsSynchronized;
+
+    /// <summary>
     /// Resets all enumerators in a collection.
     /// </summary>
     /// <typeparam name="T">The IEnumerator object type.</typeparam>

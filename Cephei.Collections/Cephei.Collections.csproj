@@ -14,7 +14,7 @@
 *+ Added IReadOnlyDictionary{T, U}.ToMirror();
 *+ Added IReadOnlyDictionary{T, U}.Contains(KeyValuePair{T, U});
 *+ Added IEnumerable.DoCopyTo(Array, index);
-*+ Added ICollection.GetSyncRoot().
+*+ Added ICollection.GetSyncRoot() and ICollection.GetIsSynchronized().
 
 v1.7.1, 23-08-16
 + Added ITabledObject and IReadOnlyTabledObject.

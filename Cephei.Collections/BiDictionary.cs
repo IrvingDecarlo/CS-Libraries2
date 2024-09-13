@@ -188,9 +188,9 @@ namespace Cephei.Collections
     public bool IsFixedSize => false;
 
     /// <summary>
-    /// Is this dictionary synchronized (thread-safe)? Returns false by default.
+    /// Is this dictionary synchronized (thread-safe)?
     /// </summary>
-    public bool IsSynchronized => false;
+    public bool IsSynchronized => primary.GetIsSynchronized() && secondary.GetIsSynchronized();
 
     /// <summary>
     /// Reference to the root synchronization object.
