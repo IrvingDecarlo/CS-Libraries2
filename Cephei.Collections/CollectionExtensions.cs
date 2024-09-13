@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cephei.Tools;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,6 +51,21 @@ namespace Cephei.Collections
       Dictionary<T, U> dict = new Dictionary<T, U>();
       foreach (KeyValuePair<T, U> kvp in collection) dict.Add(kvp.Key, kvp.Value);
       return dict;
+    }
+
+    /// <summary>
+    /// Returns a dictionary that is a mirror of the original dictionary, where the values become the keys and the keys become values.
+    /// </summary>
+    /// <typeparam name="T">Key object type.</typeparam>
+    /// <typeparam name="U">Value object type.</typeparam>
+    /// <param name="dict">Dictionary to mirror.</param>
+    /// <returns>The dictionary's mirror.</returns>
+    /// <remarks>May throw exceptions if the original dictionary has repeated value objects.</remarks>
+    public static Dictionary<U, T> ToMirror<T, U>(this IReadOnlyDictionary<T, U> dict)
+    {
+      Dictionary<U, T> mirror = new Dictionary<U, T>();
+      foreach (KeyValuePair<T, U> kvp in dict) mirror.Add(kvp.Value, kvp.Key);
+      return mirror;
     }
 
     /// <summary>
@@ -156,6 +172,13 @@ namespace Cephei.Collections
       dict.Add(key, value);
       return value;
     }
+
+    /// <summary>
+    /// Forces access to the collection's SyncRoot object.
+    /// </summary>
+    /// <param name="col">Collection to get the SyncRoot from.</param>
+    /// <returns>The collection's sync root.</returns>
+    public static object GetSyncRoot(this ICollection col) => col.SyncRoot;
 
     /// <summary>
     /// Combines many objects' strings into a single string, each between quotes ("") and with commas separating them.
@@ -370,6 +393,16 @@ namespace Cephei.Collections
       dict.Table = table;
       return dict.ContainsKey(key);
     }
+    /// <summary>
+    /// Checks if a dictionary contains the specified key-value pair.
+    /// </summary>
+    /// <typeparam name="T">The dictionary's key type.</typeparam>
+    /// <typeparam name="U">The dictionary's value type.</typeparam>
+    /// <param name="dict">Dictionary to check.</param>
+    /// <param name="kvp">Key-Value pair to find.</param>
+    /// <returns>True if the dictionary has the specified key and its value is the same as the KeyValuePair's.</returns>
+    public static bool Contains<T, U>(this IReadOnlyDictionary<T, U> dict, KeyValuePair<T, U> kvp)
+      => dict.TryGetValue(kvp.Key, out U value) && value.SafeEquals(kvp.Value);
 
     /// <summary>
     /// Removes an item from a tabled dictionary.
@@ -588,6 +621,16 @@ namespace Cephei.Collections
         array[i] = item;
         i++;
       }
+    }
+    /// <summary>
+    /// Is a basic implementation of a CopyTo for enumerables, adding the collection's items to an array.
+    /// </summary>
+    /// <param name="en">Enumerator to get the items from.</param>
+    /// <param name="array">Array to copy the items to.</param>
+    /// <param name="i">Starting index.</param>
+    public static void DoCopyTo(this IEnumerable en, Array array, int i = 0)
+    {
+      foreach (object item in en) array.SetValue(item, i++);
     }
   }
 }

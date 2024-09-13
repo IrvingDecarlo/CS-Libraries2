@@ -7,7 +7,16 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <PackageId>$(AssemblyName)</PackageId>
-    <PackageReleaseNotes>v1.7.1, 23-08-16
+    <PackageReleaseNotes>v1.8, 24-09-13
++ Added reference to Cephei.Tools.
++ Added IReadOnlyBiDictionary{T, U}, IBiDictionary{T, U} and BiDictionary{T, U}.
+* CollectionExtensions
+*+ Added IReadOnlyDictionary{T, U}.ToMirror();
+*+ Added IReadOnlyDictionary{T, U}.Contains(KeyValuePair{T, U});
+*+ Added IEnumerable.DoCopyTo(Array, index);
+*+ Added ICollection.GetSyncRoot().
+
+v1.7.1, 23-08-16
 + Added ITabledObject and IReadOnlyTabledObject.
 * CollectionExtensions
 *+ Added extensions for ITabledCollection with IDictionary;
@@ -103,7 +112,7 @@ v1, 21-06-03
 * CollectionExtensions
 *+ Added IDictionary&lt;&gt;.ToProtected and List&lt;&gt;.ToProtected.</PackageReleaseNotes>
     <Product>$(Title)</Product>
-    <Version>1.7.1</Version>
+    <Version>1.8</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Collections Library</Title>
     <Nullable>enable</Nullable>
@@ -114,5 +123,9 @@ v1, 21-06-03
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
+  </ItemGroup>
 
 </Project>

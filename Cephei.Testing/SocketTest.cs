@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Cephei.Testing
 {
@@ -33,23 +34,36 @@ namespace Cephei.Testing
       {
         IPEndPoint ip = IPEndPoint.Parse(x["ip"][0]);
         int attempts = PrepareForTest("Creating client socket to connect to " + ip, x, out TimeSpan cooldown, out TimeSpan timeout);
-        socket_client?.Dispose();
-        socket_client = new SocketClientTest(ip);
-        await socket_client.ConnectAsync(attempts, cooldown, timeout);
-        Out.WriteLine("Connection established successfully.");
+        SocketClientTest client = new SocketClientTest(ip);
+        try { await client.ConnectAsync(attempts, cooldown, timeout); }
+        catch
+        {
+          client.Dispose();
+          throw;
+        }
+        EndPoint localend = client.Socket.LocalEndPoint;
+        Out.WriteLine("Connection established successfully. Local EndPoint=" + localend);
+        socket_client.Add(localend, client);
       }, null, cmd, "connect");
       CreateCommand(async (x) =>
       {
+        Program.OutputThread();
         string msg = x["message"][0];
         int attempts = PrepareForTest("Sending message to server:\n" + msg, x, out TimeSpan cooldown, out TimeSpan timeout);
-        await socket_client.SendMessageAsync(msg, attempts, cooldown, timeout);
+        await GetClient(x).SendMessageAsync(msg, attempts, cooldown, timeout);
         Out.WriteLine("Message sent successfully.");
       }, null, cmd, "send");
       CreateCommand((x) => 
       { 
-        DisposeClient();
+        DisposeClient(GetClient(x));
         return Task.CompletedTask;
       }, null, cmd, "dispose");
+      CreateCommand((x) =>
+      {
+        Out.WriteLine($"Current active client connections ({socket_client.Count}):");
+        foreach (SocketClientTest client in socket_client.Values) Out.WriteLine(client.ToString());
+        return Task.CompletedTask;
+      }, null, cmd, "list");
 
       cmd = CreateCommand(null, null, Main, "server");
       CreateCommand((x) =>
@@ -62,7 +76,7 @@ namespace Cephei.Testing
         socket_server.Listening = true;
         Out.WriteLine("Server set up successfully.");
         return Task.CompletedTask;
-      }, null, cmd, "initiate", "init", "host");
+      }, null, cmd, "initiate", "init", "host", "start");
       CreateCommand(async (x) =>
       {
         IPEndPoint ip = IPEndPoint.Parse(x["ip"][0]);
@@ -88,7 +102,7 @@ namespace Cephei.Testing
         OnMessageReceived += SocketClientTest_OnMessageReceived;
         OnConnectionEstablished += SocketClientTest_OnConnectionEstablished;
         OnConnectionLost += SocketClientTest_OnConnectionLost;
-        OnListeningDisconnected += DisposeClient;
+        OnListeningDisconnected += SocketClientTest_OnListeningDisconnected;
         OnListeningException += SocketClientTest_OnListeningException;
         AwaitingMessages = true;
       }
@@ -99,15 +113,19 @@ namespace Cephei.Testing
         await base.ConnectAsync(token);
       }
 
+      public override string ToString() => $"EndPoint={EndPoint} LocalEndPoint={Socket.LocalEndPoint}";
+
       internal readonly EndPoint EndPoint;
 
-      private void WriteClientMessage(string message) => Out.WriteLine("CLIENT: " + message);
+      private void WriteClientMessage(string message) => Out.WriteLine($"CLIENT {ToString()}: " + message);
 
       private void SocketClientTest_OnMessageReceived(string msg) => WriteClientMessage("Message received:\n" + msg);
 
       private void SocketClientTest_OnConnectionEstablished() => WriteClientMessage("Connection established with server.");
 
       private void SocketClientTest_OnConnectionLost() => WriteClientMessage("Connection with server lost.");
+
+      private void SocketClientTest_OnListeningDisconnected() => DisposeClient(this);
 
       private void SocketClientTest_OnListeningException(Exception e)
       {
@@ -185,10 +203,14 @@ namespace Cephei.Testing
           socket_server.RemoveConnection(ep);
         }
 
-        private void SocketServerConnection_OnMessageReceived(string msg) => socket_server.WriteServerMessage("Message received:\n" + msg);
+        private void SocketServerConnection_OnMessageReceived(string msg)
+        {
+          Program.OutputThread();
+          socket_server.WriteServerMessage($"Message received from {Socket.RemoteEndPoint}:\n" + msg);
+        }
       }
 
-      private readonly Dictionary<EndPoint, ListeningSocketString> connections = new Dictionary<EndPoint, ListeningSocketString>();
+      private readonly Dictionary<EndPoint, SocketServerConnection> connections = new Dictionary<EndPoint, SocketServerConnection>();
 
       private void AcceptConnection(Socket socket)
       {
@@ -201,16 +223,15 @@ namespace Cephei.Testing
 
     // VARIABLES
 
-    private static SocketClientTest socket_client;
+    private static readonly Dictionary<EndPoint, SocketClientTest> socket_client = new Dictionary<EndPoint, SocketClientTest>();
     private static SocketServerTest socket_server;
 
     // METHODS
 
-    private static void DisposeClient()
+    private static SocketClientTest GetClient(IReadOnlyDictionary<string, IReadOnlyList<string>> x)
     {
-      socket_client.Dispose();
-      socket_client = null;
-      Out.WriteLine("Client connection terminated.");
+      if (!x.TryGetValue("local", out IReadOnlyList<string> args)) return socket_client.Values.FirstOrDefault();
+      return socket_client[IPEndPoint.Parse(args[0])];
     }
 
     private static int GetConnectionParams(IReadOnlyDictionary<string, IReadOnlyList<string>> x, out TimeSpan cooldown, out TimeSpan timeout)
@@ -226,6 +247,14 @@ namespace Cephei.Testing
       Out.WriteLine(msg);
       WriteParams(attempts, cooldown, timeout);
       return attempts;
+    }
+
+    private static void DisposeClient(SocketClientTest client)
+    {
+      Out.WriteLine("Terminating client connection: " + client);
+      client.Dispose();
+      socket_client.Remove(client.Socket.LocalEndPoint);
+      Out.WriteLine("Client connection terminated.");
     }
 
     private static void WriteParams(int attempts, TimeSpan cooldown, TimeSpan timeout)

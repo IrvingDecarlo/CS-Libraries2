@@ -1,10 +1,11 @@
 ﻿using Cephei.Commands.Consoles;
+using System.Threading;
 
 namespace Cephei.Testing
 {
   using static ConsoleSystem;
 
-  class Program
+  internal class Program
   {
     static void Main(string[] args)
     {
@@ -15,7 +16,13 @@ namespace Cephei.Testing
       HttpTest.AddCommands();
       MathTest.AddCommands();
       StreamTest.AddCommands();
+      ThreadingTest.AddCommands();
+      OutputThread();
       MainLoop();
     }
+
+    internal static void OutputThread(Thread thread, bool showalive = false)
+      => Out.WriteLine($"Current Thread: ID={thread.ManagedThreadId} Name={thread.Name}" + (showalive ? " Alive=" + thread.IsAlive : ""));
+    internal static void OutputThread(bool showalive = false) => OutputThread(Thread.CurrentThread, showalive);
   }
 }
