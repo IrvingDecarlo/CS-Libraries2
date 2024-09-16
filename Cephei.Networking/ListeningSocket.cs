@@ -59,7 +59,7 @@ namespace Cephei.Networking
     /// <summary>
     /// Disposes the listener and the socket.
     /// </summary>
-    public void Dispose()
+    public virtual void Dispose()
     {
       Socket.Dispose();
       DisposeCTS();

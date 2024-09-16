@@ -8,7 +8,11 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v2.0.0.1, 24-08-19
+    <PackageReleaseNotes>v2.0.0.2, 24-09-16
+* ListeningSocket
+** Dispose() is now virtual.
+
+v2.0.0.1, 24-08-19
 * PersistentHttpString
 *+ Added missing invoking access to OnMessageReceived(string).
 * PersistentConnection
@@ -16,7 +20,7 @@
 
 v2, 24-08-17
 Initial release.</PackageReleaseNotes>
-    <Version>2.0.0.1</Version>
+    <Version>2.0.0.2</Version>
   </PropertyGroup>
 
 </Project>
