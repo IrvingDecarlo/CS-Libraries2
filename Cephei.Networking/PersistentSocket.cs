@@ -8,7 +8,7 @@ namespace Cephei.Networking
   /// <summary>
   /// The PersistentConnectionSocket class offers a persistent connection manager for sockets.
   /// </summary>
-  public abstract class PersistentSocket : PersistentConnection<ReadOnlyMemory<byte>, Memory<byte>>
+  public class PersistentSocket : PersistentConnection<ReadOnlyMemory<byte>, Memory<byte>>
   {
     /// <summary>
     /// Wraps a persistent connection object around a socket. May raise the OnConnectionEstablished event if the socket already is connected.

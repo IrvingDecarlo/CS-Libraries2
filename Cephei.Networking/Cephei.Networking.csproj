@@ -8,7 +8,11 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v2.0.0.2, 24-09-16
+    <PackageReleaseNotes>v2.0.0.3, 24-09-17
+* PersistentSocket and PersistentSocketString
+** Are no longer abstract. Note that ConnectAsync still may be overridden by implementers since it will achieve nothing by default.
+
+v2.0.0.2, 24-09-16
 * ListeningSocket
 ** Dispose() is now virtual.
 
@@ -20,7 +24,7 @@ v2.0.0.1, 24-08-19
 
 v2, 24-08-17
 Initial release.</PackageReleaseNotes>
-    <Version>2.0.0.2</Version>
+    <Version>2.0.0.3</Version>
   </PropertyGroup>
 
 </Project>

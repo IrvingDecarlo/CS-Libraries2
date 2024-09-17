@@ -9,7 +9,7 @@ namespace Cephei.Networking
   /// The String persistent socket connection is capable of operating sockets via their native connection methods and by encoding the sent/received packets into a 
   /// readable string.
   /// </summary>
-  public abstract class PersistentSocketString : PersistentSocket, IPersistentConnection<string, string>
+  public class PersistentSocketString : PersistentSocket, IPersistentConnection<string, string>
   {
     /// <summary>
     /// Creates a new string persistent socket connection.
