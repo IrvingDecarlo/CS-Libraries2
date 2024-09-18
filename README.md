@@ -7,7 +7,7 @@ The original CS-Libraries project was initially created for my own personal use 
 
 Hence, in late 2020, I scrapped the original library and rewrote everything from scratch, thus dawning this current new version, the CS-Libraries2 project.
 
-CS-Libraries2 is a general-purpose collection of high-level .Net libraries. All of the libraries in the project are written and compiled for .Net Standard 2.1.
+CS-Libraries2 is a collection of general-purpose high-level .Net libraries. All of the libraries in the project are written and compiled for .Net Standard 2.1.
 
 ## Remarks
 
