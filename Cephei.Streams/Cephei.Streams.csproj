@@ -7,7 +7,11 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.2, 24-08-06
+    <PackageReleaseNotes>v1.2.1, 24-10-02
+* StreamsExtensions
+*+ Added BinaryWriter.WriteUnfixed(string).
+
+v1.2, 24-08-06
 * Cephei.Tools dependency replaced with Cephei.Strings.
 
 v1.1.2, 24-02-04
@@ -24,7 +28,7 @@ v1, 21-11-09
 + StreamsExtensions
 ++ Added TextWriter.WriteLine(IEnumerable&lt;...&gt;).</PackageReleaseNotes>
     <PackageId>$(AssemblyName)</PackageId>
-    <Version>1.2</Version>
+    <Version>1.2.1</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Streams Library</Title>

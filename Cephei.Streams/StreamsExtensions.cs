@@ -83,6 +83,16 @@ namespace Cephei.Streams
     }
 
     /// <summary>
+    /// Writes a non-prefixed string using a binary writer.
+    /// </summary>
+    /// <param name="writer">BinaryWriter to use.</param>
+    /// <param name="value">String to write.</param>
+    public static void WriteUnfixed(this BinaryWriter writer, string value)
+    {
+      for (int i = 0; i < value.Length; i++) writer.Write(value[i]);
+    }
+
+    /// <summary>
     /// Writes a KeyValuePair enumerable containing another KeyValuePair enumerable in its value in a stream.
     /// </summary>
     /// <typeparam name="T">The main enumerable's key type.</typeparam>
