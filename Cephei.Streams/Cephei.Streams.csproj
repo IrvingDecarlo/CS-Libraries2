@@ -7,17 +7,7 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.2.1, 24-09-26
-* StreamsExtensions
-*+ Added BinaryReader.ReadString(char[], int, int, out int);
-*+ Added BinaryReader.ReadStringFromByte(char[], int, out int) and BinaryReader.ReadStringFromSByte(char[], int, out int);
-*+ Added BinaryReader.ReadStringFromInt16(char[], int, out int) and BinaryReader.ReadStringFromUInt16(char[], int, out int);
-*+ Added BinaryReader.ReadStringFromInt32(char[], int, out int);
-*+ Added BinaryReader.ReadStringFromByte(char[]) and BinaryReader.ReadStringFromSByte(char[]);
-*+ Added BinaryReader.ReadStringFromInt16(char[]) and BinaryReader.ReadStringFromUInt16(char[]);
-*+ Added BinaryReader.ReadStringFromInt32(char[]).
-
-v1.2, 24-08-06
+    <PackageReleaseNotes>v1.2, 24-08-06
 * Cephei.Tools dependency replaced with Cephei.Strings.
 
 v1.1.2, 24-02-04
@@ -34,7 +24,7 @@ v1, 21-11-09
 + StreamsExtensions
 ++ Added TextWriter.WriteLine(IEnumerable&lt;...&gt;).</PackageReleaseNotes>
     <PackageId>$(AssemblyName)</PackageId>
-    <Version>1.2.1</Version>
+    <Version>1.2</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Streams Library</Title>
