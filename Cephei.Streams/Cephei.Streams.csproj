@@ -23,7 +23,8 @@
 *+ Added BinaryReader.ReadFromByte() and BinaryReader.ReadFromByte(Span{byte});
 *+ Added BinaryReader.ReadFromUInt16() and BinaryReader.ReadFromUInt16(Span{byte});
 *+ Added BinaryReader.ReadFromInt32() and BinaryReader.ReadFromInt32(Span{byte});
-*+ Added BinaryReader.Read(int).
+*+ Added BinaryReader.Read(int);
+*+ Added BinaryReader.ReadString(int).
 
 v1.2.1, 24-10-02
 * StreamsExtensions

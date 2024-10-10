@@ -58,6 +58,14 @@ namespace Cephei.Streams
     /// <remarks>Uses UTF-8 encoding.</remarks>
     public static string ReadString(this BinaryReader reader, Span<byte> buffer)
       => reader.ReadString(buffer, Encoding.UTF8);
+    /// <summary>
+    /// Reads a string out using a binary reader with a defined amount of chars.
+    /// </summary>
+    /// <param name="reader">Reader to use.</param>
+    /// <param name="count">Chars to read.</param>
+    /// <returns>The extracted string.</returns>
+    public static string ReadString(this BinaryReader reader, int count)
+      => new string(reader.ReadChars(count));
 
     /// <summary>
     /// Reads a byte size-prefixed string from a binary reader.
@@ -201,37 +209,6 @@ namespace Cephei.Streams
     }
 
     /// <summary>
-    /// Writes an integer in the 7Bit format.
-    /// </summary>
-    /// <param name="writer">BinaryWriter to use.</param>
-    /// <param name="value">Value to be written.</param>
-    /// <remarks>UNFINISHED! Do not use in production.</remarks>
-    public static void Write7Bit(this BinaryWriter writer, long value)
-    {
-      int s = value.CompareTo(0);
-      long i = s;
-      byte v;
-      if (s < 0) v = 0;
-      else v = 1;
-      byte it = 2;
-      int c = value.CompareTo(i);
-      while (c == s || c == 0)
-      {
-        if (it == 128)
-        {
-          v += it;
-          writer.Write(v);
-          it = 1;
-          v = 0;
-        }
-        if ((value & i) != 0) v += it;
-        i *= 2;
-        it *= 2;
-        c = value.CompareTo(i);
-      }
-    }
-
-    /// <summary>
     /// Reads data to a buffer with the size prefixed by a byte.
     /// </summary>
     /// <param name="reader">Reader to use.</param>
@@ -278,6 +255,37 @@ namespace Cephei.Streams
     /// <returns>The filled memory owner.</returns>
     public static IMemoryOwner<byte> ReadFromInt32(this BinaryReader reader)
       => reader.Read(reader.ReadInt32());
+
+    /// <summary>
+    /// Writes an integer in the 7Bit format.
+    /// </summary>
+    /// <param name="writer">BinaryWriter to use.</param>
+    /// <param name="value">Value to be written.</param>
+    /// <remarks>UNFINISHED! Do not use in production.</remarks>
+    public static void Write7Bit(this BinaryWriter writer, long value)
+    {
+      int s = value.CompareTo(0);
+      long i = s;
+      byte v;
+      if (s < 0) v = 0;
+      else v = 1;
+      byte it = 2;
+      int c = value.CompareTo(i);
+      while (c == s || c == 0)
+      {
+        if (it == 128)
+        {
+          v += it;
+          writer.Write(v);
+          it = 1;
+          v = 0;
+        }
+        if ((value & i) != 0) v += it;
+        i *= 2;
+        it *= 2;
+        c = value.CompareTo(i);
+      }
+    }
 
     /// <summary>
     /// Writes a non-prefixed string using a binary writer and a buffer for encoding.
