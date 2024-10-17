@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cephei.Networking
 {
@@ -59,10 +60,15 @@ namespace Cephei.Networking
     /// <summary>
     /// Disposes the listener and the socket.
     /// </summary>
-    public virtual void Dispose()
+    public virtual void Dispose() => DisposeBase();
+
+    /// <summary>
+    /// Disposes the listener and the socket.
+    /// </summary>
+    public virtual ValueTask DisposeAsync()
     {
-      Socket.Dispose();
-      DisposeCTS();
+      DisposeBase();
+      return default;
     }
 
     #endregion
@@ -124,6 +130,12 @@ namespace Cephei.Networking
         }
         catch (Exception e) { OnListeningException?.Invoke(e); }
       }
+    }
+
+    private void DisposeBase()
+    {
+      Socket.Dispose();
+      DisposeCTS();
     }
 
     private void DisposeCTS()

@@ -24,6 +24,16 @@ namespace Cephei.Networking
     }
 
     /// <summary>
+    /// Disposes of the object.
+    /// </summary>
+    /// <remarks>Overriders must call this base method BEFORE their own implementation.</remarks>
+    public override ValueTask DisposeAsync()
+    {
+      AwaitingMessages = false;
+      return base.DisposeAsync();
+    }
+
+    /// <summary>
     /// Disconnects from the endpoint, ceasing to await messages if AwaitingMessages is true.
     /// </summary>
     /// <returns>The task for disconnecting from the endpoint.</returns>
@@ -297,6 +307,15 @@ namespace Cephei.Networking
     /// Disposes of the connection.
     /// </summary>
     public virtual void Dispose() => connected = false;
+
+    /// <summary>
+    /// Disposes of the connection.
+    /// </summary>
+    public virtual ValueTask DisposeAsync()
+    {
+      connected = false;
+      return default;
+    }
 
     #endregion
 

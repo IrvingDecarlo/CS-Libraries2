@@ -37,6 +37,15 @@ namespace Cephei.Networking
     }
 
     /// <summary>
+    /// Disposes of the socket that is being used by the persistent connection.
+    /// </summary>
+    public override async ValueTask DisposeAsync()
+    {
+      await base.DisposeAsync();
+      Socket.Dispose();
+    }
+
+    /// <summary>
     /// Communicates with the endpoint, returning the response.
     /// </summary>
     /// <param name="message">Message to be sent.</param>

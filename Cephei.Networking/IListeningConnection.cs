@@ -17,7 +17,7 @@ namespace Cephei.Networking
   /// <summary>
   /// IListeningConnections are connections that are capable of listening to incoming messages.
   /// </summary>
-  public interface IListeningConnection : IDisposable
+  public interface IListeningConnection : IDisposable, IAsyncDisposable
   {
     // EVENTS
 

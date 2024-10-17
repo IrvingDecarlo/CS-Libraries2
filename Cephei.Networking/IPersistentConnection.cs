@@ -46,7 +46,7 @@ namespace Cephei.Networking
   /// <summary>
   /// The IPersistentConnection interface offers a base for all persistent connections, containing basic connectivity interfaces.
   /// </summary>
-  public interface IPersistentConnection : IDisposable
+  public interface IPersistentConnection : IDisposable, IAsyncDisposable
   {
     // EVENTS
 

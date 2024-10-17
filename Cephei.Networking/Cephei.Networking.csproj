@@ -8,7 +8,12 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v2.0.0.3, 24-09-17
+    <PackageReleaseNotes>v2.1, 24-10-11
+* IPersistentConnection and IListeningConnection
+** Implementors must also implement IAsyncDisposable;
+** All implementors updated to match the update.
+
+v2.0.0.3, 24-09-17
 * PersistentSocket and PersistentSocketString
 ** Are no longer abstract. Note that ConnectAsync still may be overridden by implementers since it will achieve nothing by default.
 
@@ -24,7 +29,7 @@ v2.0.0.1, 24-08-19
 
 v2, 24-08-17
 Initial release.</PackageReleaseNotes>
-    <Version>2.0.0.3</Version>
+    <Version>2.1</Version>
   </PropertyGroup>
 
 </Project>

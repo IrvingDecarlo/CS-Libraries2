@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Title>Cephei Threading Library</Title>
+    <Authors>Irving Decarlo</Authors>
+    <Company>Cephei</Company>
+    <Product>$(Title)</Product>
+    <PackageReleaseNotes>v1, 24-10-11
+Initial release.</PackageReleaseNotes>
+  </PropertyGroup>
+
+</Project>

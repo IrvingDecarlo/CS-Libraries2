@@ -23,6 +23,15 @@ namespace Cephei.Networking
     }
 
     /// <summary>
+    /// Disposes of the HttpClient.
+    /// </summary>
+    public override async ValueTask DisposeAsync()
+    {
+      await base.DisposeAsync();
+      GetClient().Dispose();
+    }
+
+    /// <summary>
     /// Communicates with the Http webservice. Uses a POST action.
     /// </summary>
     /// <param name="message">Message to send.</param>

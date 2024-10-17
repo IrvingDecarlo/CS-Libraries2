@@ -75,7 +75,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Strings", "Strings", "{14F0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Strings", "Cephei.Strings\Cephei.Strings.csproj", "{2B419A2B-34BE-4575-A41A-950AA466EF58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephei.Networking.Servers", "Cephei.Networking.Servers\Cephei.Networking.Servers.csproj", "{B0AFF893-3EF0-4870-B6E3-2B6CB0CD65E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cephei.Networking.Servers", "Cephei.Networking.Servers\Cephei.Networking.Servers.csproj", "{B0AFF893-3EF0-4870-B6E3-2B6CB0CD65E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Threading", "Threading", "{CDA3396D-28FB-4377-99E3-39E079BB987A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cephei.Threading", "Cephei.Threading\Cephei.Threading.csproj", "{D89F538A-1E7B-4FFA-8BFA-43C686A69EAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -179,6 +183,10 @@ Global
 		{B0AFF893-3EF0-4870-B6E3-2B6CB0CD65E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0AFF893-3EF0-4870-B6E3-2B6CB0CD65E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0AFF893-3EF0-4870-B6E3-2B6CB0CD65E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D89F538A-1E7B-4FFA-8BFA-43C686A69EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D89F538A-1E7B-4FFA-8BFA-43C686A69EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D89F538A-1E7B-4FFA-8BFA-43C686A69EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D89F538A-1E7B-4FFA-8BFA-43C686A69EAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -207,6 +215,7 @@ Global
 		{D0EB7970-DCBB-4A6F-ACF5-87D55875B154} = {3807C354-E779-49D5-811A-F17F821E5A2A}
 		{2B419A2B-34BE-4575-A41A-950AA466EF58} = {14F0D667-AEF5-46D9-96F7-865006802C33}
 		{B0AFF893-3EF0-4870-B6E3-2B6CB0CD65E0} = {C2E2C345-92B8-4370-BF1B-F22E0E0B864C}
+		{D89F538A-1E7B-4FFA-8BFA-43C686A69EAE} = {CDA3396D-28FB-4377-99E3-39E079BB987A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F170FEA4-E2EA-4F50-988F-7DCE1305A618}
