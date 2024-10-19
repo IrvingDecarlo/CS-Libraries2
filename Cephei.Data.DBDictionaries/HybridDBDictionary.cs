@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cephei.Collections.DBDictionaries
+namespace Cephei.Data.DBDictionaries
 {
   /// <summary>
   /// Hybrid DBDictionaries work in a hybrid manner: part of it is in memory and the remainder is in the database.

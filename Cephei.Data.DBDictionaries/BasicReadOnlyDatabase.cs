@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Cephei.Collections.DBDictionaries
+namespace Cephei.Data.DBDictionaries
 {
   /// <summary>
   /// BasicReadOnlyDatabases contain very basic functionalities that don't directly involve database handling.

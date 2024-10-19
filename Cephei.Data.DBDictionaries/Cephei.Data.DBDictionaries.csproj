@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -9,12 +9,15 @@
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <PackageReleaseNotes>v1.1, 23-11-23
+    <PackageReleaseNotes>v1.2, 24-10-19
+* Namespace changed to Cephei.Data.DBDictionaries.
+
+v1.1, 23-11-23
 * Promoted to mainline libraries, namespace renamed to Cephei.Collections.DBDictionaries.
 
 v1, 23-08-01
 Initial release.</PackageReleaseNotes>
-    <Version>1.1</Version>
+    <Version>1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

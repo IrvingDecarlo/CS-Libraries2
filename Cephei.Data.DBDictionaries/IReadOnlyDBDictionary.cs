@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cephei.Collections.DBDictionaries
+namespace Cephei.Data.DBDictionaries
 {
   /// <summary>
   /// The IReadOnlyDBDictionary is a read-only dictionary that works with a database in disk.

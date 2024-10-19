@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cephei.Collections.DBDictionaries
+namespace Cephei.Data.DBDictionaries
 {
   /// <summary>
   /// The IDBDictionary is a dictionary that works with a database in disk.
