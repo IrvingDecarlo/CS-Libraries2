@@ -10,6 +10,13 @@
     <Product>$(Title)</Product>
     <PackageReleaseNotes>v1, 24-08-06
 String extensions and functions absorbed from Cephei.Tools.</PackageReleaseNotes>
+    <Version>1.0.1.0</Version>
+    <Description>v1.0.1, 24-10-28
+* StringExtensions
+*+ Added string.Left(int) and string.Right(int).
+
+v1, 24-08-06
+Initial release.</Description>
   </PropertyGroup>
 
 </Project>

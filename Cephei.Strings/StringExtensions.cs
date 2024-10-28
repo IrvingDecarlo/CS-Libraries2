@@ -161,6 +161,22 @@ namespace Cephei.Strings
     public static string ToPairString(this DictionaryEntry entry, string sep = "=") => $"{entry.Key + sep + entry.Value}";
 
     /// <summary>
+    /// Gets the string's left portion. Returns the entire string if it is smaller than the number of characters requested.
+    /// </summary>
+    /// <param name="s">String to extract the portion from.</param>
+    /// <param name="n">Number of characters to extract.</param>
+    /// <returns>The string's left portion.</returns>
+    public static string Left(this string s, int n) => s.Length <= n ? s : s[..n];
+
+    /// <summary>
+    /// Gets the string's right portion. Returns the entire string if it is smaller than the number of characters requested.
+    /// </summary>
+    /// <param name="s">String to extract the portion from.</param>
+    /// <param name="n">Number of characters to extract.</param>
+    /// <returns>The string's right portion.</returns>
+    public static string Right(this string s, int n) => s.Length <= n ? s : s[^n..];
+
+    /// <summary>
     /// Copies a portion of a string to a character array, keeping it within bounds so that it does not overflow.
     /// </summary>
     /// <param name="str">Source string.</param>

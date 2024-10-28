@@ -7,9 +7,7 @@ namespace Cephei.Tools
   /// </summary>
   public static class Extensions
   {
-    //
     // PUBLIC
-    //
 
     /// <summary>
     /// Gets the number of non-decimal digits a double has.
