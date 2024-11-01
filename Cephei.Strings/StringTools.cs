@@ -1,4 +1,7 @@
-﻿namespace Cephei.Strings
+﻿using System.Collections.Generic;
+using System.Text;
+
+namespace Cephei.Strings
 {
   /// <summary>
   /// The StringTools class contains static methods for strings.
