@@ -8,7 +8,19 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.0.1.1, 24-02-28
+    <PackageReleaseNotes>v1.1, 24-10-31
+* FileLogger
+** Original FileLogger implementation moved to FileLoggerAbstract;
+** Now implements FileLogger and has a locally set LogLevel.
++ FileLoggerAbstract
+** Replaced abstract protected method OnDispose() with a virtual Dispose() method;
+*- Destructor no longer automatically disposes the logger.
+* ILogger
+*+ Now must implement IDisposable.
+* Logger
+** Updated to match to ILogger modifications.
+
+v1.0.1.1, 24-02-28
 * Logger
 ** Removed a trailing dot (.) for log messages.
 
@@ -20,7 +32,7 @@ v1.0.1, 24-02-25
 
 v1, 23-10-31
 Initial release.</PackageReleaseNotes>
-    <Version>1.0.1.1</Version>
+    <Version>1.1</Version>
   </PropertyGroup>
 
 </Project>

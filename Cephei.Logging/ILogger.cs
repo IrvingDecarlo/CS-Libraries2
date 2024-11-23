@@ -5,7 +5,7 @@ namespace Cephei.Logging
   /// <summary>
   /// The ILogger interface denotes an object that is capable of logging data.
   /// </summary>
-  public interface ILogger
+  public interface ILogger : IDisposable
   {
     /// <summary>
     /// Outputs an exception to the log.

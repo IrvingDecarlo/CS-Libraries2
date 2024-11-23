@@ -39,6 +39,18 @@ namespace Cephei.Streams
       readbytes = reader.Read(buffer, offset, count);
       return new string(buffer, offset, readbytes);
     }
+    /// <summary>
+    /// Reads data using a reader and returns a string.
+    /// </summary>
+    /// <param name="reader">Reader to use.</param>
+    /// <param name="buffer">Buffer for transferring data.</param>
+    /// <param name="readbytes">Number of cases that were actually read.</param>
+    /// <returns>The string that was read by the reader.</returns>
+    public static string Read(this TextReader reader, Span<char> buffer, out int readbytes)
+    {
+      readbytes = reader.Read(buffer);
+      return new string(buffer[..readbytes]);
+    }
 
     /// <summary>
     /// Reads a string out of a BinaryReader on to a buffer. The string is not size-prefixed, so strings written through the standard Write(string) method will not work.

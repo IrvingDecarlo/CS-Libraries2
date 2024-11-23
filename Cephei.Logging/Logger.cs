@@ -29,6 +29,15 @@ namespace Cephei.Logging
 
     #endregion
 
+    #region public
+
+    /// <summary>
+    /// Disposes of the logger.
+    /// </summary>
+    public abstract void Dispose();
+
+    #endregion
+
     #region protected
 
     /// <summary>

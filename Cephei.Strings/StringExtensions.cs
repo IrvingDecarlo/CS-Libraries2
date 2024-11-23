@@ -161,6 +161,132 @@ namespace Cephei.Strings
     public static string ToPairString(this DictionaryEntry entry, string sep = "=") => $"{entry.Key + sep + entry.Value}";
 
     /// <summary>
+    /// Gets the string's left portion. Returns the entire string if it is smaller than the number of characters requested.
+    /// </summary>
+    /// <param name="s">String to extract the portion from.</param>
+    /// <param name="n">Number of characters to extract.</param>
+    /// <returns>The string's left portion.</returns>
+    public static string Left(this string s, int n) => s.Length <= n ? s : s[..n];
+
+    /// <summary>
+    /// Gets the string's right portion. Returns the entire string if it is smaller than the number of characters requested.
+    /// </summary>
+    /// <param name="s">String to extract the portion from.</param>
+    /// <param name="n">Number of characters to extract.</param>
+    /// <returns>The string's right portion.</returns>
+    public static string Right(this string s, int n) => s.Length <= n ? s : s[^n..];
+
+    /// <summary>
+    /// Conditionally joins strings, where the last separator is different from the others.
+    /// </summary>
+    /// <param name="sep">The main separator.</param>
+    /// <param name="lastsep">The last separator.</param>
+    /// <param name="str">Strings to join.</param>
+    /// <returns>The joined strings.</returns>
+    public static string Join(this IReadOnlyList<string> str, string sep, string lastsep)
+    {
+      int n = str.Count;
+      if (n < 1) return "";
+      if (n == 1) return str[0];
+      StringBuilder sb = new StringBuilder(str[0]);
+      n--;
+      for (int i = 1; i < n; i++)
+      {
+        sb.Append(sep);
+        sb.Append(str[i]);
+      }
+      sb.Append(lastsep);
+      sb.Append(str[n]);
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Extracts the input string into only digits.
+    /// </summary>
+    /// <param name="str">String to extract the digits from.</param>
+    /// <returns>The string's digits.</returns>
+    public static string ToDigits(this string str)
+    {
+      StringBuilder sb = new StringBuilder();
+      char chr;
+      for (int i = 0; i < str.Length; i++)
+      {
+        chr = str[i];
+        if (char.IsDigit(chr)) sb.Append(chr);
+      }
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Extracts the input string into only letters.
+    /// </summary>
+    /// <param name="str">String to extract the letters from.</param>
+    /// <returns>The string's letters.</returns>
+    public static string ToLetters(this string str)
+    {
+      StringBuilder sb = new StringBuilder();
+      char chr;
+      for (int i = 0; i < str.Length; i++)
+      {
+        chr = str[i];
+        if (char.IsLetter(chr)) sb.Append(chr);
+      }
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Extracts the input string into only letters and digits.
+    /// </summary>
+    /// <param name="str">String to extract the letters and digits from.</param>
+    /// <returns>The string's letters and digits.</returns>
+    public static string ToLettersAndDigits(this string str)
+    {
+      StringBuilder sb = new StringBuilder();
+      char chr;
+      for (int i = 0; i < str.Length; i++)
+      {
+        chr = str[i];
+        if (char.IsLetterOrDigit(chr)) sb.Append(chr);
+      }
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Filters a string, extracting only what the whitelist allows.
+    /// </summary>
+    /// <param name="str">String to filter.</param>
+    /// <param name="whitelist">Whitelist to extract the chars.</param>
+    /// <returns>The filtered string.</returns>
+    public static string ToFilteredString(this string str, HashSet<char> whitelist)
+    {
+      StringBuilder sb = new StringBuilder();
+      char chr;
+      for (int i = 0; i < str.Length; i++)
+      {
+        chr = str[i];
+        if (whitelist.Contains(chr)) sb.Append(chr);
+      }
+      return sb.ToString();
+    }
+    /// <summary>
+    /// Filters a string, extracting only what the whitelist allows.
+    /// </summary>
+    /// <param name="str">String to filter.</param>
+    /// <param name="whitelist">Whitelist to extract the chars.</param>
+    /// <returns>The filtered string.</returns>
+    public static string ToFilteredString(this string str, params char[] whitelist)
+    {
+      StringBuilder sb = new StringBuilder();
+      char chr;
+      for (int i = 0; i < str.Length; i++)
+      {
+        chr = str[i];
+        if (whitelist.Contains(chr)) sb.Append(chr);
+      }
+      return sb.ToString();
+    }
+
+    /// <summary>
     /// Copies a portion of a string to a character array, keeping it within bounds so that it does not overflow.
     /// </summary>
     /// <param name="str">Source string.</param>
