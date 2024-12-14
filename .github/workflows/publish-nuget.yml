@@ -3,7 +3,7 @@ name: Publish NuGet Packages
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   publish:
@@ -19,6 +19,10 @@ jobs:
           
       - name: Clean previous builds
         run: dotnet clean
+
+      - name: Delete old NuGet Packages
+        run:
+          for package in $(find ./nupkg -name '*.nupkg') -delete
         
       - name: Restore dependencies
         run: dotnet restore
@@ -32,6 +36,6 @@ jobs:
 
       - name: Publish NuGet packages
         run: |
-          for package in $(find . -type f -path '*/bin/Release/*.nupkg'); do
+          for package in $(find ./nupkg -name '*.nupkg'); do
             dotnet nuget push $package --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
           done
