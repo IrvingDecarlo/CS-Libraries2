@@ -110,16 +110,28 @@ v2.0.1, 21-05-05
     <Nullable>enable</Nullable>
     <Title>Cephei Objects Library</Title>
     <Product>$(Title)</Product>
-  </PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Library for objects and object enhancements.</Description>
+		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
+		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>
+		<PackageIcon>icon-128x.png</PackageIcon>
+		<RepositoryUrl>https://github.com/IrvingDecarlo/CS-Libraries2</RepositoryUrl>
+		<PackageTags>object</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
+		<None Include="..\icon-128x.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

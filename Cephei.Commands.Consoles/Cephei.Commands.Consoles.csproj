@@ -35,11 +35,29 @@ v3.0.1, 23-02-09
 v3, 23-02-07
 * Initial build.</PackageReleaseNotes>
     <Product>$(Title)</Product>
-  </PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Library for a console-based command system.</Description>
+		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
+		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>
+		<PackageIcon>icon-128x.png</PackageIcon>
+		<RepositoryUrl>https://github.com/IrvingDecarlo/CS-Libraries2</RepositoryUrl>
+		<PackageTags>command,console</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Cephei.Assemblies\Cephei.Assemblies.csproj" />
-    <ProjectReference Include="..\Cephei.Commands\Cephei.Commands.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Cephei.Assemblies\Cephei.Assemblies.csproj" />
+		<ProjectReference Include="..\Cephei.Commands\Cephei.Commands.csproj" />
+		<None Include="..\icon-128x.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

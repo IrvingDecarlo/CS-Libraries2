@@ -52,12 +52,30 @@ v2.1, 23-07-22
 
 v2.0, 23-02-23
 * Initial build.</PackageReleaseNotes>
-  </PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Library for stat objects.</Description>
+		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
+		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>
+		<PackageIcon>icon-128x.png</PackageIcon>
+		<RepositoryUrl>https://github.com/IrvingDecarlo/CS-Libraries2</RepositoryUrl>
+		<PackageTags>object,stat</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
-    <ProjectReference Include="..\Cephei.Objects\Cephei.Objects.csproj" />
-    <ProjectReference Include="..\Cephei.Valuables\Cephei.Valuables.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Cephei.Collections\Cephei.Collections.csproj" />
+		<ProjectReference Include="..\Cephei.Objects\Cephei.Objects.csproj" />
+		<ProjectReference Include="..\Cephei.Valuables\Cephei.Valuables.csproj" />
+		<None Include="..\icon-128x.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

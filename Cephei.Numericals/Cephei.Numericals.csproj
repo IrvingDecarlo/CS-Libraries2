@@ -6,7 +6,7 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Product>Cephei Numerical Tools</Product>
+    <Product>$(Title)</Product>
     <PackageReleaseNotes>v1.2, 23-02-09
 * Adapted to C# 8.0 nullability rules.
 * SIPrefixes
@@ -17,15 +17,32 @@ v1.1, 23-02-04
 
 v1, 21-11-09
 * Imported SIPrefixes from Cephei.Tools.</PackageReleaseNotes>
-    <PackageId>cnu</PackageId>
+    <PackageId>$(AssemblyName)</PackageId>
     <Version>1.2</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Numericals Library</Title>
-  </PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Library for numerical functions.</Description>
+		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
+		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>
+		<PackageIcon>icon-128x.png</PackageIcon>
+		<RepositoryUrl>https://github.com/IrvingDecarlo/CS-Libraries2</RepositoryUrl>
+		<PackageTags>numerical</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
+	<ItemGroup>
+		<None Include="..\icon-128x.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

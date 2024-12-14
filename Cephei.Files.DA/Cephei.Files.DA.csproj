@@ -42,15 +42,29 @@ Initial Release
 		</PackageReleaseNotes>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Nullable>enable</Nullable>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DocumentationFile></DocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Library for 2DA (two-dimensional array) file functions.</Description>
+		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
+		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>
+		<PackageIcon>icon-128x.png</PackageIcon>
+		<RepositoryUrl>https://github.com/IrvingDecarlo/CS-Libraries2</RepositoryUrl>
+		<PackageTags>file,2da</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Cephei.Files\Cephei.Files.csproj" />
-	  <ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
+		<ProjectReference Include="..\Cephei.Files\Cephei.Files.csproj" />
+		<ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
+		<None Include="..\icon-128x.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 </Project>
