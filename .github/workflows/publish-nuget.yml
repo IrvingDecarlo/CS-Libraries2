@@ -26,13 +26,12 @@ jobs:
           for project in $(find . -type f -name '*.csproj'); do
             echo "Processing project: $project"
             dotnet build --configuration Release --no-restore "$project"
-            dotnet pack --configuration Release --no-build --output ./nupkg "$project"
           done
 
       - name: Publish NuGet packages
         run: |
           if [ -d "./nupkg" ]; then
-            for package in $(find ./nupkg -name '*.nupkg'); do
+            for package in $(find . -type f -path '*/bin/Release/*.nupkg'); do
               echo "Publishing package: $package"
               dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
             done
