@@ -16,48 +16,34 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.x'
-          
-      - name: Clean previous builds
-        run: |
-          echo "Cleaning previous builds..."
-          dotnet clean
 
-      - name: Delete old NuGet Packages
-        run: |
-          echo "Deleting old NuGet packages..."
-          if [ -d "./nupkg" ]; then
-            find ./nupkg -type f -name '*.nupkg' -delete
-            echo "Deleted old NuGet packages."
-          else
-            echo "No ./nupkg directory to clean."
-          fi
-        
       - name: Restore dependencies
-        run: |
-          echo "Restoring dependencies..."
-          dotnet restore
+        run: dotnet restore
 
       - name: Build and package each project
         run: |
-          echo "Searching for .csproj files..."
+          echo "Building and packing .csproj files..."
           for project in $(find . -type f -name '*.csproj'); do
-            echo "Building and packing project: $project"
+            echo "Processing project: $project"
             dotnet build --configuration Release --no-restore "$project"
             dotnet pack --configuration Release --no-build --output ./nupkg "$project"
           done
-          echo "Build and packaging completed."
 
       - name: Publish NuGet packages
         run: |
           if [ -d "./nupkg" ]; then
-            echo "Publishing NuGet packages..."
             for package in $(find ./nupkg -name '*.nupkg'); do
-              echo "Publishing package: $package"
-              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+              echo "Attempting to publish package: $package"
+              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json || 
+              {
+                if grep -q "409" <<< "$(echo $?)"; then
+                  echo "Package $package already exists on NuGet. Skipping upload."
+                else
+                  echo "An error occurred while publishing $package."
+                  exit 1
+                fi
+              }
             done
           else
             echo "No packages to publish."
           fi
-
-      - name: Finalize
-        run: echo "Workflow finished."
