@@ -1,0 +1,34 @@
+name: Publish NuGet Packages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build and package each project
+        run: |
+          for project in $(find . -type d -name '*.csproj'); do
+            dotnet build --configuration Release --no-restore $project
+            dotnet pack --configuration Release --no-build --output ./nupkg $project
+          done
+
+      - name: Publish NuGet packages
+        run: |
+          for package in $(find ./nupkg -name '*.nupkg'); do
+            dotnet nuget push $package --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          done
