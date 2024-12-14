@@ -21,8 +21,10 @@ jobs:
         run: dotnet clean
 
       - name: Delete old NuGet Packages
-        run:
-          for package in $(find ./nupkg -name '*.nupkg') -delete
+        run: |
+          if [ -d "./nupkg" ]; then
+            find ./nupkg -type f -name '*.nupkg' -delete
+          fi
         
       - name: Restore dependencies
         run: dotnet restore
