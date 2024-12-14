@@ -28,7 +28,7 @@ v3.1, 23-02-16
 + Added CommandPseudo.
 
 v3.0.0.1, 23-02-09
-* Command 
+* Command
 ** Fixed the master command not setting properly.
 
 v3, 23-02-07
