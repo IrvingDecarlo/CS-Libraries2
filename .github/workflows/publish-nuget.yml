@@ -30,11 +30,7 @@ jobs:
 
       - name: Publish NuGet packages
         run: |
-          if [ -d "./nupkg" ]; then
-            for package in $(find . -type f -path '*/bin/Release/*.nupkg'); do
-              echo "Publishing package: $package"
-              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-            done
-          else
-            echo "No packages to publish."
-          fi
+          for package in $(find . -type f -path '*/bin/Release/*.nupkg'); do
+            echo "Publishing package: $package"
+            dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          done
