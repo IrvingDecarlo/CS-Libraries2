@@ -33,16 +33,8 @@ jobs:
         run: |
           if [ -d "./nupkg" ]; then
             for package in $(find ./nupkg -name '*.nupkg'); do
-              echo "Attempting to publish package: $package"
-              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json || 
-              {
-                if grep -q "409" <<< "$(echo $?)"; then
-                  echo "Package $package already exists on NuGet. Skipping upload."
-                else
-                  echo "An error occurred while publishing $package."
-                  exit 1
-                fi
-              }
+              echo "Publishing package: $package"
+              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
             done
           else
             echo "No packages to publish."
