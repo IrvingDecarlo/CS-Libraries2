@@ -3,7 +3,7 @@ name: Publish NuGet Packages
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   publish:
@@ -16,13 +16,20 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.x'
+          
+      - name: Clean previous builds
+        run: dotnet clean
 
+      - name: Delete old NuGet Packages
+        run:
+          for package in $(find ./nupkg -name '*.nupkg') -delete
+        
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build and package each project
         run: |
-          for project in $(find . -type d -name '*.csproj'); do
+          for project in $(find . -type f -name '*.csproj'); do
             dotnet build --configuration Release --no-restore $project
             dotnet pack --configuration Release --no-build --output ./nupkg $project
           done
