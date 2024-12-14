@@ -18,26 +18,46 @@ jobs:
           dotnet-version: '8.x'
           
       - name: Clean previous builds
-        run: dotnet clean
+        run: |
+          echo "Cleaning previous builds..."
+          dotnet clean
 
       - name: Delete old NuGet Packages
         run: |
+          echo "Deleting old NuGet packages..."
           if [ -d "./nupkg" ]; then
             find ./nupkg -type f -name '*.nupkg' -delete
+            echo "Deleted old NuGet packages."
+          else
+            echo "No ./nupkg directory to clean."
           fi
         
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          echo "Restoring dependencies..."
+          dotnet restore
 
       - name: Build and package each project
         run: |
+          echo "Searching for .csproj files..."
           for project in $(find . -type f -name '*.csproj'); do
-            dotnet build --configuration Release --no-restore $project
-            dotnet pack --configuration Release --no-build --output ./nupkg $project
+            echo "Building and packing project: $project"
+            dotnet build --configuration Release --no-restore "$project"
+            dotnet pack --configuration Release --no-build --output ./nupkg "$project"
           done
+          echo "Build and packaging completed."
 
       - name: Publish NuGet packages
         run: |
-          for package in $(find ./nupkg -name '*.nupkg'); do
-            dotnet nuget push $package --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-          done
+          if [ -d "./nupkg" ]; then
+            echo "Publishing NuGet packages..."
+            for package in $(find ./nupkg -name '*.nupkg'); do
+              echo "Publishing package: $package"
+              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+            done
+          else
+            echo "No packages to publish."
+          fi
+
+      - name: Finalize
+        run: echo "Workflow finished."
