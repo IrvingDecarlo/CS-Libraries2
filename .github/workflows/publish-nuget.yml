@@ -32,7 +32,9 @@ jobs:
           echo "$COMMITS"
           COMMITS=${{ github.event.commits }}
           echo "Test commits:"
-          echo "$COMMITS"
+          for commit in $COMMITS
+            echo "commit.id"
+          done
           
           # Get all modified projects
           MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..${{ github.sha }} | grep '\.csproj$' | sort | uniq || true)
