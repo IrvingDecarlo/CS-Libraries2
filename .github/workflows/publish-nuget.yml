@@ -92,7 +92,7 @@ jobs:
           echo "FAILED_PROJECTS=$FAILED_PROJECTS" >> $GITHUB_ENV
 
       - name: Error output
-        if: env.FAILED_PROJECTS != ''
+        if: env.FAILED_PROJECTSS != ''
         run: |
           # Outputs all failed projects as an error to fail the process.
           FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }} | tr ',' '\n')
