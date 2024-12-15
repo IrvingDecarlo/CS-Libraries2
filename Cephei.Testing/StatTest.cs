@@ -1,4 +1,4 @@
-﻿using Cephei.Collections;
+﻿/*using Cephei.Collections;
 using Cephei.Commands;
 using Cephei.Commands.Consoles;
 using Cephei.Objects;
@@ -7,7 +7,7 @@ using Cephei.Objects.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-/*
+
 namespace Cephei.Testing
 {
   using static ConsoleSystem;
