@@ -9,6 +9,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
       - name: Get modified .csproj files
         id: get-changes
         run: |
@@ -42,10 +45,6 @@ jobs:
           echo "$MODIFIED_PROJECTS"
           echo "No modified .csproj files found in the latest push."
           echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
-          
-      - name: Checkout code
-        if: env.MODIFIED_PROJECTS != ''
-        uses: actions/checkout@v3
 
       - name: Setup .NET
         if: env.MODIFIED_PROJECTS != ''
