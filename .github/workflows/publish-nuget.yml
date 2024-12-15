@@ -64,7 +64,8 @@ jobs:
         if: env.MODIFIED_PROJECTS != ''
         run: |
           echo "Processing modified .csproj files..."
-          for project in ${{ env.MODIFIED_PROJECTS }}; do
+          MODIFIED_PROJECTS=$(echo ${{ env.MODIFIED_PROJECTS }} | tr ',' '\n')
+          for project in $MODIFIED_PROJECTS; do
             echo "Building and packing project: $project"
             dotnet build --configuration Release --no-restore "$project" || {
               warning "Error occurred while building $project. Check logs for details."
