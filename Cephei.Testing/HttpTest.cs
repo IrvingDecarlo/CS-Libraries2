@@ -13,7 +13,7 @@ namespace Cephei.Testing
   {
     public static void AddCommands() 
     {
-      Main = CreateCommand(null, null, null, "http"); 
+      Main = CreateCommand(null, null, null, "http");
       CreateCommand(async (x) => 
       {
         HttpContent content;
