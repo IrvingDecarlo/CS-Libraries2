@@ -62,7 +62,7 @@ jobs:
         if: env.MODIFIED_PROJECTS != ''
         run: |
           echo "Processing modified .csproj files..."
-          for project in ${{ steps.get-changes.outputs.projects }}; do
+          for project in ${{ env.MODIFIED_PROJECTS }}; do
             echo "Building and packing project: $project"
             dotnet build --configuration Release --no-restore "$project"
             
