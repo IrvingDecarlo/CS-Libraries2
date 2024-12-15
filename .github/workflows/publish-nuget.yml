@@ -26,21 +26,12 @@ jobs:
           if [ -z "$PREVIOUS_SHA" ] || ! git rev-parse "$PREVIOUS_SHA" >/dev/null 2>&1; then
             PREVIOUS_SHA=$(git rev-list -n 1 HEAD~1)
           fi
-
           echo "Commits in the push:"
           COMMITS=$(git rev-list $PREVIOUS_SHA..${{ github.sha }})
           echo "$COMMITS"
 
-          # Find modified .csproj files across all commits
-          MODIFIED_PROJECTS=""
-          for commit in $COMMITS; do
-            echo "Checking commit: $commit"
-            CHANGED_FILES=$(git show --name-only $commit | grep '\.csproj$' || true)
-            MODIFIED_PROJECTS="$MODIFIED_PROJECTS"$'\n'"$CHANGED_FILES"
-          done
-
           # Remove duplicates and output modified projects
-          MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | sort | uniq | grep '\.csproj$' || true)
+          MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..${{ github.sha }} | grep '\.csproj$' | sort | uniq || true)
           if [ -z "${MODIFIED_PROJECTS}" ]; then
             echo "No modified .csproj files found in the latest push."
           else
