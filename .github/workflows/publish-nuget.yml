@@ -69,30 +69,30 @@ jobs:
             if dotnet pack --configuration Release --output ./nupkg $project; then
               echo -e "\033[32mProject $project packed successfully.\033[0m"
             else
-              FAILED_PROJECTS="$FAILED_PROJECTS\n$project"
+              FAILED_PROJECTS="$FAILED_PROJECTS,$project"
             fi
           done
-          if [ -n "${FAILED_PROJECTS}" ]; then
-            echo "::error::The following projects failed to pack:$FAILED_PROJECTS"
-            exit 1
-          fi
-        continue-on-error: true
+          echo "FAILED_PROJECTS=$FAILED_PROJECTS" >> $GITHUB_ENV
 
       - name: Publish packages
         if: env.MODIFIED_PROJECTS != ''
         run: |
           # Publishes all built packages.
-          FAILED_PROJECTS=""
+          MODIFIED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }})
           for package in $(find ./nupkg -name '*.nupkg'); do
             echo -e "\033[35mPublishing file $package...\033[0m"
             if dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate; then
               echo -e "\033[32mPackage $package published successfully.\033[0m"
             else
-              FAILED_PROJECTS="$FAILED_PROJECTS\n$package,"
+              FAILED_PROJECTS="$FAILED_PROJECTS,$package"
             fi
           done
-          if [ -n "${FAILED_PROJECTS}" ]; then
-            echo "::error::The following projects failed to publish:$FAILED_PROJECTS"
-            exit 1
-          fi
-        continue-on-error: true
+          echo "FAILED_PROJECTS=$FAILED_PROJECTS" >> $GITHUB_ENV
+
+      - name: Output failure
+        if: env.FAILED_PROJECTS != ''
+        run: |
+          # Outputs all failed projects in the console and fails the process.
+          FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }} | tr ',' '\n')
+          echo "::error::The following projects failed to pack/publish:$FAILED_PROJECTS"
+          exit 1
