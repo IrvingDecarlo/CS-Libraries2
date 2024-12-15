@@ -20,17 +20,32 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build and package each project
+      - name: Get modified .csproj files
+        id: get-changes
         run: |
-          echo "Building and packing .csproj files..."
-          for project in $(find . -type f -name '*.csproj'); do
-            echo "Processing project: $project"
+          echo "Fetching modified .csproj files..."
+          MODIFIED_PROJECTS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.csproj$' || true)
+          echo "Modified projects:"
+          echo "$MODIFIED_PROJECTS"
+          echo "::set-output name=projects::$MODIFIED_PROJECTS"
+
+      - name: Build and publish modified projects
+        if: steps.get-changes.outputs.projects != ''
+        run: |
+          echo "Processing modified .csproj files..."
+          for project in ${{ steps.get-changes.outputs.projects }}; do
+            echo "Building and packing project: $project"
             dotnet build --configuration Release --no-restore "$project"
+            
+            PACKAGE_PATH=$(find "$(dirname "$project")/bin/Release" -name '*.nupkg')
+            for package in $PACKAGE_PATH; do
+              echo "Attempting to publish package: $package"
+              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
+                echo "Error occurred while publishing $package. Check logs for details."
+              }
+            done
           done
 
-      - name: Publish NuGet packages
-        run: |
-          for package in $(find . -type f -path '*/bin/Release/*.nupkg'); do
-            echo "Publishing package: $package"
-            dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-          done
+      - name: No changes detected
+        if: steps.get-changes.outputs.projects == ''
+        run: echo "No modified .csproj files found in the latest push."
