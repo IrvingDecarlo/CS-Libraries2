@@ -18,21 +18,20 @@ jobs:
           # Gets all modified .csproj files in the last push's commits.
           echo -e "\033[36mFetching modified .csproj files in all commits from the current push...\033[0m"
 
-          # Fetch full history to ensure valid references
+          # Calculate the required depth dynamically
+          COMMITS=$(git rev-list ${{ github.event.before }}..${{ github.sha }})
+          COMMITS_COUNT=$($COMMITS --count)
+          
+          # Fetch the necessary depth
           git fetch --prune --unshallow || true
-          git fetch origin master --depth=2 || true
+          git fetch origin master --depth=$COMMITS_COUNT || true
 
           # Get the list of commit SHAs in this push
-          PREVIOUS_SHA=${{ github.event.before }}
-          if [ -z "$PREVIOUS_SHA" ] || ! git rev-parse "$PREVIOUS_SHA" >/dev/null 2>&1; then
-            PREVIOUS_SHA=$(git rev-list -n 1 HEAD~1)
-          fi
           echo -e "\033[36mCommits in the push:\033[0m"
-          COMMITS=$(git rev-list $PREVIOUS_SHA..${{ github.sha }})
           echo "$COMMITS"
 
           # Get all modified projects
-          MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..${{ github.sha }} | grep '\.csproj$' | sort | uniq || true)
+          MODIFIED_PROJECTS=$(git diff --name-only $COMMITS | grep '\.csproj$' | sort | uniq || true)
 
           # Output and filter modified projects
           FILTERED_PROJECTS=""
