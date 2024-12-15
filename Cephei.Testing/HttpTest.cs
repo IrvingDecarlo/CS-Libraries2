@@ -11,7 +11,7 @@ namespace Cephei.Testing
 
   internal static class HttpTest
   {
-    public static void AddCommands()
+    public static void AddCommands() 
     {
       Main = CreateCommand(null, null, null, "http");
       CreateCommand(async (x) => 
