@@ -79,7 +79,7 @@ jobs:
           for package in $(find ./nupkg -name '*.nupkg'); do
             echo -e "\033[35mPublishing file $package...\033[0m"
             if dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate; then
-              echo -e "\033[32mProject $project published successfully.\033[0m"
+              echo -e "\033[32mPackage $package published successfully.\033[0m"
             else
               echo "::error::Error occurred while publishing $package. Check logs for details."
             fi
