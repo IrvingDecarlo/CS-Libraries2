@@ -58,19 +58,25 @@ jobs:
         if: env.MODIFIED_PROJECTS != ''
         run: dotnet restore
 
-      - name: Build and publish modified projects
+      - name: Build and pack modified projects
         if: env.MODIFIED_PROJECTS != ''
         run: |
           echo "Processing modified .csproj files..."
           for project in ${{ env.MODIFIED_PROJECTS }}; do
             echo "Building and packing project: $project"
-            dotnet build --configuration Release --no-restore "$project"
-            
-            PACKAGE_PATH=$(find "$(dirname "$project")/bin/Release" -name '*.nupkg')
-            for package in $PACKAGE_PATH; do
-              echo "Attempting to publish package: $package"
-              dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
-                echo "Error occurred while publishing $package. Check logs for details."
-              }
-            done
+            dotnet build --configuration Release --no-restore "$project" || {
+              warning "Error occurred while building $project. Check logs for details."
+            }
+            dotnet pack --configuration Release --no-build --output ./nupkg $project || {
+              warning "Error occurred while packing $project. Check logs for details."
+            }
+          done
+
+      - name: Publish packages
+        if: env.MODIFIED_PROJECTS != ''
+        run: |
+          for package in $(find ./nupkg -name '*.nupkg'); do
+            dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
+              warning "Error occurred while publishing $package. Check logs for details."
+            }
           done
