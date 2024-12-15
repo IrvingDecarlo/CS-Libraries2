@@ -9,7 +9,7 @@
    /// </summary>
    /// <param name="value">The gauge's initial value.</param>
    /// <param name="maxvalue">The gauge's max value.</param>
-    public GaugeInt(float value, int maxvalue)
+    public GaugeInt(int value, int maxvalue)
     {
       MaxValue = maxvalue;
       Value = value;
