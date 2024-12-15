@@ -33,7 +33,7 @@ jobs:
           COMMITS=${{ github.event.commits }}
           echo "Test commits:"
           for commit in $COMMITS
-            echo "$commit"
+            echo "$commit.id"
           done
           
           # Get all modified projects
