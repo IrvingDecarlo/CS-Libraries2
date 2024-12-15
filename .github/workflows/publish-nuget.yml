@@ -69,7 +69,6 @@ jobs:
       - name: Publish packages
         if: env.MODIFIED_PROJECTS != ''
         run: |
-          echo -e "\033[36mPublishing .nupkg files...\033[0m"
           for package in $(find ./nupkg -name '*.nupkg'); do
             echo -e "\033[35mPublishing file $package...\033[0m"
             dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
