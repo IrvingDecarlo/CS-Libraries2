@@ -93,6 +93,6 @@ jobs:
         if: env.FAILED_PROJECTS != ''
         run: |
           # Outputs all failed projects in the console and fails the process.
-          FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }} | tr ',' '\n')
+          FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }} | tr ',' '%0A')
           echo "::error::The following projects failed to pack/publish:$FAILED_PROJECTS"
           exit 1
