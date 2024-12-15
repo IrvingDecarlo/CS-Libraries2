@@ -58,11 +58,8 @@ jobs:
           MODIFIED_PROJECTS=$(echo ${{ env.MODIFIED_PROJECTS }} | tr ',' '\n')
           for project in $MODIFIED_PROJECTS; do
             echo -e "\033[35mBuilding and packing project: $project\033[0m"
-            dotnet build --configuration Release --no-restore "$project" || {
-              warning "Error occurred while building $project. Check logs for details."
-            }
-            dotnet pack --configuration Release --no-build --output ./nupkg $project || {
-              warning "Error occurred while packing $project. Check logs for details."
+            dotnet pack --configuration Release --output ./nupkg $project || {
+              echo "::error::Error occurred while building and packing $project. Check logs for details."
             }
           done
 
@@ -72,6 +69,6 @@ jobs:
           for package in $(find ./nupkg -name '*.nupkg'); do
             echo -e "\033[35mPublishing file $package...\033[0m"
             dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
-              warning "Error occurred while publishing $package. Check logs for details."
+              echo "::error::Error occurred while publishing $package. Check logs for details."
             }
           done
