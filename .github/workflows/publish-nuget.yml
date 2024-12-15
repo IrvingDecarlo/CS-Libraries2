@@ -46,6 +46,7 @@ jobs:
           if [ -z "${MODIFIED_PROJECTS}" ]; then
             echo "No modified .csproj files found in the latest push."
           fi
+          MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | tr '\n' ',' | sed 's/,$//')
           echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
 
       - name: Setup .NET
@@ -75,6 +76,7 @@ jobs:
       - name: Publish packages
         if: env.MODIFIED_PROJECTS != ''
         run: |
+          echo "Publishing .nupkg files..."
           for package in $(find ./nupkg -name '*.nupkg'); do
             dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
               warning "Error occurred while publishing $package. Check logs for details."
