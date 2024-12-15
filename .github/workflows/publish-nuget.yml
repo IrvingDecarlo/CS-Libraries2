@@ -26,7 +26,7 @@ jobs:
           if [ -z "$PREVIOUS_SHA" ] || ! git rev-parse "$PREVIOUS_SHA" >/dev/null 2>&1; then
             PREVIOUS_SHA=$(git rev-list -n 1 HEAD~1)
           fi
-          echo -e "\033[35mCommits in the push:\033[0m"
+          echo -e "\033[36mCommits in the push:\033[0m"
           COMMITS=$(git rev-list $PREVIOUS_SHA..${{ github.sha }})
           echo "$COMMITS"
 
@@ -35,7 +35,7 @@ jobs:
           if [ -z "${MODIFIED_PROJECTS}" ]; then
             echo -e "\033[33mNo modified .csproj files found in the latest push.\033[0m"
           else
-            echo -e "\033[35mModified projects:\033[0m"
+            echo -e "\033[36mModified projects:\033[0m"
             echo "$MODIFIED_PROJECTS"
           fi
           MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | tr '\n' ',' | sed 's/,$//')
