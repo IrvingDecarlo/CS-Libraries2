@@ -15,6 +15,7 @@ jobs:
       - name: Get modified .csproj files
         id: get-changes
         run: |
+          # Gets all modified .csproj files in the last push's commits.
           echo -e "\033[36mFetching modified .csproj files in all commits from the current push...\033[0m"
 
           # Fetch full history to ensure valid references
@@ -30,15 +31,24 @@ jobs:
           COMMITS=$(git rev-list $PREVIOUS_SHA..${{ github.sha }})
           echo "$COMMITS"
 
-          # Remove duplicates and output modified projects
+          # Get all modified projects
           MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..${{ github.sha }} | grep '\.csproj$' | sort | uniq || true)
-          if [ -z "${MODIFIED_PROJECTS}" ]; then
+
+          # Output and filter modified projects
+          FILTERED_PROJECTS=""
+          echo -e "\033[36mModified projects:\033[0m"
+          for project in $MODIFIED_PROJECTS; do
+            if grep -q "<SkipPublish>True</SkipPublish>" "$project"; then
+              echo -e "\033[31m$project (blacklisted)\033[0m"
+            else
+              FILTERED_PROJECTS="$FILTERED_PROJECTS$project,"
+              echo "$project"
+            fi
+          done
+          if [ -z "${FILTERED_PROJECTS}" ]; then
             echo -e "\033[33mNo modified .csproj files found in the latest push.\033[0m"
-          else
-            echo -e "\033[36mModified projects:\033[0m"
-            echo "$MODIFIED_PROJECTS"
           fi
-          MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | tr '\n' ',' | sed 's/,$//')
+          MODIFIED_PROJECTS=${FILTERED_PROJECTS%,}
           echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
 
       - name: Setup .NET
@@ -47,28 +57,30 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Restore dependencies
-        if: env.MODIFIED_PROJECTS != ''
-        run: dotnet restore
-
       - name: Build and pack modified projects
         if: env.MODIFIED_PROJECTS != ''
         run: |
+          # Builds and packs all modified projects.
           echo -e "\033[36mProcessing modified .csproj files...\033[0m"
           MODIFIED_PROJECTS=$(echo ${{ env.MODIFIED_PROJECTS }} | tr ',' '\n')
           for project in $MODIFIED_PROJECTS; do
             echo -e "\033[35mBuilding and packing project: $project\033[0m"
-            dotnet pack --configuration Release --output ./nupkg $project || {
+            if dotnet pack --configuration Release --output ./nupkg $project; then
+              echo -e "\033[32mProject $project packed successfully.\033[0m"
+            else
               echo "::error::Error occurred while building and packing $project. Check logs for details."
-            }
+            fi
           done
 
       - name: Publish packages
         if: env.MODIFIED_PROJECTS != ''
         run: |
+          # Publishes all built packages.
           for package in $(find ./nupkg -name '*.nupkg'); do
             echo -e "\033[35mPublishing file $package...\033[0m"
-            dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
+            if dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate; then
+              echo -e "\033[32mProject $project published successfully.\033[0m"
+            else
               echo "::error::Error occurred while publishing $package. Check logs for details."
-            }
+            fi
           done
