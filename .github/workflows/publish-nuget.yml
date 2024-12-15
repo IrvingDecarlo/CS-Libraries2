@@ -30,11 +30,8 @@ jobs:
           echo -e "\033[36mCommits in the push:\033[0m"
           COMMITS=$(git rev-list $PREVIOUS_SHA..${{ github.sha }})
           echo "$COMMITS"
-          COMMITS=${{ github.event.commits }}
-          echo "Test commits:"
-          for commit in $COMMITS
-            echo "$commit.id"
-          done
+          COMMITS=$({{ github.event.commits }} --count)
+          echo "Test number of commits: $COMMITS"
           
           # Get all modified projects
           MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..${{ github.sha }} | grep '\.csproj$' | sort | uniq || true)
