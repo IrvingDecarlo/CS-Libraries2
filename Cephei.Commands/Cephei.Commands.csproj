@@ -27,7 +27,7 @@ v3.1, 23-02-16
 ** Constructor now uses IList instead of the object List.
 + Added CommandPseudo.
 
-v3.0.0.1, 23-02-09 
+v3.0.0.1, 23-02-09
 * Command
 ** Fixed the master command not setting properly.
 
