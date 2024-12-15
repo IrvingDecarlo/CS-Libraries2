@@ -32,7 +32,7 @@ v2.3, 23-02-05
 *+ Added Max(params T) and Min(params T);
 ** Corrected Backspace(int, bool)'s summary.
 
-v2.2.1, 22-06-27 
+v2.2.1, 22-06-27
 * Extensions
 ** string.ToBool(ICollection{string}, ICollection{string}, bool?) changed to T.ToBool(ICollection{T}, ICollection{T}, bool?).
 *+ Added double.GetNumberOfDigits() and int.GetNumberOfDigits().
