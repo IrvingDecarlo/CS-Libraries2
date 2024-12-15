@@ -16,24 +16,24 @@ jobs:
           MODIFIED_PROJECTS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.csproj$' || true)
           echo "Modified projects:"
           echo "$MODIFIED_PROJECTS"
-          echo "::set-output name=projects::$MODIFIED_PROJECTS"
+          echo "$MODIFIED_PROJECTS" >> $GITHUB_ENV
           
       - name: Checkout code
-        if: steps.get-changes.outputs.projects != ''
+        if: env.MODIFIED_PROJECTS != ''
         uses: actions/checkout@v3
 
       - name: Setup .NET
-        if: steps.get-changes.outputs.projects != ''
+        if: env.MODIFIED_PROJECTS != ''
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        if: steps.get-changes.outputs.projects != ''
+        if: env.MODIFIED_PROJECTS != ''
         run: dotnet restore
 
       - name: Build and publish modified projects
-        if: steps.get-changes.outputs.projects != ''
+        if: env.MODIFIED_PROJECTS != ''
         run: |
           echo "Processing modified .csproj files..."
           for project in ${{ steps.get-changes.outputs.projects }}; do
@@ -50,5 +50,5 @@ jobs:
           done
 
       - name: No changes detected
-        if: steps.get-changes.outputs.projects == ''
+        if: env.MODIFIED_PROJECTS == ''
         run: echo "No modified .csproj files found in the latest push."
