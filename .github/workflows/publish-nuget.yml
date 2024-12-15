@@ -13,7 +13,11 @@ jobs:
         id: get-changes
         run: |
           echo "Fetching modified .csproj files..."
-          MODIFIED_PROJECTS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.csproj$' || true)
+          PREVIOUS_SHA=${{ github.event.before }}
+          if [ -z "$PREVIOUS_SHA" ]; then
+            PREVIOUS_SHA=$(git rev-parse HEAD~1)
+          fi
+          MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA ${{ github.sha }} | grep '\.csproj$' || true)
           echo "Modified projects:"
           echo "$MODIFIED_PROJECTS"
           echo "$MODIFIED_PROJECTS" >> $GITHUB_ENV
