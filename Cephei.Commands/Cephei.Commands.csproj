@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -33,7 +33,6 @@ v3.0.0.1, 23-02-09
 
 v3, 23-02-07
 Initial build.</PackageReleaseNotes>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Library for commands.</Description>
 		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
 		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>

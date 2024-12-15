@@ -34,7 +34,6 @@ v1.1, 23-07-22
 
 v1.0, 23-02-23
 * Initial build.</PackageReleaseNotes>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Library for object effects (temporary objects).</Description>
 		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
 		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>

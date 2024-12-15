@@ -62,7 +62,6 @@ v1, 21-11-09
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Streams Library</Title>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Library for data streaming functions.</Description>
 		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
 		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>

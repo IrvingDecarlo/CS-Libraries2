@@ -18,7 +18,6 @@ v1.1, 23-11-23
 v1, 23-08-01
 Initial release.</PackageReleaseNotes>
     <Version>1.2</Version>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Library for database/dictionaries.</Description>
 		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
 		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>

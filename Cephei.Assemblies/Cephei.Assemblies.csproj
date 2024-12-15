@@ -13,7 +13,6 @@
     <Product>$(Title)</Product>
     <PackageReleaseNotes>v1, 23-02-16
 * Initial build.</PackageReleaseNotes>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Library for assembly-related functions.</Description>
     <Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
     <PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>

@@ -116,7 +116,6 @@ v1, 21-06-03
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Collections Library</Title>
     <Nullable>enable</Nullable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Library for collection functions.</Description>
 		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
 		<PackageProjectUrl>https://github.com/IrvingDecarlo/CS-Libraries2</PackageProjectUrl>
