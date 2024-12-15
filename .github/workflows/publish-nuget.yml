@@ -15,7 +15,7 @@ jobs:
       - name: Get modified .csproj files
         id: get-changes
         run: |
-          echo "Fetching modified .csproj files in all commits from the current push..."
+          echo -e "\033[36mFetching modified .csproj files in all commits from the current push...\033[0m"
 
           # Fetch full history to ensure valid references
           git fetch --prune --unshallow || true
@@ -26,16 +26,16 @@ jobs:
           if [ -z "$PREVIOUS_SHA" ] || ! git rev-parse "$PREVIOUS_SHA" >/dev/null 2>&1; then
             PREVIOUS_SHA=$(git rev-list -n 1 HEAD~1)
           fi
-          echo "Commits in the push:"
+          echo -e "\033[36mCommits in the push:\033[0m"
           COMMITS=$(git rev-list $PREVIOUS_SHA..${{ github.sha }})
           echo "$COMMITS"
 
           # Remove duplicates and output modified projects
           MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..${{ github.sha }} | grep '\.csproj$' | sort | uniq || true)
           if [ -z "${MODIFIED_PROJECTS}" ]; then
-            echo "No modified .csproj files found in the latest push."
+            echo -e "\033[33mNo modified .csproj files found in the latest push.\033[0m"
           else
-            echo "Modified projects:"
+            echo -e "\033[36mModified projects:\033[0m"
             echo "$MODIFIED_PROJECTS"
           fi
           MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | tr '\n' ',' | sed 's/,$//')
@@ -54,10 +54,10 @@ jobs:
       - name: Build and pack modified projects
         if: env.MODIFIED_PROJECTS != ''
         run: |
-          echo "Processing modified .csproj files..."
+          echo -e "\033[36mProcessing modified .csproj files...\033[0m"
           MODIFIED_PROJECTS=$(echo ${{ env.MODIFIED_PROJECTS }} | tr ',' '\n')
           for project in $MODIFIED_PROJECTS; do
-            echo "Building and packing project: $project"
+            echo -e "\033[35mBuilding and packing project: $project\033[0m"
             dotnet build --configuration Release --no-restore "$project" || {
               warning "Error occurred while building $project. Check logs for details."
             }
@@ -69,8 +69,9 @@ jobs:
       - name: Publish packages
         if: env.MODIFIED_PROJECTS != ''
         run: |
-          echo "Publishing .nupkg files..."
+          echo -e "\033[36mPublishing .nupkg files...\033[0m"
           for package in $(find ./nupkg -name '*.nupkg'); do
+            echo -e "\033[35mPublishing file $package...\033[0m"
             dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate || {
               warning "Error occurred while publishing $package. Check logs for details."
             }
