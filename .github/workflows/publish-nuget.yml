@@ -39,14 +39,14 @@ jobs:
           echo -e "\033[36mModified projects:\033[0m"
           for project in $MODIFIED_PROJECTS; do
             if grep -q "<SkipPublish>True</SkipPublish>" "$project"; then
-              echo -e "\033[31m$project (blacklisted)\033[0m"
+              echo -e "\033[31m$project (skipped)\033[0m"
             else
               FILTERED_PROJECTS="$FILTERED_PROJECTS$project,"
               echo "$project"
             fi
           done
           if [ -z "${FILTERED_PROJECTS}" ]; then
-            echo -e "\033[33mNo modified .csproj files found in the latest push.\033[0m"
+            echo -e "\033[33mNo modified .csproj files found in the current push.\033[0m"
           fi
           MODIFIED_PROJECTS=${FILTERED_PROJECTS%,}
           echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
@@ -62,6 +62,7 @@ jobs:
         run: |
           # Builds and packs all modified projects.
           echo -e "\033[36mProcessing modified .csproj files...\033[0m"
+          FAILED_PROJECTS=""
           MODIFIED_PROJECTS=$(echo ${{ env.MODIFIED_PROJECTS }} | tr ',' '\n')
           for project in $MODIFIED_PROJECTS; do
             echo -e "\033[35mBuilding and packing project: $project\033[0m"
@@ -69,18 +70,30 @@ jobs:
               echo -e "\033[32mProject $project packed successfully.\033[0m"
             else
               echo "::error::Error occurred while building and packing $project. Check logs for details."
+              FAILED_PROJECTS="$FAILED_PROJECTS$project,"
             fi
           done
+          echo "FAILED_PROJECTS=$FAILED_PROJECTS" >> $GITHUB_ENV
 
       - name: Publish packages
         if: env.MODIFIED_PROJECTS != ''
         run: |
           # Publishes all built packages.
+          FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }})
           for package in $(find ./nupkg -name '*.nupkg'); do
             echo -e "\033[35mPublishing file $package...\033[0m"
             if dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate; then
               echo -e "\033[32mPackage $package published successfully.\033[0m"
             else
               echo "::error::Error occurred while publishing $package. Check logs for details."
+              FAILED_PROJECTS="$FAILED_PROJECTS$package,"
             fi
           done
+          echo "FAILED_PROJECTS=$FAILED_PROJECTS" >> $GITHUB_ENV
+
+      - name: Error output
+        if: env.FAILED_PROJECTS != ''
+        run: |
+          # Outputs all failed projects as an error to fail the process.
+          FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }} | tr ',' '\n')
+          error "The following projects failed to pack/publish:\n$FAILED_PROJECTS"
