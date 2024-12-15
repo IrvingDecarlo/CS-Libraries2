@@ -22,7 +22,7 @@ v1.7.1, 23-08-16
 *+ Added extensions for ITabledCollection with IDictionary;
 *+ Added IEnumerable{T}.DoCopyTo(T[], int).
 
-v1.7, 23-08-08
+v1.7, 23-08-08 
 + Added EnumerableDelegate.
 * CollectionExtensions
 *- Removed IDictionary.TryAdd since it already exists in System.Collections.Generic.CollectionExtensions.
