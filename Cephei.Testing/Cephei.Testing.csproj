@@ -12,7 +12,7 @@
     <Nullable>disable</Nullable>
 		
 		<!-- Skips automatic packaging and publishing on push -->
-		<SkipPublish>True</SkipPublish>
+		<SkipPublish>True</SkipPublish> 
   </PropertyGroup>
 
   <ItemGroup>
