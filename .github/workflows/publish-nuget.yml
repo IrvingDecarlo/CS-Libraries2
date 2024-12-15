@@ -43,7 +43,9 @@ jobs:
           MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | sort | uniq | grep '\.csproj$' || true)
           echo "Modified projects:"
           echo "$MODIFIED_PROJECTS"
-          echo "No modified .csproj files found in the latest push."
+          if MODIFIED_PROJECTS == ''
+            echo "No modified .csproj files found in the latest push."
+          fi
           echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
 
       - name: Setup .NET
