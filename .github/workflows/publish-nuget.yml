@@ -69,31 +69,30 @@ jobs:
             if dotnet pack --configuration Release --output ./nupkg $project; then
               echo -e "\033[32mProject $project packed successfully.\033[0m"
             else
-              echo "::error::Error occurred while building and packing $project. Check logs for details."
-              FAILED_PROJECTS="$FAILED_PROJECTS$project,"
+              FAILED_PROJECTS="$FAILED_PROJECTS\n$project"
             fi
           done
-          echo "FAILED_PROJECTS=$FAILED_PROJECTS" >> $GITHUB_ENV
+          if [ -n "${FAILED_PROJECTS}" ]; then
+            echo "::error::The following projects failed to pack:$FAILED_PROJECTS"
+            exit 1
+          fi
+        continue-on-error: true
 
       - name: Publish packages
         if: env.MODIFIED_PROJECTS != ''
         run: |
           # Publishes all built packages.
-          FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }})
+          FAILED_PROJECTS=""
           for package in $(find ./nupkg -name '*.nupkg'); do
             echo -e "\033[35mPublishing file $package...\033[0m"
             if dotnet nuget push "$package" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate; then
               echo -e "\033[32mPackage $package published successfully.\033[0m"
             else
-              echo "::error::Error occurred while publishing $package. Check logs for details."
-              FAILED_PROJECTS="$FAILED_PROJECTS$package,"
+              FAILED_PROJECTS="$FAILED_PROJECTS\n$package,"
             fi
           done
-          echo "FAILED_PROJECTS=$FAILED_PROJECTS" >> $GITHUB_ENV
-
-      - name: Error output
-        if: env.FAILED_PROJECTSS != ''
-        run: |
-          # Outputs all failed projects as an error to fail the process.
-          FAILED_PROJECTS=$(echo ${{ env.FAILED_PROJECTS }} | tr ',' '\n')
-          error "The following projects failed to pack/publish:\n$FAILED_PROJECTS"
+          if [ -n "${FAILED_PROJECTS}" ]; then
+            echo "::error::The following projects failed to publish:$FAILED_PROJECTS"
+            exit 1
+          fi
+        continue-on-error: true
