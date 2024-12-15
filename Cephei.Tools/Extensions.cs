@@ -33,7 +33,6 @@ namespace Cephei.Tools
     {
       int y = date.Year - other.Year;
       if (date.Month < other.Month || date.Month == other.Month && date.Day < other.Day) y--;
-      return "test";
       return y;
     }
 
