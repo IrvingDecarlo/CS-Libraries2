@@ -41,10 +41,11 @@ jobs:
 
           # Remove duplicates and output modified projects
           MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | sort | uniq | grep '\.csproj$' || true)
-          echo "Modified projects:"
-          echo "$MODIFIED_PROJECTS"
           if [ -z "${MODIFIED_PROJECTS}" ]; then
             echo "No modified .csproj files found in the latest push."
+          else
+            echo "Modified projects:"
+            echo "$MODIFIED_PROJECTS"
           fi
           MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | tr '\n' ',' | sed 's/,$//')
           echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
