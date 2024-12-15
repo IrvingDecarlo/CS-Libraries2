@@ -9,17 +9,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.x'
-
-      - name: Restore dependencies
-        run: dotnet restore
-
       - name: Get modified .csproj files
         id: get-changes
         run: |
@@ -28,6 +17,20 @@ jobs:
           echo "Modified projects:"
           echo "$MODIFIED_PROJECTS"
           echo "::set-output name=projects::$MODIFIED_PROJECTS"
+          
+      - name: Checkout code
+        if: steps.get-changes.outputs.projects != ''
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        if: steps.get-changes.outputs.projects != ''
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore dependencies
+        if: steps.get-changes.outputs.projects != ''
+        run: dotnet restore
 
       - name: Build and publish modified projects
         if: steps.get-changes.outputs.projects != ''
