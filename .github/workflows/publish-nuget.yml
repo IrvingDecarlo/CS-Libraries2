@@ -12,15 +12,36 @@ jobs:
       - name: Get modified .csproj files
         id: get-changes
         run: |
-          echo "Fetching modified .csproj files..."
+          echo "Fetching modified .csproj files in all commits from the current push..."
+
+          # Fetch full history to ensure valid references
+          git fetch --prune --unshallow || true
+          git fetch origin master --depth=2 || true
+
+          # Get the list of commit SHAs in this push
           PREVIOUS_SHA=${{ github.event.before }}
-          if [ -z "$PREVIOUS_SHA" ]; then
-            PREVIOUS_SHA=$(git rev-parse HEAD~1)
+          if [ -z "$PREVIOUS_SHA" ] || ! git rev-parse "$PREVIOUS_SHA" >/dev/null 2>&1; then
+            PREVIOUS_SHA=$(git rev-list -n 1 HEAD~1)
           fi
-          MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA ${{ github.sha }} | grep '\.csproj$' || true)
+
+          echo "Commits in the push:"
+          COMMITS=$(git rev-list $PREVIOUS_SHA..${{ github.sha }})
+          echo "$COMMITS"
+
+          # Find modified .csproj files across all commits
+          MODIFIED_PROJECTS=""
+          for commit in $COMMITS; do
+            echo "Checking commit: $commit"
+            CHANGED_FILES=$(git show --name-only $commit | grep '\.csproj$' || true)
+            MODIFIED_PROJECTS="$MODIFIED_PROJECTS"$'\n'"$CHANGED_FILES"
+          done
+
+          # Remove duplicates and output modified projects
+          MODIFIED_PROJECTS=$(echo "$MODIFIED_PROJECTS" | sort | uniq | grep '\.csproj$' || true)
           echo "Modified projects:"
           echo "$MODIFIED_PROJECTS"
-          echo "$MODIFIED_PROJECTS" >> $GITHUB_ENV
+          echo "No modified .csproj files found in the latest push."
+          echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
           
       - name: Checkout code
         if: env.MODIFIED_PROJECTS != ''
@@ -52,7 +73,3 @@ jobs:
               }
             done
           done
-
-      - name: No changes detected
-        if: env.MODIFIED_PROJECTS == ''
-        run: echo "No modified .csproj files found in the latest push."
