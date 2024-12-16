@@ -22,8 +22,8 @@ git fetch --prune --unshallow || true
 git fetch origin "$BRANCH" --depth="$COMMITS_COUNT" || true
 
 # Get all modified files
-PREVIOUS_SHA=(echo "$COMMITS_JSON" | jq -r '.[0].id')
-LAST_SHA=(echo "$COMMITS_JSON" | jq -r '.[-1].id')
+PREVIOUS_SHA=$(echo "$COMMITS_JSON" | jq -r '.[0].id')
+LAST_SHA=$(echo "$COMMITS_JSON" | jq -r '.[-1].id')
 MODIFIED_PROJECTS=$(git diff --name-only "$PREVIOUS_SHA".."$LAST_SHA" | grep "\.$FILETYPE$" | sort | uniq || true)
 FILTERED_PROJECTS=""
 
