@@ -10,7 +10,7 @@
     <Product>$(Title)</Product>
     <PackageReleaseNotes>v1, 24-08-06
 String extensions and functions absorbed from Cephei.Tools.</PackageReleaseNotes>
-    <Version>1.0.2</Version> 
+    <Version>1.0.2</Version>
     <Description>v1.0.2, 24-11-01
 * StringExtensions
 *+ Added IReadOnlyList{string}.Join(string, string);
