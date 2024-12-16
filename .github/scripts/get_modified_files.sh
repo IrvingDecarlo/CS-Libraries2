@@ -26,7 +26,7 @@ PREVIOUS_SHA=$(git rev-parse HEAD~$COMMITS_COUNT)
 CURRENT_SHA=$(echo "$COMMITS_JSON" | jq -r '.[-1].id')
 echo "Previous: $PREVIOUS_SHA"
 echo "Current: $CURRENT_SHA"
-MODIFIED_PROJECTS=$(git diff --name-only "$PREVIOUS_SHA".."$CURRENT_SHA" | grep "\.$FILETYPE$" | sort | uniq || true)
+MODIFIED_PROJECTS=$(git diff --name-only HEAD~$COMMITS_COUNT..HEAD | grep "\.$FILETYPE$" | sort | uniq || true)
 FILTERED_PROJECTS=""
 
 # Output modified projects and filter by <SkipPublish>
