@@ -13,53 +13,8 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Get modified .csproj files
-        id: get-changes
         run: |
-          # Gets all modified .csproj files in the last push's commits.
-          echo -e "\033[36mFetching modified .csproj files in all commits from the current push...\033[0m"
-
-          # Determine the number of commits in the current push
-          COMMITS_COUNT=${{ github.event.commits && github.event.commits | length }}
-          if [ "$COMMITS_COUNT" -eq 0 ]; then
-            echo "::error::Unable to fetch the amount of commits in the current push."
-            exit 1
-          fi
-          
-          # Adjust fetch range to get all of the push's commits.
-          git fetch --prune --unshallow || true
-          git fetch origin master --depth=$COMMITS_COUNT || true
-          
-          # Get the commit range based on the previous push
-          PREVIOUS_SHA=${{ github.event.before }}
-          if [ -z "$PREVIOUS_SHA" ] || ! git rev-parse "$PREVIOUS_SHA" >/dev/null 2>&1; then
-            echo "::error::Unable to fetch the previous push for file comparison."
-            exit 1
-          fi
-
-          # Output commits
-          echo -e "\033[36mCommits in the push:\033[0m"
-          COMMITS=$(git rev-list ${{ github.event.before }}..${{ github.sha }})
-          echo "$COMMITS"
-          
-          # Get all modified projects
-          MODIFIED_PROJECTS=$(git diff --name-only ${{ github.event.before }}..${{ github.sha }} | grep '\.csproj$' | sort | uniq || true)
-          
-          # Output and filter modified projects
-          FILTERED_PROJECTS=""
-          echo -e "\033[36mModified projects:\033[0m"
-          for project in $MODIFIED_PROJECTS; do
-            if grep -q "<SkipPublish>True</SkipPublish>" "$project"; then
-              echo -e "\033[31m$project (skipped)\033[0m"
-            else
-              FILTERED_PROJECTS="$FILTERED_PROJECTS$project,"
-              echo "$project"
-            fi
-          done
-          if [ -z "${FILTERED_PROJECTS}" ]; then
-            echo -e "\033[33mNo modified .csproj files found in the current push.\033[0m"
-          fi
-          MODIFIED_PROJECTS=${FILTERED_PROJECTS%,}
-          echo "MODIFIED_PROJECTS=$MODIFIED_PROJECTS" >> $GITHUB_ENV
+          .github/scripts/get_modified_projects.sh '${{ toJson(github.event.commits) }}' '${{ github.ref_name }}' '.csproj'
 
       - name: Setup .NET
         if: env.MODIFIED_PROJECTS != ''
