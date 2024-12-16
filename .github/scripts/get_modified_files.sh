@@ -8,27 +8,12 @@ FILETYPE=${3}      # Input argument: File type
 # Script to get modified .csproj files from the current push's commits
 echo -e "\033[36mFetching modified $FILETYPE files in all commits from the current push to $BRANCH...\033[0m"
 
-# Calculate the number of commits in the push
-COMMITS_COUNT=$(echo "$COMMITS_JSON" | jq '. | length')
-if [ -z "$COMMITS_COUNT" ] || [ "$COMMITS_COUNT" -eq 0 ]; then
-  echo "::error::Was not able to determine the amount of commits in the current push."
-  exit 1
-fi
-echo "Commits in the push: $COMMITS_COUNT"
-
-# Ensure the repository is fully fetched to the correct depth
-git fetch --prune --unshallow || true
-git fetch origin "$BRANCH" --depth="$COMMITS_COUNT" || true
-
-# Calculate PREVIOUS_SHA
-PREVIOUS_SHA=${GITHUB_EVENT_BEFORE:-$(git rev-parse HEAD~"$COMMITS_COUNT")}
-if [ -z "$PREVIOUS_SHA" ] || ! git rev-parse "$PREVIOUS_SHA" >/dev/null 2>&1; then
-  echo "::error::Could not resolve the last push."
-  exit 1
-fi
+# Output the push's commits.
+echo "Commits in the push:"
+echo "$COMMITS_JSON" | jq -r '.[] | "(.id)---"'
 
 # Get all modified files
-MODIFIED_PROJECTS=$(git diff --name-only "$PREVIOUS_SHA"..HEAD | grep '\$FILETYPE$' | sort | uniq || true)
+MODIFIED_PROJECTS=$(echo "$COMMITS_JSON" | jq -r '.[].modified[]' | grep "\.$FILETYPE$" | sort | uniq || true)
 FILTERED_PROJECTS=""
 
 # Output modified projects and filter by <SkipPublish>
