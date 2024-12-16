@@ -22,7 +22,7 @@ git fetch --prune --unshallow || true
 git fetch origin "$BRANCH" --depth="$COMMITS_COUNT" || true
 
 # Get all modified files
-PREVIOUS_SHA=git show HEAD~$COMMITS_COUNT
+PREVIOUS_SHA=$(git rev-parse HEAD~$COMMITS_COUNT)
 CURRENT_SHA=$(echo "$COMMITS_JSON" | jq -r '.[-1].id')
 echo "Previous: $PREVIOUS_SHA"
 echo "Current: $CURRENT_SHA"
