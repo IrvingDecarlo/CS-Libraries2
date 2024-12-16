@@ -25,7 +25,7 @@ jobs:
             exit 1
           fi
           
-          # Fetch full history to ensure valid references
+          # Adjust fetch range to get all of the push's commits.
           git fetch --prune --unshallow || true
           git fetch origin master --depth=$COMMITS_COUNT || true
           
