@@ -1,14 +1,12 @@
 #!/bin/bash
 
 # Get arguments
-BRANCH=${1}        # Input argument: Branch to use for getting modified files
-FILETYPE=${2}      # Input argument: File type
+COMMITS_JSON=${1}  # Input argument: The current event's commits converted to JSON.
+BRANCH=${2}        # Input argument: Branch to use for getting modified files
+FILETYPE=${3}      # Input argument: File type
 
 # Script to get modified .csproj files from the current push's commits
 echo -e "\033[36mFetching modified $FILETYPE files in all commits from the current event...\033[0m"
-TEST_SHA=${{ github.sha }}
-echo "Test: $TEST_SHA"
-COMMITS_JSON=${{ toJson(github.event.commits) }}
 
 # Output the push's commits.
 COMMITS_COUNT=$(echo "$COMMITS_JSON" | jq '. | length')
@@ -24,7 +22,11 @@ git fetch --prune --unshallow || true
 git fetch origin "$BRANCH" --depth="$COMMITS_COUNT" || true
 
 # Get all modified files
-MODIFIED_PROJECTS=$(git diff --name-only "${{ github.event.before }}".."${{ github.sha }}" | grep "\.$FILETYPE$" | sort | uniq || true)
+PREVIOUS_SHA=git show HEAD~$COMMITS_COUNT
+CURRENT_SHA=$(echo "$COMMITS_JSON" | jq -r '.[-1].id')
+echo "Previous: $PREVIOUS_SHA"
+echo "Current: $CURRENT_SHA"
+MODIFIED_PROJECTS=$(git diff --name-only "$PREVIOUS_SHA".."$CURRENT_SHA" | grep "\.$FILETYPE$" | sort | uniq || true)
 FILTERED_PROJECTS=""
 
 # Output modified projects and filter by <SkipPublish>
