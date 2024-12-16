@@ -2,17 +2,17 @@
 
 # Get arguments
 COMMITS_JSON=${1}  # Input argument: JSON representation of github.event.commits
-BRANCH=${2}        # Input argument: Desired branch name
-FILETYPE=${3}      # Input argument: File type
+FILETYPE=${2}      # Input argument: File type
 
 # Script to get modified .csproj files from the current push's commits
-echo -e "\033[36mFetching modified $FILETYPE files in all commits from the current push to $BRANCH...\033[0m"
+echo -e "\033[36mFetching modified $FILETYPE files in all commits from the current event...\033[0m"
 
 # Output the push's commits.
-echo -e "\033[36mCommits in the push:\033[0m"
+echo -e "\033[36mCommits in the event:\033[0m"
 echo "$COMMITS_JSON" | jq -r '.[].id'
 
 # Get all modified files
+echo "$COMMITS_JSON"
 MODIFIED_PROJECTS=$(echo "$COMMITS_JSON" | jq -r '.[].modified[]' | grep "\.$FILETYPE$" | sort | uniq || true)
 FILTERED_PROJECTS=""
 
@@ -30,7 +30,7 @@ FILTERED_PROJECTS=${FILTERED_PROJECTS%,}
 
 # Handle case where no projects are modified
 if [ -z "$FILTERED_PROJECTS" ]; then
-  echo -e "\033[33mNo modified $FILETYPE files found in the current push.\033[0m"
+  echo -e "\033[33mNo modified $FILETYPE files found in the current event.\033[0m"
 fi
 
 # Export the result as an environment variable
