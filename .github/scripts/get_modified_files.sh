@@ -19,7 +19,7 @@ echo "$COMMITS_JSON" | jq -r '.[].id'
 
 # Ensure the repository is fully fetched to the correct depth
 git fetch --prune --unshallow || true
-git fetch origin "$BRANCH" --depth="$COMMITS_COUNT" || true
+git fetch origin "$BRANCH" --depth="$((COMMITS_COUNT+1))" || true
 
 # Get all modified files
 PREVIOUS_SHA=$(git rev-parse HEAD~$COMMITS_COUNT)
