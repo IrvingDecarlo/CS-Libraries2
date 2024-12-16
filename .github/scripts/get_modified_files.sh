@@ -9,8 +9,8 @@ FILETYPE=${3}      # Input argument: File type
 echo -e "\033[36mFetching modified $FILETYPE files in all commits from the current push to $BRANCH...\033[0m"
 
 # Output the push's commits.
-echo "Commits in the push:"
-echo "$COMMITS_JSON" | jq -r '.[] | "(.id)---"'
+echo -e "\033[36mCommits in the push:\033[0m"
+echo "$COMMITS_JSON" | jq -r '.[].id'
 
 # Get all modified files
 MODIFIED_PROJECTS=$(echo "$COMMITS_JSON" | jq -r '.[].modified[]' | grep "\.$FILETYPE$" | sort | uniq || true)
