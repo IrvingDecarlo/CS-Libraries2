@@ -6,6 +6,8 @@ FILETYPE=${2}      # Input argument: File type
 
 # Script to get modified .csproj files from the current push's commits
 echo -e "\033[36mFetching modified $FILETYPE files in all commits from the current event...\033[0m"
+TEST_SHA=${{ github.sha }}
+echo "Test: $TEST_SHA"
 COMMITS_JSON=${{ toJson(github.event.commits) }}
 
 # Output the push's commits.
