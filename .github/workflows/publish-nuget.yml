@@ -15,7 +15,7 @@ jobs:
       - name: Get modified .csproj files
         run: |
           chmod +x .github/scripts/get_modified_files.sh
-          .github/scripts/get_modified_files.sh '${{ toJson(github.event.commits) }}' '${{ github.ref_name }}' '.csproj'
+          .github/scripts/get_modified_files.sh '${{ toJson(github.event.commits) }}' '${{ github.ref_name }}' '.csproj' '.pubignore'
 
       - name: Setup .NET
         if: env.MODIFIED_PROJECTS != ''
