@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Action test
+        uses: irvingdecarlo/get-modified-files@v1
         
       - name: Get modified .csproj files
         run: |
