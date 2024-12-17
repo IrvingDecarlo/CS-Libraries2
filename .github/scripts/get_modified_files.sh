@@ -4,6 +4,7 @@
 COMMITS_JSON=${1}  # Input argument: The current event's commits converted to JSON.
 BRANCH=${2}        # Input argument: Branch to use for getting modified files
 FILETYPE=${3}      # Input argument: File type
+FILEIGNORE=${4}    # Input argument: File name to skip the modified file.
 
 # Script to get modified .csproj files from the current push's commits
 echo -e "\033[36mFetching modified $FILETYPE files in all commits from the current event...\033[0m"
@@ -24,16 +25,14 @@ git fetch origin "$BRANCH" --depth="$((COMMITS_COUNT+1))" || true
 # Get all modified files
 PREVIOUS_SHA=$(git rev-parse HEAD~$COMMITS_COUNT)
 CURRENT_SHA=$(echo "$COMMITS_JSON" | jq -r '.[-1].id')
-echo "Previous: $PREVIOUS_SHA"
-echo "Current: $CURRENT_SHA"
-git diff "$PREVIOUS_SHA" "$CURRENT_SHA" --stat
 MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..$CURRENT_SHA | grep "$FILETYPE$" | sort | uniq || true)
 FILTERED_PROJECTS=""
 
 # Output modified projects and filter by <SkipPublish>
 echo -e "\033[36mModified projects:\033[0m"
 for project in $MODIFIED_PROJECTS; do
-  if grep -q "<SkipPublish>True</SkipPublish>" "$project"; then
+  PROJECT_DIR=$(dirname "$project")
+  if [ -f "$PROJECT_DIR/$FILEIGNORE" ]; then
     echo -e "\033[31m$project (skipped)\033[0m"
   else
     FILTERED_PROJECTS="$FILTERED_PROJECTS$project,"
