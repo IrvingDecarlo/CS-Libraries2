@@ -18,7 +18,7 @@ echo -e "\033[36mCommits in the event ($COMMITS_COUNT):\033[0m"
 echo "$COMMITS_JSON" | jq -r '.[].id'
 
 # Ensure the repository is fully fetched to the correct depth
-git fetch "$BRANCH" --prune --unshallow || true
+git fetch --prune --unshallow || true
 git fetch origin "$BRANCH" --depth="$((COMMITS_COUNT+1))" || true
 
 # Get all modified files
@@ -26,6 +26,7 @@ PREVIOUS_SHA=$(git rev-parse HEAD~$COMMITS_COUNT)
 CURRENT_SHA=$(echo "$COMMITS_JSON" | jq -r '.[-1].id')
 echo "Previous: $PREVIOUS_SHA"
 echo "Current: $CURRENT_SHA"
+git diff "$PREVIOUS_SHA" "$CURRENT_SHA" --stat
 MODIFIED_PROJECTS=$(git diff --name-only $PREVIOUS_SHA..$CURRENT_SHA | grep "$FILETYPE$" | sort | uniq || true)
 FILTERED_PROJECTS=""
 
