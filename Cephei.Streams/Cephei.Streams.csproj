@@ -15,7 +15,7 @@ v1.2.4, 24-11-23
 + Added IStreamable and IStreamableAsync.
 
 v1.2.3, 24-10-29
-* StreamExtensions
+* StreamExtensions 
 *+ Added TextReader.Read(Span{char}, out int).
 
 v1.2.2, 24-10-10
