@@ -18,7 +18,7 @@ echo -e "\033[36mCommits in the event ($COMMITS_COUNT):\033[0m"
 echo "$COMMITS_JSON" | jq -r '.[].id'
 
 # Ensure the repository is fully fetched to the correct depth
-git fetch --prune --unshallow || true
+git fetch "$BRANCH" --prune --unshallow || true
 git fetch origin "$BRANCH" --depth="$((COMMITS_COUNT+1))" || true
 
 # Get all modified files
