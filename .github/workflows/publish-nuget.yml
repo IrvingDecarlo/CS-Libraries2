@@ -33,7 +33,7 @@ jobs:
           # Builds and packs all modified projects.
           echo -e "\033[36mProcessing modified .csproj files...\033[0m"
           FAILED_PROJECTS=""
-          MODIFIED_PROJECTS=$(echo ${{ env.MODIFIED_PROJECTS }} | tr ',' '\n')
+          MODIFIED_PROJECTS=$(echo ${{ steps.modified-projects.outputs.modified-files }} | tr ',' '\n')
           for project in $MODIFIED_PROJECTS; do
             echo -e "\033[35mBuilding and packing project: $project\033[0m"
             if dotnet pack --configuration Release --output ./nupkg $project; then

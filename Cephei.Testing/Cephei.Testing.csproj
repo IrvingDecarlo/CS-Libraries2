@@ -9,7 +9,7 @@
     <Company>Cephei</Company>
     <Product>Cephei Testing Environment</Product>
     <Version>1.0.0.0</Version>
-    <Nullable>disable</Nullable> 
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
