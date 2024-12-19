@@ -8,7 +8,7 @@
     <Company>Cephei</Company>
 	<Version>1.4.1</Version>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.4.1, 24-08-08
+    <PackageReleaseNotes>v1.4.1, 24-08-08 
 * FileExtensions
 *+ Absorbed all file-related extension methods from Cephei.Tools.
 
