@@ -7,7 +7,7 @@
 #
 # Parameters/Repository Variables and Secrets needed:
 # secrets.NUGET_API_KEY: Your nuget.org token for pushing NuGet packages.
-# The .yml may be changed further according to your needs, such as a specific OS version or .NET version (which is defaulted to 8.x).
+# The .yml may be changed further according to your needs, such as a specific OS version or .NET version.
 #
 
 name: Publish NuGet Packages
@@ -19,7 +19,7 @@ on:
 
 jobs:
   publish:
-    runs-on: {{ vars.WORKFLOW_OS || ubuntu-latest }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
         if: steps.modified-projects.outputs.modified-files != ''
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: {{ vars.DOTNET_VERSION || '8.x' }}
+          dotnet-version: '8.x'
 
       - name: Build and pack modified projects
         if: steps.modified-projects.outputs.modified-files != ''
