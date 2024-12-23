@@ -8,6 +8,7 @@
 #
 # Parameters/Repository Variables and Secrets needed:
 # secrets.NUGET_API_KEY: Your nuget.org token for pushing NuGet packages.
+# You may add a 'restore-workloads: "true"' parameter to the "Build and pack modified projects" step if your project requires additional workloads.
 # The .yml may be changed further according to your needs, such as a specific OS version or .NET version.
 #
 
@@ -20,7 +21,7 @@ on:
 
 jobs:
   publish:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,8 +43,7 @@ jobs:
 
       - name: Build and pack modified projects
         if: steps.modified-projects.outputs.modified-files != ''
-        uses: irvingdecarlo/dotnet-publish-nuget@v1-alpha.3
+        uses: irvingdecarlo/dotnet-publish-nuget@v1-alpha.4
         with:
           files-csproj: ${{ steps.modified-projects.outputs.modified-files }}
           nuget-key: ${{ secrets.NUGET_API_KEY }}
-          restore-workloads: 0
