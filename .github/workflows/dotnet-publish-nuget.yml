@@ -43,7 +43,7 @@ jobs:
 
       - name: Build and pack modified projects
         if: steps.modified-projects.outputs.modified-files != ''
-        uses: irvingdecarlo/dotnet-publish-nuget@v1-alpha.5
+        uses: irvingdecarlo/dotnet-publish-nuget@v1
         with:
           files-csproj: ${{ steps.modified-projects.outputs.modified-files }}
           nuget-key: ${{ secrets.NUGET_API_KEY }}
