@@ -8,7 +8,7 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1, 24-10-11
+    <PackageReleaseNotes>v1, 24-10-11 
 Initial release.</PackageReleaseNotes>
 		<Description>Library for threading functions.</Description>
 		<Copyright>Copyright (c) Irving Decarlo 2024</Copyright>

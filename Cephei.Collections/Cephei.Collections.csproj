@@ -7,7 +7,7 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <PackageId>$(AssemblyName)</PackageId>
-    <PackageReleaseNotes>v1.8, 24-09-13
+    <PackageReleaseNotes>v1.8, 24-09-13 
 + Added reference to Cephei.Tools.
 + Added IReadOnlyBiDictionary{T, U}, IBiDictionary{T, U} and BiDictionary{T, U}.
 * CollectionExtensions

@@ -11,7 +11,7 @@
    /// <param name="maxvalue">The gauge's max value.</param>
     public GaugeInt(int value, int maxvalue)
     {
-      MaxValue = maxvalue;
+      MaxValue = maxvalue; 
       Value = value;
     }
     /// <summary>

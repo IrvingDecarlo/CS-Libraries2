@@ -1,0 +1,49 @@
+#
+# dotnet-publish-nuget, by Irving Decarlo
+#
+# Automatically publishes all .csproj files that were modified by the push that invoked the workflow.
+# Skips .NET setup if no .csproj files were modified by any of the push's commits.
+# Skips duplicated NuGet packages that already exist in nuget.org if the version hasn't changed.
+# Skips projects that have a .pubignore file in their directory.
+#
+# Parameters/Repository Variables and Secrets needed:
+# secrets.NUGET_API_KEY: Your nuget.org token for pushing NuGet packages.
+# You may add a 'restore-workloads: "true"' parameter to the "Build and pack modified projects" step if your project requires additional workloads.
+# The .yml may be changed further according to your needs, such as a specific OS version or .NET version.
+#
+
+name: Publish NuGet Packages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Get modified .csproj files
+        id: modified-projects
+        uses: irvingdecarlo/get-commit-files@v1
+        with:
+          commits-json: ${{ toJson(github.event.commits) }}
+          git-branch: ${{ github.ref_name }}
+          file-type: ".csproj"
+          file-ignore: ".pubignore"
+
+      - name: Setup .NET
+        if: steps.modified-projects.outputs.modified-files != ''
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Build and pack modified projects
+        if: steps.modified-projects.outputs.modified-files != ''
+        uses: irvingdecarlo/dotnet-publish-nuget@v1.1-alpha
+        with:
+          files-csproj: ${{ steps.modified-projects.outputs.modified-files }}
+          nuget-key: ${{ secrets.NUGET_API_KEY }}

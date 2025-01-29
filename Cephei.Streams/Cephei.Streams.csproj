@@ -7,7 +7,7 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.3, 24-11-25
+    <PackageReleaseNotes>v1.3, 24-11-25 
 * StreamExtensions
 ** TextReader.Read(Span{char}, out int) changed to return a string, a method with a similar functionality to the original read is now called TextReader.ReadString(Span{char}, out int).
 

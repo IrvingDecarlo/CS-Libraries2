@@ -11,7 +11,7 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1, 23-02-16
+    <PackageReleaseNotes>v1, 23-02-16 
 * Initial build.</PackageReleaseNotes>
     <Description>Library for assembly-related functions.</Description>
     <Copyright>Copyright (c) Irving Decarlo 2024</Copyright>
