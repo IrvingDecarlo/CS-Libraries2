@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Text;
-
 using Cephei.Collections;
 
 namespace Cephei.Files.DA

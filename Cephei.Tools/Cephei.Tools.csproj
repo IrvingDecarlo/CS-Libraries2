@@ -6,8 +6,16 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Version>2.5</Version>
-    <PackageReleaseNotes>v2.5, 24-08-26
+    <Version>2.6</Version>
+    <PackageReleaseNotes>v2.6, 25-02-07
+* Extensions
+*- double.GetNumberOfDigits() migrated to Cephei.Numericals;
+*+ Added ReadOnlySpan{T}.ToBools(Span{bool}, T) and ReadOnlySpan{T}.ToBools(T);
+*+ Added int.ToBools(Span{bool}) and int.ToBools(byte);
+*+ Added int.ToBool(byte).
+*+ Added ReadOnlySpan{T}.ToCompressedBool(T) and ReadOnlySpan{bool}.ToCompressedBool().
+
+v2.5, 24-08-26
 * Extensions
 *- Removed int.GetNumberOfDigits();
 *+ Added TimeSpan.GetYears() and DateTime.GetYears(DateTime).

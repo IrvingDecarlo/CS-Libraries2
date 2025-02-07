@@ -10,11 +10,48 @@ namespace Cephei.Tools
     // PUBLIC
 
     /// <summary>
-    /// Gets the number of non-decimal digits a double has.
+    /// Extracts a collection of booleans out of an integer.
     /// </summary>
-    /// <param name="val">Value to get the number of digits from.</param>
-    /// <returns>The value's number of digits.</returns>
-    public static double GetNumberOfDigits(this double val) => val == 0 ? 1 : Math.Abs(Math.Floor(Math.Log10(val) + 1));
+    /// <param name="compressed">Integer to extract the booleans out of.</param>
+    /// <param name="n">Number of booleans to extract.</param>
+    public static bool[] ToBools(this int compressed, byte n)
+    {
+      bool[] bools = new bool[n];
+      compressed.ToBools(bools);
+      return bools;
+    }
+    /// <summary>
+    /// Extracts a collection of booleans out of an integer.
+    /// </summary>
+    /// <param name="compressed">Integer to extract the booleans out of.</param>
+    /// <param name="bools">Collection of booleans.</param>
+    public static void ToBools(this int compressed, Span<bool> bools)
+    {
+      for (byte i = 0; i < bools.Length; i++) bools[i] = compressed.ToBool(i);
+    }
+    /// <summary>
+    /// Converts a span of objects into a span of booleans, using a model object as "true".
+    /// </summary>
+    /// <typeparam name="T">Object type to convert.</typeparam>
+    /// <param name="span">Span of objects to convert.</param>
+    /// <param name="tru">Model object to be used as "true".</param>
+    public static bool[] ToBools<T>(this ReadOnlySpan<T> span, T tru)
+    {
+      bool[] bools = new bool[span.Length];
+      span.ToBools(bools, tru);
+      return bools;
+    }
+    /// <summary>
+    /// Converts a span of objects into a span of booleans, using a model object as "true".
+    /// </summary>
+    /// <typeparam name="T">Object type to convert.</typeparam>
+    /// <param name="span">Span of objects to convert.</param>
+    /// <param name="bools">Span of booleans to receive the new value.</param>
+    /// <param name="tru">Model object to be used as "true".</param>
+    public static void ToBools<T>(this ReadOnlySpan<T> span, Span<bool> bools, T tru)
+    {
+      for (int i = 0; i < span.Length; i++) bools[i] = span[i].SafeEquals(tru);
+    }
 
     /// <summary>
     /// Gets the number of years in a time span.
@@ -37,6 +74,29 @@ namespace Cephei.Tools
     }
 
     /// <summary>
+    /// Compresses a span of booleans into a single int. The booleans are compressed to fit 32 of them within an Int32 - use binary
+    /// operators to extract the boolean out of the integer.
+    /// </summary>
+    /// <param name="span">Span of booleans to convert.</param>
+    public static int ToCompressedBool(this ReadOnlySpan<bool> span) => span.ToCompressedBool(true);
+    /// <summary>
+    /// Converts a span of objects into a span of booleans, using a model object as "true". The booleans are compressed to fit 32 of them within an Int32 - use binary
+    /// operators to extract the boolean out of the integer.
+    /// </summary>
+    /// <typeparam name="T">Object type to convert.</typeparam>
+    /// <param name="span">Span of objects to convert.</param>
+    /// <param name="tru">Model object to be used as "true".</param>
+    public static int ToCompressedBool<T>(this ReadOnlySpan<T> span, T tru)
+    {
+      int b = 0;
+      for (int i = 0; i < span.Length; i++)
+      {
+        if (span[i].SafeEquals(tru)) b += 1 << i;
+      }
+      return b;
+    }
+
+    /// <summary>
     /// A safe version of Equals where both objects are checked if they are null.
     /// </summary>
     /// <param name="this">Object that will equate to the other.</param>
@@ -48,5 +108,13 @@ namespace Cephei.Tools
       if (@this is null || other is null) return false;
       return @this.Equals(other);
     }
+
+    /// <summary>
+    /// Extracts a boolean out of an integer, using a binary operator.
+    /// </summary>
+    /// <param name="nt">Integer to get the boolean.</param>
+    /// <param name="index">Index to get the bool out of.</param>
+    /// <returns>True if the bit in the specified int's index is 1.</returns>
+    public static bool ToBool(this int nt, byte index) => (nt & (1 << index)) != 0;
   }
 }

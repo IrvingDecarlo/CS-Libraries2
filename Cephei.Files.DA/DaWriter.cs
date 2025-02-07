@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Collections.Generic;
-using Cephei.Tools;
+using Cephei.Numericals;
 
 namespace Cephei.Files.DA
 {

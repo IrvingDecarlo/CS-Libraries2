@@ -6,10 +6,13 @@
 		<RootNamespace>$(AssemblyName)</RootNamespace>
 		<Authors>Irving Decarlo</Authors>
 		<Company>Cephei</Company>
-		<Version>1.1.0.2</Version>
+		<Version>1.2</Version>
 		<Title>Cephei 2DA Files Library</Title>
 		<Product>$(Title)</Product>
-		<PackageReleaseNotes>v1.1.0.2, 24-08-26
+		<PackageReleaseNotes>v1.2, 25-02-07
+* Replaced Cephei.Tools dependency with Cephei.Numericals.
+
+v1.1.0.2, 24-08-26
 * Updated to Cephei.Tools changes.
 
 v1.1.0.1, 23-02-09
@@ -55,7 +58,7 @@ Initial Release
 
 	<ItemGroup>
 		<ProjectReference Include="..\Cephei.Files\Cephei.Files.csproj" />
-		<ProjectReference Include="..\Cephei.Tools\Cephei.Tools.csproj" />
+		<ProjectReference Include="..\Cephei.Numericals\Cephei.Numericals.csproj" />
 		<None Include="..\icon-128x.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

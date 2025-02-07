@@ -7,7 +7,11 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <PackageReleaseNotes>v1.2.1, 25-01-29
+    <PackageReleaseNotes>v1.2.2, 25-02-07
++ NumericalExtensions:
+++ Absorbed double.GetNumberOfDigits() from Cephei.Tools.
+
+v1.2.1, 25-01-29
 + Added Maths:
 ++ Added Max(params[] int) and Min(params[] int).
 
@@ -22,7 +26,7 @@ v1.1, 23-02-04
 v1, 21-11-09
 * Imported SIPrefixes from Cephei.Tools.</PackageReleaseNotes>
     <PackageId>$(AssemblyName)</PackageId>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
     <Title>Cephei Numericals Library</Title>
