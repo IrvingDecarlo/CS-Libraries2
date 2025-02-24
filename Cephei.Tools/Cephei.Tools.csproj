@@ -6,8 +6,12 @@
     <RootNamespace>$(AssemblyName)</RootNamespace>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <Version>2.6</Version>
-    <PackageReleaseNotes>v2.6, 25-02-07
+    <Version>2.6.1</Version>
+    <PackageReleaseNotes>v2.6.1, 25-02-24
+* Extensions
+** Added Span{T} variants to all ReadOnlySpan{T} extension methods.
+
+v2.6, 25-02-07
 * Extensions
 *- double.GetNumberOfDigits() migrated to Cephei.Numericals;
 *+ Added ReadOnlySpan{T}.ToBools(Span{bool}, T) and ReadOnlySpan{T}.ToBools(T);

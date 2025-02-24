@@ -30,7 +30,7 @@ namespace Cephei.Tools
       for (byte i = 0; i < bools.Length; i++) bools[i] = compressed.ToBool(i);
     }
     /// <summary>
-    /// Converts a span of objects into a span of booleans, using a model object as "true".
+    /// Converts a span of objects into an array of booleans, using a model object as "true".
     /// </summary>
     /// <typeparam name="T">Object type to convert.</typeparam>
     /// <param name="span">Span of objects to convert.</param>
@@ -49,6 +49,29 @@ namespace Cephei.Tools
     /// <param name="bools">Span of booleans to receive the new value.</param>
     /// <param name="tru">Model object to be used as "true".</param>
     public static void ToBools<T>(this ReadOnlySpan<T> span, Span<bool> bools, T tru)
+    {
+      for (int i = 0; i < span.Length; i++) bools[i] = span[i].SafeEquals(tru);
+    }
+    /// <summary>
+    /// Converts a span of objects into a span of booleans, using a model object as "true".
+    /// </summary>
+    /// <typeparam name="T">Object type to convert.</typeparam>
+    /// <param name="span">Span of objects to convert.</param>
+    /// <param name="tru">Model object to be used as "true".</param>
+    public static bool[] ToBools<T>(this Span<T> span, T tru)
+    {
+      bool[] bools = new bool[span.Length];
+      span.ToBools(bools, tru);
+      return bools;
+    }
+    /// <summary>
+    /// Converts a span of objects into an array of booleans, using a model object as "true".
+    /// </summary>
+    /// <typeparam name="T">Object type to convert.</typeparam>
+    /// <param name="span">Span of objects to convert.</param>
+    /// <param name="bools">Span of booleans to receive the new value.</param>
+    /// <param name="tru">Model object to be used as "true".</param>
+    public static void ToBools<T>(this Span<T> span, Span<bool> bools, T tru)
     {
       for (int i = 0; i < span.Length; i++) bools[i] = span[i].SafeEquals(tru);
     }
@@ -73,6 +96,28 @@ namespace Cephei.Tools
       return y;
     }
 
+    /// <summary>
+    /// Compresses a span of booleans into a single int. The booleans are compressed to fit 32 of them within an Int32 - use binary
+    /// operators to extract the boolean out of the integer.
+    /// </summary>
+    /// <param name="span">Span of booleans to convert.</param>
+    public static int ToCompressedBool(this Span<bool> span) => span.ToCompressedBool(true);
+    /// <summary>
+    /// Converts a span of objects into a span of booleans, using a model object as "true". The booleans are compressed to fit 32 of them within an Int32 - use binary
+    /// operators to extract the boolean out of the integer.
+    /// </summary>
+    /// <typeparam name="T">Object type to convert.</typeparam>
+    /// <param name="span">Span of objects to convert.</param>
+    /// <param name="tru">Model object to be used as "true".</param>
+    public static int ToCompressedBool<T>(this Span<T> span, T tru)
+    {
+      int b = 0;
+      for (int i = 0; i < span.Length; i++)
+      {
+        if (span[i].SafeEquals(tru)) b += 1 << i;
+      }
+      return b;
+    }
     /// <summary>
     /// Compresses a span of booleans into a single int. The booleans are compressed to fit 32 of them within an Int32 - use binary
     /// operators to extract the boolean out of the integer.
