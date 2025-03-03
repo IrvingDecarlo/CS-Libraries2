@@ -6,9 +6,9 @@ namespace Cephei.Commands
   /// <summary>
   /// CommandNotFoundExceptions are thrown when a command is not found via a command queue.
   /// </summary>
-  public class CommandNotFoundException : ObjectException<Command?>
+  public class CommandNotFoundException : ObjectException<CommandReference>
   {
-    internal CommandNotFoundException(string ident, Queue<string> queue, Command? com)
+    internal CommandNotFoundException(string ident, Queue<string> queue, CommandReference com)
       : base(com, $"The command {ident} was not found under the {com.GetString()}.")
     {
       Identifier = ident;

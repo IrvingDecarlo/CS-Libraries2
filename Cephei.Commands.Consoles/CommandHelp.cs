@@ -17,7 +17,7 @@ namespace Cephei.Commands.Consoles
     /// <param name="master">Command to assign it under.</param>
     /// <param name="excs">List of exceptions outputted.</param>
     /// <param name="ident">Command identifiers to use.</param>
-    public CommandHelp(Command? master, IList<CommandAlreadyExistsException>? excs, params string[] ident) :
+    public CommandHelp(CommandReference master, IList<CommandAlreadyExistsException>? excs, params string[] ident) :
       base(master, excs, ident)
     { }
 
@@ -37,22 +37,16 @@ namespace Cephei.Commands.Consoles
     /// <param name="args">The command's arguments.</param>
     protected override Task DoExecute(IReadOnlyDictionary<string, IReadOnlyList<string>> args)
     {
-      IReadOnlyDictionary<string, Command> cmds;
       TextWriter writer = Out;
       writer.WriteLine();
-      if (Master is null)
+      if (Master is Command cmd)
       {
-        cmds = Commands;
-        writer.WriteLine("Commands in the system:");
-      }
-      else
-      {
-        cmds = Master;
-        writer.WriteLine(Master.GetDescription());
+        writer.WriteLine(cmd.GetDescription());
         writer.WriteLine();
         writer.WriteLine("Commands under " + Master + ":");
       }
-      writer.WriteLine(string.Join('\n', cmds));
+      else writer.WriteLine("Commands in the system:");
+      writer.WriteLine(string.Join('\n', Master));
       writer.WriteLine();
       return Task.CompletedTask;
     }
@@ -64,7 +58,7 @@ namespace Cephei.Commands.Consoles
     /// <param name="excs">List of exceptions.</param>
     /// <param name="idents">Identifiers to use for the new command.</param>
     /// <returns>The new copied command.</returns>
-    public override Command Clone(Command? com, IList<CommandAlreadyExistsException> excs, params string[] idents)
+    public override Command Clone(CommandReference com, IList<CommandAlreadyExistsException> excs, params string[] idents)
       => new CommandHelp(com, excs, idents);
 
     #endregion

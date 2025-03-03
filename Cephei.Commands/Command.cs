@@ -1,5 +1,4 @@
-﻿using Cephei.Collections;
-using Cephei.Objects;
+﻿using Cephei.Objects;
 using Cephei.Strings;
 using Cephei.Tools;
 using System;
@@ -13,32 +12,31 @@ namespace Cephei.Commands
   /// <summary>
   /// The command class is the basic class for the Command system. Through it, commands are executed and logged.
   /// </summary>
-  public abstract class Command : ProtectedDictionary<string, Command>, IModifiable, IReadOnlyIdentifiable<string>, IEquatable<Command>, IDescribable<string>
-    , IExecutableAsync<IReadOnlyDictionary<string, IReadOnlyList<string>>>, ICloneable<Command?, IList<CommandAlreadyExistsException>, Command>
-    , ICloneable<Command?, IList<CommandAlreadyExistsException>, string[], Command>
+  public abstract class Command : CommandReference, IModifiable, IReadOnlyIdentifiable<string>, IEquatable<Command>, IDescribable<string>
+    , IExecutableAsync<IReadOnlyDictionary<string, IReadOnlyList<string>>>, ICloneable<CommandReference, IList<CommandAlreadyExistsException>, Command>
+    , ICloneable<CommandReference, IList<CommandAlreadyExistsException>, string[], Command>
   {
     /// <summary>
     /// Creates a new command.
     /// </summary>
-    /// <param name="master">The master command. Can be null to assign it directly to the static system.</param>
+    /// <param name="master">The command reference to put it under.</param>
     /// <param name="excs">List for the exceptions that may occur during creation.</param>
     /// <param name="idents">Identifiers for the command. They will always be converted to upper case invariably.</param>
     /// <exception cref="CommandCouldNotBeCreatedException"></exception>
-    public Command(Command? master, IList<CommandAlreadyExistsException>? excs, params string[] idents)
+    public Command(CommandReference master, IList<CommandAlreadyExistsException>? excs, params string[] idents)
       : base()
     {
-      IDictionary<string, Command> dict = master is null ? Commands.GetCollection() : master.Collection;
       List<string> ids = new List<string>();
       string id;
       for (int i = 0; i < idents.Length; i++)
       {
         id = idents[i].ToUpperInvariant();
-        if (dict.ContainsKey(id)) 
+        if (master.ContainsKey(id)) 
         { 
           excs?.Add(new CommandAlreadyExistsException(this, master, id));
           continue;
         }
-        dict.Add(id, this);
+        master.Add(id, this);
         ids.Add(id);
       }
       if (ids.Count < 1) throw new CommandCouldNotBeCreatedException(this, master, idents);
@@ -114,14 +112,17 @@ namespace Cephei.Commands
     /// </summary>
     /// <returns>A string identifying this command and its masters.</returns>
     public override string ToString()
-      => (Master is null ? "" : Master.ToString() + ".") + ID;
+    {
+      string str = Master.ToString();
+      return (string.IsNullOrEmpty(str) ? "" : str + ".") + ID;
+    }
 
     /// <summary>
     /// Gets the command's hash code, taking its master command into consideration.
     /// </summary>
     /// <returns>The command's hash code.</returns>
     public override int GetHashCode()
-      => ID.GetHashCode() + (Master is null ? 0 : Master.GetHashCode());
+      => ID.GetHashCode() + Master.GetHashCode();
 
     /// <summary>
     /// Returns a copy of this command using its own identifiers.
@@ -129,7 +130,7 @@ namespace Cephei.Commands
     /// <param name="com">Command to add the copied command under.</param>
     /// <param name="excs">List of exceptions to output errors to.</param>
     /// <returns>This command's copy.</returns>
-    public Command Clone(Command? com, IList<CommandAlreadyExistsException> excs) => Clone(com, excs, Identifiers);
+    public Command Clone(CommandReference com, IList<CommandAlreadyExistsException> excs) => Clone(com, excs, Identifiers);
     /// <summary>
     /// Returns a copy of this command.
     /// </summary>
@@ -137,7 +138,7 @@ namespace Cephei.Commands
     /// <param name="excs">List of exceptions to output errors to.</param>
     /// <param name="idents">Identifiers to use for the new command.</param>
     /// <returns>The copied command.</returns>
-    public abstract Command Clone(Command? com, IList<CommandAlreadyExistsException> excs, string[] idents);
+    public abstract Command Clone(CommandReference com, IList<CommandAlreadyExistsException> excs, string[] idents);
 
     #endregion
 
@@ -150,7 +151,7 @@ namespace Cephei.Commands
     /// <param name="excs">List of exceptions.</param>
     /// <param name="idents">Identifiers to use for the main copied command. Will use this command's identifiers if none is set.</param>
     /// <returns>The main copied command.</returns>
-    public Command FullClone(Command? master, IList<CommandAlreadyExistsException> excs, params string[] idents)
+    public Command FullClone(CommandReference master, IList<CommandAlreadyExistsException> excs, params string[] idents)
     {
       Command comd = Clone(master, excs, idents.Length < 1 ? Identifiers : idents);
       Queue<Command> queue = new Queue<Command>();
@@ -170,9 +171,9 @@ namespace Cephei.Commands
     public readonly string[] Identifiers;
 
     /// <summary>
-    /// Returns the command's master. Can be null if the command is directly assigned to the static system.
+    /// Returns the command's master reference.
     /// </summary>
-    public readonly Command? Master;
+    public readonly CommandReference Master;
 
     #endregion
 
@@ -192,9 +193,16 @@ namespace Cephei.Commands
 
     #endregion
 
-    static Command() => Commands = new CommandCollection();
-
     #region static public
+
+    // VARIABLES
+
+    /// <summary>
+    /// The root of all commands. All commands must be directly or indirectly under this.
+    /// </summary>
+    public static readonly CommandReference Root = new CommandReference();
+
+    // METHODS
 
     /// <summary>
     /// Reads a string input and outputs a Dictionary with arguments and the command queue.
@@ -266,18 +274,16 @@ namespace Cephei.Commands
     /// <exception cref="ArgumentNullException"></exception>
     public static Command Find(Queue<string> cmds)
     {
-      IReadOnlyDictionary<string, Command> dict = Commands;
-      Command? master = null;
+      CommandReference master = Root;
       Command? com = null;
       string ident;
       int c = cmds.Count;
       for (int i = 0; i < c; i++) 
       {
         ident = cmds.Dequeue().ToUpperInvariant();
-        if (!dict.TryGetValue(ident, out com))
-          throw new CommandNotFoundException(ident, cmds, master);
+        com = master.Seek(ident);
+        if (com is null) throw new CommandNotFoundException(ident, cmds, master);
         master = com;
-        dict = master;
       }
       return com ?? throw new ArgumentNullException();
     }
@@ -304,11 +310,6 @@ namespace Cephei.Commands
     /// <exception cref="CommandExecutionException"></exception>
     public static async Task Run(Queue<string> cmds, IReadOnlyDictionary<string, IReadOnlyList<string>> args)
       => await Find(cmds).ExecuteAsync(args);
-
-    /// <summary>
-    /// Is the static command dictionary, referring to the commands that are not assigned under any other commands.
-    /// </summary>
-    public static readonly CommandCollection Commands;
 
     #endregion
 

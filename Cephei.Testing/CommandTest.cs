@@ -11,7 +11,7 @@ namespace Cephei.Testing
   {
     public static void AddCommands()
     {
-      Main = CreateCommand(null, null, null, "comtest", "ct");
+      Main = CreateCommand(null, null, Command.Root, "comtest", "ct");
       CreateCommand((x) =>
       {
         Out.WriteLine("foquo");

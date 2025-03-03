@@ -7,10 +7,22 @@
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Console Commands Library</Title>
-    <Version>3.0.3</Version>
+    <Version>3.1</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <PackageReleaseNotes>v3.0.3, 24-08-17
+    <PackageReleaseNotes>v3.1, 25-03-03
+* PredefinedCommands
+** AddConsoleCommands does not create a "console" command with its subcommands, instead it only generates the subcommands;
+** AddConsoleCommands no longer links some of its commands to root. It must be done so manually;
+*+ Added AddConsoleCommand(CommandReference), which adds the "console" command;
+*+ Added "workingdirectory" and "run" commands.
+* ConsoleSystem
+** Added optional boolean parameter to determine whether console commands should be linked back to root or not;
+*+ Added another CreateCommand overload which accepts a preexisting exceptions list;
+*+ Added both overloads for CreateLinkCommands().
+* Updated to adapt to Cephei.Commands 3.3 changes.
+
+v3.0.3, 24-08-17
 * Updated to adapt to Cephei.Commands 3.2 changes.
 * ConsoleSystem
 *+ Added MainLoopAsync(string);

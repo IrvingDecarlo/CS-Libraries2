@@ -31,7 +31,7 @@ namespace Cephei.Commands.Consoles
     /// <summary>
     /// The function that generates help commands via CreateCommand.
     /// </summary>
-    public static Func<Command?, IList<CommandAlreadyExistsException>, Command> GetHelpCommand
+    public static Func<CommandReference, IList<CommandAlreadyExistsException>, Command> GetHelpCommand
     {
       set
       {
@@ -128,8 +128,20 @@ namespace Cephei.Commands.Consoles
     /// <param name="master">Master command to assign the new one under.</param>
     /// <param name="idents">Identifiers to use for the new command.</param>
     /// <returns>The new command, if created successfully. Returns null if an error has occurred.</returns>
-    public static CommandDelegate? CreateCommand(CommandDelegate.Executor? action, Func<string>? descriptor, Command? master, params string[] idents)
+    public static CommandDelegate? CreateCommand(CommandDelegate.Executor? action, Func<string>? descriptor, CommandReference master, params string[] idents)
       => CreateCommand(action, descriptor, master, true, idents);
+    /// <summary>
+    /// Creates a new delegate command, handling all exceptions automatically and outputting them to the console. A help command is automatically added under it.
+    /// </summary>
+    /// <param name="action">Action for the command to perform.</param>
+    /// <param name="descriptor">Descriptor that is used to provide the command's description.</param>
+    /// <param name="master">Master command to assign the new one under.</param>
+    /// <param name="exceptions">List of exceptions to use for outputting exceptions. Will be cleared upon execution.</param>
+    /// <param name="idents">Identifiers to use for the new command.</param>
+    /// <returns>The new command, if created successfully. Returns null if an error has occurred.</returns>
+    public static CommandDelegate? CreateCommand(CommandDelegate.Executor? action, Func<string>? descriptor, CommandReference master
+      , IList<CommandAlreadyExistsException> exceptions, params string[] idents)
+      => CreateCommand(action, descriptor, master, true, exceptions, idents);
     /// <summary>
     /// Creates a new delegate command, handling all exceptions automatically and outputting them to the console.
     /// </summary>
@@ -139,8 +151,21 @@ namespace Cephei.Commands.Consoles
     /// <param name="help">Create a help command under the newly created command?</param>
     /// <param name="idents">Identifiers to use for the new command.</param>
     /// <returns>The new command, if created successfully. Returns null if an error has occurred.</returns>
-    public static CommandDelegate? CreateCommand(CommandDelegate.Executor? action, Func<string>? descriptor, Command? master, bool help, params string[] idents)
+    public static CommandDelegate? CreateCommand(CommandDelegate.Executor? action, Func<string>? descriptor, CommandReference master, bool help, params string[] idents)
       => CreateCommand((exceptions) => new CommandDelegate(action, descriptor, master, exceptions, idents), help);
+    /// <summary>
+    /// Creates a new delegate command, handling all exceptions automatically and outputting them to the console.
+    /// </summary>
+    /// <param name="action">Action for the command to perform.</param>
+    /// <param name="descriptor">Descriptor that is used to provide the command's description.</param>
+    /// <param name="master">Master command to assign the new one under.</param>
+    /// <param name="help">Create a help command under the newly created command?</param>
+    /// <param name="exceptions">List of exceptions to use for outputting exceptions. Will be cleared upon execution.</param>
+    /// <param name="idents">Identifiers to use for the new command.</param>
+    /// <returns>The new command, if created successfully. Returns null if an error has occurred.</returns>
+    public static CommandDelegate? CreateCommand(CommandDelegate.Executor? action, Func<string>? descriptor, CommandReference master, bool help
+      , IList<CommandAlreadyExistsException> exceptions, params string[] idents)
+      => CreateCommand((exceptions) => new CommandDelegate(action, descriptor, master, exceptions, idents), help, exceptions);
     /// <summary>
     /// Creates a new command using a delegate function. Handles all exceptions and outputs them to the console.
     /// </summary>
@@ -149,8 +174,18 @@ namespace Cephei.Commands.Consoles
     /// <param name="help">Create the help command under it?</param>
     /// <returns>The new command, if created successfully. Returns null if an error has occurred.</returns>
     public static T? CreateCommand<T>(Func<IList<CommandAlreadyExistsException>, T> creator, bool help) where T : Command
+      => CreateCommand(creator, help, new List<CommandAlreadyExistsException>());
+    /// <summary>
+    /// Creates a new command using a delegate function. Handles all exceptions and outputs them to the console.
+    /// </summary>
+    /// <typeparam name="T">Command type to use.</typeparam>
+    /// <param name="creator">Function that will create the command. Uses an exception list as parameter.</param>
+    /// <param name="help">Create the help command under it?</param>
+    /// <param name="exceptions">List of exceptions to use for outputting exceptions. Will be cleared upon execution.</param>
+    /// <returns>The new command, if created successfully. Returns null if an error has occurred.</returns>
+    public static T? CreateCommand<T>(Func<IList<CommandAlreadyExistsException>, T> creator, bool help, IList<CommandAlreadyExistsException> exceptions) where T : Command
     {
-      List<CommandAlreadyExistsException> exceptions = new List<CommandAlreadyExistsException>();
+      exceptions.Clear();
       T com;
       try { com = creator(exceptions); }
       catch (CommandCouldNotBeCreatedException ex)
@@ -173,25 +208,54 @@ namespace Cephei.Commands.Consoles
     }
 
     /// <summary>
+    /// Creates link commands for a collection of commands under a command reference.
+    /// </summary>
+    /// <typeparam name="T">Command object type.</typeparam>
+    /// <param name="cmds">Commands to create links for.</param>
+    /// <param name="master">Command reference to add the links under.</param>
+    public static void CreateLinkCommands<T>(IEnumerable<T> cmds, CommandReference master) where T : Command
+      => CreateLinkCommands(cmds, master, new List<CommandAlreadyExistsException>());
+    /// <summary>
+    /// Creates link commands for a collection of commands under a command reference.
+    /// </summary>
+    /// <typeparam name="T">Command object type.</typeparam>
+    /// <param name="cmds">Commands to create links for.</param>
+    /// <param name="master">Command reference to add the links under.</param>
+    /// <param name="exceptions">List of exceptions.</param>
+    public static void CreateLinkCommands<T>(IEnumerable<T> cmds, CommandReference master, IList<CommandAlreadyExistsException> exceptions) where T : Command
+    {
+      exceptions.Clear();
+      foreach (T cmd in cmds)
+      {
+        if (master.ContainsKey(cmd.ID)) continue;
+        CreateCommand<Command>((exceptions) => new CommandLink(cmd, master, exceptions), false, exceptions);
+      }
+    }
+
+    /// <summary>
     /// Prepares the console system. Is not a mandatory method to run, the system can run by itself with the MainLoop method.
     /// This method only adds predefined commands and sets the console's window title.
     /// </summary>
-    public static void Setup()
-      => Setup(Assembly.GetEntryAssembly().ToDynamicString());
+    /// <param name="linkcon">Link all console commands back to root?</param>
+    public static void Setup(bool linkcon = true)
+      => Setup(Assembly.GetEntryAssembly().ToDynamicString(), linkcon);
     /// <summary>
     /// Prepares the console system. Is not a mandatory method to run, the system can run by itself with the MainLoop method.
     /// This method only adds predefined commands and sets the console's window title.
     /// </summary>
     /// <param name="conname">The console's name.</param>
-    public static void Setup(string conname)
+    /// <param name="linkcon">Link all console commands back to root?</param>
+    public static void Setup(string conname, bool linkcon = true)
     {
       @out.WriteLine(get_info());
       @out.WriteLine();
       @out.WriteLine("Preparing console application...");
       Console.Title = conname;
       @out.WriteLine("Adding basic commands...");
-      PredefinedCommands.AddHelpCommand(null);
-      PredefinedCommands.AddConsoleCommands(null);
+      PredefinedCommands.AddHelpCommand(Command.Root);
+      Command console = PredefinedCommands.AddConsoleCommand(Command.Root);
+      PredefinedCommands.AddConsoleCommands(console);
+      if (linkcon) CreateLinkCommands(console.Values, Command.Root);
       @out.WriteLine("Console prepared successfully.");
       @out.WriteLine();
     }
@@ -241,7 +305,7 @@ namespace Cephei.Commands.Consoles
       Exceptions.GetCollection().Add(ex);
     }
 
-    private static Func<Command?, IList<CommandAlreadyExistsException>, Command> get_help;
+    private static Func<CommandReference, IList<CommandAlreadyExistsException>, Command> get_help;
     private static Func<string> get_info;
     private static TextReader @in;
     private static TextWriter @out;

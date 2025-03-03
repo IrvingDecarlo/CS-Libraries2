@@ -16,7 +16,7 @@ namespace Cephei.Testing
   {
     public static void AddCommands()
     {
-      Main = CreateCommand(null, null, null, "stream");
+      Main = CreateCommand(null, null, Command.Root, "stream");
       CreateCommand((x) =>
       {
         int size = x.TryGetValue("size", out IReadOnlyList<string> args) ? int.Parse(args[0]) : 512;

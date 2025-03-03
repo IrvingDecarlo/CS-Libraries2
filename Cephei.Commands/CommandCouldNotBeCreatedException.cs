@@ -7,7 +7,7 @@ namespace Cephei.Commands
   /// </summary>
   public class CommandCouldNotBeCreatedException : ObjectException<Command>, ICommandCreationException
   {
-    internal CommandCouldNotBeCreatedException(Command command, Command? master, params string[] idents)
+    internal CommandCouldNotBeCreatedException(Command command, CommandReference master, params string[] idents)
       : base(command, $"The command with identifiers '{string.Join(',', idents)}' could not be added under the {master.GetString()}.")
     {
       Identifiers = idents;
@@ -19,7 +19,7 @@ namespace Cephei.Commands
     /// <summary>
     /// The master command involved in the exception.
     /// </summary>
-    public Command? Master { get; }
+    public CommandReference Master { get; }
 
     #endregion
 

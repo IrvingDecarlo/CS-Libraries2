@@ -22,7 +22,7 @@ namespace Cephei.Testing
     internal static void AddCommands()
     {
       op.OnThreadCheck += Op_OnThreadCheck;
-      Main = CreateCommand(null, null, null, "threading", "thread");
+      Main = CreateCommand(null, null, Command.Root, "threading", "thread");
       Command cmd = CreateCommand((x) =>
       {
         CancellationTokenSource cts = PrepareForThreadTest(x, out int cd);

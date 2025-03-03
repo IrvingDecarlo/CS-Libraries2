@@ -10,6 +10,6 @@ namespace Cephei.Commands
     /// <summary>
     /// Gets the master command involved in the exception. Can be null if the master is the static system itself.
     /// </summary>
-    Command? Master { get; }
+    CommandReference Master { get; }
   }
 }

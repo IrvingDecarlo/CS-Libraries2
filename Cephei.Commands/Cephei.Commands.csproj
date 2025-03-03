@@ -10,8 +10,25 @@
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
     <Product>$(Title)</Product>
-    <Version>3.2</Version>
-    <PackageReleaseNotes>v3.2, 24-08-14
+    <Version>3.3</Version>
+    <PackageReleaseNotes>v3.3, 25-03-03
+* CommandCollection
+** Rebuilt to be CommandReference, a base reference for all Commands;
+*+ Added Seek(Queue{string}), to seek subcommands under the specified command.
+* CommandPseudo
+** Renamed to CommandLink;
+** Will now properly link to the reference command fully, where subcommands in the command queue will seek within the reference command;
+** IList&lt;CommandAlreadyExistsException&gt; parameter is now nullable;
+** ToString() will now return the link's Reference.ToString().
+* Command
+** No longer accepts nullable Command? parameters on its constructor. All were replaced with CommandReference parameters;
+*+ Added Command.Root static readonly field, to function as the Master command.
+* All Exception classes
+** Nullable Command? fields and parameters replaced with CommandReference.
+* CommandExtensions
+** Added IEnumerable&lt;Command&gt;.LinkAllUnder(CommandReference).
+
+v3.2, 24-08-14
 + Added Cephei.Strings as a dependency;
 * Command
 ** The Execute method is now an async task;

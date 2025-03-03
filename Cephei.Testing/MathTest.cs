@@ -12,7 +12,7 @@ namespace Cephei.Testing
 
   internal static class MathTest
   {
-    internal static Command MathCommand = CreateCommand(null, null, null, "math");
+    internal static Command MathCommand = CreateCommand(null, null, Command.Root, "math");
 
     internal static void AddCommands()
     {

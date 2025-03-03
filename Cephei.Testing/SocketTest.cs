@@ -28,7 +28,7 @@ namespace Cephei.Testing
 
     internal static void AddCommands()
     {
-      Main = CreateCommand(null, null, null, "socket");
+      Main = CreateCommand(null, null, Command.Root, "socket");
       Command cmd = CreateCommand(null, null, Main, "client");
       CreateCommand(async (x) =>
       {

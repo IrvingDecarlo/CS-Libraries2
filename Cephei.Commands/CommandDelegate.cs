@@ -20,7 +20,7 @@ namespace Cephei.Commands
     /// <param name="excs">List for the exceptions that may occur during creation.</param>
     /// <param name="idents">Identifiers for the command. They will always be converted to upper case invariably.</param>
     /// <exception cref="CommandCouldNotBeCreatedException"></exception>
-    public CommandDelegate(Executor? action, Func<string>? descriptor, Command? master, IList<CommandAlreadyExistsException>? excs, params string[] idents)
+    public CommandDelegate(Executor? action, Func<string>? descriptor, CommandReference master, IList<CommandAlreadyExistsException>? excs, params string[] idents)
       : base(master, excs, idents)
     {
       this.action = action;
@@ -54,7 +54,7 @@ namespace Cephei.Commands
     /// <param name="excs">List of exceptions.</param>
     /// <param name="idents">Identifiers to use for the new command.</param>
     /// <returns>The new copied command.</returns>
-    public override Command Clone(Command? com, IList<CommandAlreadyExistsException> excs, string[] idents)
+    public override Command Clone(CommandReference com, IList<CommandAlreadyExistsException> excs, string[] idents)
       => new CommandDelegate(action, descriptor, com, excs, idents);
 
     #endregion
