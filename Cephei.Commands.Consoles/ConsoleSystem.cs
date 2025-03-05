@@ -208,6 +208,24 @@ namespace Cephei.Commands.Consoles
     }
 
     /// <summary>
+    /// Creates a link command.
+    /// </summary>
+    /// <param name="refc">Command to use as reference.</param>
+    /// <param name="master">Reference to put the link under.</param>
+    /// <param name="idents">Identifiers to use for the link command.</param>
+    public static void CreateLinkCommand(Command refc, CommandReference master, params string[] idents)
+      => CreateCommand((exceptions) => new CommandLink(refc, master, exceptions, idents), false, new List<CommandAlreadyExistsException>());
+    /// <summary>
+    /// Creates a link command.
+    /// </summary>
+    /// <param name="refc">Command to use as reference.</param>
+    /// <param name="master">Reference to put the link under.</param>
+    /// <param name="exceptions">List of exceptions to use.</param>
+    /// <param name="idents">Identifiers to use for the link command.</param>
+    public static void CreateLinkCommand(Command refc, CommandReference master, IList<CommandAlreadyExistsException> exceptions, params string[] idents)
+      => CreateCommand((exceptions) => new CommandLink(refc, master, exceptions, idents), false, exceptions);
+
+    /// <summary>
     /// Creates link commands for a collection of commands under a command reference.
     /// </summary>
     /// <typeparam name="T">Command object type.</typeparam>

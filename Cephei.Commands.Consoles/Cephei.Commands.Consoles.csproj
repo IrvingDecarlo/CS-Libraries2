@@ -7,10 +7,14 @@
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "."))</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Title>Cephei Console Commands Library</Title>
-    <Version>3.1</Version>
+    <Version>3.1.1</Version>
     <Authors>Irving Decarlo</Authors>
     <Company>Cephei</Company>
-    <PackageReleaseNotes>v3.1, 25-03-03
+    <PackageReleaseNotes>v3.1.1, 25-03-05
+* ConsoleSystem
+*+ Added all overloads for CreateLinkCommand.
+
+v3.1, 25-03-03
 * PredefinedCommands
 ** AddConsoleCommands does not create a "console" command with its subcommands, instead it only generates the subcommands;
 ** AddConsoleCommands no longer links some of its commands to root. It must be done so manually;
